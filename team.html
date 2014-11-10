@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <title>Our Team</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+        
+ <body>
+    
+    <div class="container">
+      
+      <div id="logo-navbar" class="row navbar">
+        
+        <div class="col-xs-12 col-md-4" >
+          <a href="index.html"><img alt="logo" class="img-responsive center-block" src="images/logo.png"></a>
+        </div>
+  
+        <div class="col-xs-5 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+          <ul id="main-nav-social-icons" class="nav navbar-nav">
+            <li><a target="_blank" href="https://www.youtube.com/user/HeatSwapTV"><img alt="YouTube" class="img-responsive" src="images/YouTube-social-squircle_red_24px.png"></a></li>
+            <li><a target="_blank" href="http://instagram.com/heatswap"><img alt="Instagram" class="img-responsive" src="images/Instagram_Icon_24px.png"></a></li>
+          </ul>
+        </div>
+        <div id="login-menu" class="col-xs-7 col-md-5 col-md-offset-3 col-lg-4 col-lg-offset-4 text-right">    
+          <div id="logTest">
+          </div>
+          <script>
+            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+            
+            var currentUser = Parse.User.current()
+            var currentName=""
+
+            if(currentUser!=null) currentName=currentUser.get("username");
+              if(currentName!=null&&currentName!=""){
+                var finalObj=""
+                finalObj += "<ul class='nav navbar-nav navbar-right'>\n"
+
+                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'>What's up <b>"+currentName+"</b>?</a>\n"
+                finalObj += "<ul class='dropdown-menu'>\n"
+                finalObj += "<li><a href='storePreview.html'>View Store</a></li>\n"
+                if(currentUser.get("storeId")!="")
+                finalObj += "<li><a href='currentlyListed.html'>Manage Shoes</a></li>"
+                finalObj += "<li><a href='settings.html' role='button'>Account Settings</a></li>"
+                finalObj += "</ul>\n"
+
+                var alerts=0;
+                if(currentUser.get("emailVerified")==false){
+                  alerts=alerts+1;
+                }
+
+                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'><span class='badge' id='alertsBadge'>" + alerts + "</span>  alerts</a>\n"
+                finalObj += "<ul class='dropdown-menu'>\n"
+                if(alerts==0){
+                  finalObj += "<center style='cursor:default;'>No new alerts!</center>\n"
+                }
+
+                if(currentUser.get("emailVerified")==false){
+                  finalObj += "<center style='cursor:default;'>Please verify your email</center>\n"
+                }
+
+                finalObj += "</ul>\n"
+
+                finalObj += "<li onClick='logOut()'><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-lock'></span> log out</a></li>\n"
+
+                finalObj += "</li>\n"
+                finalObj += "</ul>\n"
+                var insertNonsense=document.getElementById("logTest")
+                insertNonsense.innerHTML=finalObj
+              }else{
+                var finalObj=""
+                finalObj += "<ul class='nav navbar-nav navbar-right'>\n"
+                finalObj += "<li><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-lock'></span> login</a></li>\n"
+                finalObj += "<li><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
+                finalObj += "</ul>"
+                var insertNonsense=document.getElementById("logTest")
+                insertNonsense.innerHTML=finalObj
+              }
+
+              if (currentUser) {
+                var pStuff = document.getElementById("loginItems");
+                    //just commented this to fix an error, you can do whatevs with this
+                    //pStuff.innerHTML = "<li style='padding-top:15px;padding-bottom:15px;'><span class=''></span> What's up "+ currentUser.get("username") +"? <li style='cursor:pointer;'><a onclick='logOut()''><span class='glyphicon glyphicon-lock'></span> logout</a>  <li><a href='#''><i class='glyphicon glyphicon-shopping-cart'></i> items in cart: <span style='color:#2A5469'>00</span></a></li>";
+                }
+                var logOut = function() {
+                  Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                  Parse.User.logOut();
+                var currentUser = Parse.User.current();
+              location.reload();
+            }
+          </script>    
+        </div><!-- /login-menu -->
+
+        <!-- Modal -->
+        <div id="accountModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h1 class="text-center blue">welcome!</h1>
+              </div>
+              <div class="modal-body">
+                <div id="modalTabs">
+                  <ul id="myTab" class="nav nav-tabs">
+                  </ul>
+                </div>
+                
+                <div id="myTabContent" class="tab-content">
+                  
+                  <!-- SIGN IN -->
+                  <div class="tab-pane fade active in" id="signIn">
+
+                      <!--Username input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"></div>
+                          <input required="" id="usernameInput" name="usernameInput" type="text" class="form-control input-lg" placeholder="username">
+                        </div>
+                      </div>
+
+                      <!-- Password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="passwordInput" name="passwordInput" class="form-control input-lg" type="password" placeholder="password">
+                        </div>
+                        <p id="loginPassError" class="errorAlert"></p>
+                      </div>
+                                      
+                      <!-- Checkbox -->
+                      <div class="form-group">                        
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="rememberMe" id="rememberMe" value="rememberMe">remember me
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Button -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onclick="logIn()"><span class="glyphicon glyphicon-ok"></span> log in</button>
+                      </div>
+                        <script>
+                          var logIn = function(){
+                            
+                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                            var nameStuff = document.getElementById("usernameInput").value.toLowerCase();
+                            var passStuff = document.getElementById("passwordInput").value;
+
+                            Parse.User.logIn(nameStuff, passStuff, {
+                              success: function(user) {
+                                location.reload();
+                              },
+                              error: function(user, error) {
+                                loginPassError.innerHTML="Your username or password is incorrect"
+                                //alert(document.getElementById("loginPassError"))
+                              }
+                            });
+                            event.preventDefault();
+                          }
+                        </script>                      
+                      <p><a href="#">forgot password?</a></p>
+                        
+                  </div><!-- /signIn -->
+                  
+                  <!-- SIGN UP -->
+                  <div class="tab-pane fade in" id="signUp">
+                                            
+                      <!-- first input-->
+                      <div class="form-group">
+                        <input required="" id="fNameInput" name="fNameInput" type="text" class="form-control input-lg" placeholder="first name">
+                      </div>
+                      
+                      <!-- last name input-->
+                      <div class="form-group">
+                        <input required="" id="lNameInput" name="lNameInput" type="text" class="form-control input-lg" placeholder="last name">
+                      </div>
+                      
+                      <!-- username input-->
+                      <div class="form-group">
+                        <input required="" id="SUusernameInput" name="usernameInput" type="text" class="form-control input-lg" placeholder="username">
+                        <p class="help-block"><em>this is the name that will appear next to your comments, etc.</em></p>
+                      </div>
+
+                      <!-- Email input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">@</div>
+                          <input required="" id="SUemailInput" name="emailInput" type="text" class="form-control input-lg" placeholder="email">
+                        </div>
+                      </div>
+
+                      <!-- Password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="SUpasswordInput" name="passwordInput" class="form-control input-lg" type="password" placeholder="password">
+                        </div>
+                      </div>
+                      
+                      <!-- check password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="SUpassword2Input" name="password2Input" class="form-control input-lg" type="password" placeholder="re-type password">
+                        </div>
+                        <p id="woahThere" class="errorAlert"></p>
+                      </div>
+                      
+                      <div>
+                        <a href="terms.html">
+                          <p>Click here to read terms and conditions</p>
+                        </a>
+                      </div>
+
+                      <div class="form-group">                        
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="terms" id="terms" value="accept" required>I have read and accept the terms and conditions
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Button -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onclick="signUp();return false;"><span class="glyphicon glyphicon-ok"></span> sign up</button>
+                      </div>
+                        <script>
+                          var signUp = function() {
+                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                            var nameStuff = document.getElementById("SUusernameInput").value.toLowerCase();
+                            var passStuff = document.getElementById("SUpasswordInput").value;
+                            var passStuff2 = document.getElementById("SUpassword2Input").value;
+                            var emailStuff = document.getElementById("SUemailInput").value;
+                            var firstStuff = document.getElementById("fNameInput").value;
+                            var lastStuff = document.getElementById("lNameInput").value;
+                            if (passStuff2 === passStuff) {
+
+                              var user = new Parse.User();
+                              user.set("username", nameStuff);
+                              user.set("password", passStuff);
+                              user.set("email", emailStuff);
+                              user.set("firstName", firstStuff);
+                              user.set("lastName", lastStuff);
+                              user.set("storeId", "")
+
+
+                              user.signUp(null, {
+                                success: function(user) {
+                                  alert("Congrats "+nameStuff+", please verify your email");
+                                  location.reload();
+                                },
+                                error: function(user, error) {
+                                  alert("Error: " + error.code + " " + error.message);
+                                }
+                              });
+                            }
+                            else {
+                              woahThere.innerHTML = "Your passwords do not match";
+                            }
+                          }
+                        </script>                        
+                  </div><!-- /signUp -->
+                  
+
+                  
+                  <!-- ACCOUNT SETTINGS -->
+                  <div class="tab-pane fade in" id="account">
+                    
+                      <!-- email change-->
+                      <div class="form-group">
+                        <label class="form-label" for="emailChange">change your email:</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">@</div>
+                          <input  id="emailChange" name="emailChange" type="text" class="form-control input-lg" placeholder="enter new email">
+                        </div>  
+                      </div><!-- /form-group -->
+                    
+                      <!-- password change-->
+                      <div class="form-group">
+                        <label class="form-label" for="passwordChange">change your password:</label>
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input  id="passwordChange" name="passwordChange" class="form-control input-lg" type="password" placeholder="enter new password">
+                        </div>
+                      </div>
+                                          
+                      <!-- check password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input  id="changePasswordCheck" name="changePasswordCheck" class="form-control input-lg" type="password" placeholder="re-type new password">
+                        </div>
+                        <p id="changePasswordAlert" class="errorAlert"></p>
+                      </div>
+                      
+                      <!-- username change-->
+                      <div class="form-group">
+                        <label class="form-label" for="usernameChange">change your user name:</label>
+                        <input  id="usernameChange" name="usernameChange" class="form-control input-lg" type="password" placeholder="enter new user name">
+                      </div>
+                      
+                      <!-- BUTTON -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onClick="saveClose()"><span class="glyphicon glyphicon-ok"></span> save and close</button>
+                      </div>
+                      <script> 
+                        var saveClose = function(){
+                          Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                          //checks if current user is logged in
+                          var currentUser = Parse.User.current();
+                          var currentName = currentUser.get("username")
+                          if(currentName==null||currentName==""){
+                            alert("Please log in to continue")
+                          }else{
+                            if(document.getElementById("emailChange").value!=null&&document.getElementById("emailChange").value!=""){
+                                user.set("email", document.getElementById("emailChange"));
+                                alert("email changed to " + emailChange);
+                            }else{
+                            }
+                            if(document.getElementById("passwordChange").value!=null&&document.getElementById("passwordChange").value!=""){
+                              if(document.getElementById("passwordChange")==document.getElementById("changePasswordCheck")){
+                                user.set("password", document.getElementById("passwordChange"))
+                              }else{
+                                changePasswordAlert.innerHTML="Your passwords do not match"
+                              }
+                            }
+                            if(document.getElementById("usernameChange").value!=null&&document.getElementById("usernameChange".value)!=""){
+                              user.set("username", document.getElementById("usernameChange"));
+                              alert("username changed to " + usernameChange)
+                            }
+                          }
+                        }
+                      </script>
+                     <!--<a href="storePreview.html" class="btn btn-lg btn-warning" role="button">edit your store »</a> -->
+                  </div><!-- /account -->
+                  
+                </div><!-- /myTabContent -->
+              </div><!-- /modal-body -->
+              
+              <div class="modal-footer">
+                  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">cancel</button>
+              </div>
+              
+            </div><!-- /modal-content -->
+          </div><!-- /modal-dialog -->
+        </div><!-- /accountModal -->
+        
+      </div><!-- /logo row -->
+      
+      <!-- Static navbar -->
+      <div class="navbar navbar-default without-subnav" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">home</a>
+          </div><!-- /header -->
+          
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">buy <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="popular.html">popular</a></li>
+                  <!-- <li><a href="buy.html">buy page</a></li>
+				 <li><a href="store.html">store</a></li> -->
+                  <li class="dropdown-submenu"><a href="#">brand</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="popular.html?brand=adidas">Adidas</a></li>
+                      <li><a href="popular.html?brand=airjordan">Air Jordan</a></li>
+                      <li><a href="popular.html?brand=asics">Asics</a></li>
+                      <li><a href="popular.html?brand=converse">Converse</a></li>
+                      <li><a href="popular.html?brand=newbalance">New Balance</a></li>
+                      <li><a href="popular.html?brand=nike">Nike</a></li>
+                      <li><a href="popular.html?brand=puma">Puma</a></li>
+                      <li><a href="popular.html?brand=reebok">Reebok</a></li>
+                      <li><a href="popular.html?brand=saucony">Saucony</a></li>
+                      <li><a href="popular.html?brand=vans">Vans</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="sell.html">sell</a></li>
+              <li><a target=_blank href="http://heatswap.com/news">news</a>
+			 <li class="active"><a href="#">our team</a></li>
+              <li><a href="story.html">a good story</a></li>
+            </ul>
+            
+            <form class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+
+      <div id="main-wrap"><!-- Main content wrapper -->
+
+        <div class="pull-left">
+          <h1 style="margin-right:10px" class="red">our team</h1>
+        </div>
+  
+        <div class="clearfix">      
+          <ol class="breadcrumb pull-right breadcrumb-right">
+            <li><a href="index.html">home</a></li>
+            <li class="active">our team</li>
+          </ol>
+          <hr class="breadcrumb-hr">
+        </div>
+        
+        <div style="margin-top:30px;">
+          <div class="row">
+            <div class="col-md-5">
+              <img class="img-thumbnail img-responsive" src="images/sfShoe.jpg" alt="heatswap" style="margin-bottom:20px"><!-- margin-bottom on img here to make up for taking it off the h2 below, which looks good on desktop, bad on mobile -->
+            </div>
+            <div class="col-md-7">
+              <div>
+                <h2 class="blue" style="font-size:2.5em; margin-top:0">Heatswap was dreamed up…</h2>
+                <p class="lead">by a small team of dedicated Sneakerheads who live, buy and sell shoes in San Francisco. Unhappy with the hassle of CraigsList, the high fees of Amazon, and the coldness of eBay, we decided to start a safe, friendly, and easy to use site for people who can appreciate how fine it feels to get just the right pair of sneakers.
+                </p>
+                <p>We also wanted to see if we could team up with other Sneakerheads and generate some good. The team has pledged to give away a percentage of every sale to our non-profit partners, all of whom work on behalf of kids who need a break.
+                </p>
+              </div>
+            </div><!-- /col-5 -->
+          </div><!-- /row -->
+        </div>
+
+        <div class="row team-bios-row">
+          <div class="col-sm-6 col-md-4 team-page-bios">
+            <div>
+              <img class="img-thumbnail img-responsive center-block" src="images/team/IMG_3654.jpeg" alt="...">
+              <div class="caption text-center">
+                <h4 class="blue">Austen Keene<br />
+                <span class="text-muted">technical director</span></h4>
+                <hr class="team-page-thumbs" />
+                <p>Austen first ran into programming when he found an old HTML book in 6th grade. He proceeded to teach himself JavaScript and CSS, working in tech shops and on personal projects. He's a top contributor for Appium, an open source mobile testing application, and primarily does backend development. When he's not programming he is fencing, playing video games, or binge watching tv.</p>
+              </div><!-- /caption -->
+            </div><!-- /thumbnail -->
+          </div><!-- /col-sm-6 -->
+           <div class="col-sm-6 col-md-4 team-page-bios">
+            <div>
+              <img class="img-thumbnail img-responsive center-block" src="images/team/gordoozy.jpg" alt="...">
+              <div class="caption text-center">
+                <h4 class="blue">Gordy Webb<br />
+                <span class="text-muted">promotions director</span></h4>
+                <hr class="team-page-thumbs" />
+                <p>Gordy learned to appreciate sneakers when he was in elementary school and had to wear a uniform. What he wore on his feet became a creative outlet. He has traded in sneakers since sixth grade and started Calikix, a shoe customizing business, after 8th grade, with clients that include Royal Respect. When he’s not getting out the good word about HeatSwap, he produces music for Face Jam with fellow HeatSwapper Jon Anderson. What he looks for in a sneaker: authenticity.</p>
+              </div><!-- /caption -->
+            </div><!-- /thumbnail -->
+          </div><!-- /col-sm-6 --> 
+          <div class="col-sm-6 col-md-4 team-page-bios">
+            <div>
+              <img class="img-thumbnail img-responsive center-block" src="images/team/jodysphoto.jpeg" alt="...">
+              <div class="caption text-center">
+                <h4 class="blue">Jody Duncan<br />
+                <span class="text-muted">tech associate</span></h4>
+                <hr class="team-page-thumbs" />
+                <p>Jody does freelance web design and front-end development from his apartment in San Francisco or at a coffee shop down the street. He had never heard the term Sneakerheads before meeting the HeatSwap crew but is now a believer. Favorite shoe: Cncpts x Asics Gel Lyte V
+                </p>
+              </div><!-- /caption -->
+            </div><!-- /thumbnail -->
+          </div><!-- /col-sm-6 --> 
+        </div><!-- /row -->    
+
+
+        <div class="row team-bios-row">
+          <div class="col-sm-6 col-md-4 team-page-bios">
+            <div>
+              <img class="img-thumbnail img-responsive center-block" height="252" src="images/team/jonny tsunami.jpg" alt="..." >
+              <div class="caption text-center">
+                <h4 class="blue">Jon Anderson<br />
+                <span class="text-muted">media associate</span></h4>
+                <hr class="team-page-thumbs" />
+                <p>Jon started his love affair with photography as a fourth grader when he borrowed his dad's camera to take pictures of his friends. Since then he has worked on the sets of Dawn of the Planet of the Apes, Pacific Rim, and The Internship. When he's not taking photos with he's most likely enjoying three Cool Ranch® Doritos® Locos Tacos at his local Taco Bell. Favorite shoe: Statue of Liberty Dunks</p>
+              </div><!-- /caption -->
+            </div><!-- /thumbnail -->
+          </div><!-- /col-sm-6 -->  
+           <div class="col-sm-6 col-md-4 team-page-bios">
+            <div>
+              <img class="img-thumbnail img-responsive center-block" src="images/team/MaddyL.jpg" alt="...">
+              <div class="caption text-center">
+                <h4 class="blue">Maddy Leibovitch<br />
+                <span class="text-muted">design associate</span></h4>
+                <hr class="team-page-thumbs" />
+                <p>Maddy L. was 12 when she created her first website but her lifelong passion is art and design. HeatSwap is the perfect opportunity to merge her two interests in the creation of a rad site that combines both function and form. When she’s not working on the site, you can find Maddy thrift-shopping and reviewing best spots to eat great food in the Bay Area. Favorite pair of shoes: Kobe 5 Think Pink</p>
+              </div><!-- /caption -->
+            </div><!-- /thumbnail -->
+          </div><!-- /col-sm-6 -->     
+          <div class="col-sm-6 col-md-4 team-page-bios">
+            <div>
+              <img class="img-thumbnail img-responsive center-block" src="images/team/MaddyN.jpg" alt="...">
+              <div class="caption text-center">
+                <h4 class="blue">Maddy Nakada<br />
+                <span class="text-muted">tech associate</span></h4>
+                <hr class="team-page-thumbs" />
+                <p>Maddy N. designed her first website, an online store for her school, in 6th grade. Since then she has strayed from web design to focus on robotics. Heatswap has given her the chance to return to the world of web design. While not programming, Maddy enjoys running competitively and making Banh Mi sandwiches. Favorite pair of shoes: Nike Roshe Run
+                </p>
+              </div><!-- /caption -->
+            </div><!-- /thumbnail -->
+          </div><!-- /col-sm-6 -->         
+        </div><!-- /row -->
+               
+      </div><!-- /main -->
+      
+      <footer>
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="list-inline">
+              <li><a href="terms.html" class="footer-text" target="_blank">terms</a> &nbsp;/</li>
+              <li><a href="privacy.html" class="footer-text" target="_blank">privacy</a> &nbsp;/</li>
+              <li><a href="#" class="footer-text">help</a> &nbsp;/</li>
+              <li><a href="contact.html" class="footer-text" target="_blank">contact</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <p class="footer-text">&copy; 2014 HeatSwap, all rights reserved</p>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline">
+              <li><a href="https://www.youtube.com/user/HeatSwapTV" target="_blank" class="footer-text"><i class="fa fa-youtube-play fa-lg"></i></a>
+              <li><a href="http://instagram.com/heatswap" target="_blank" class="footer-text"><i class="fa fa-instagram fa-lg"></i></a>
+            </ul>
+          </div>
+        </div><!-- /row -->
+      </footer>
+      
+    </div> <!-- /container -->
+
+     <script>
+      if(currentName!=null&&currentName!=""){
+        var finalObj=document.getElementById("account");
+        document.getElementById("myTabContent").innerHTML = finalObj.innerHTML;
+      }else{
+        var finalObj=""
+        finalObj += "<ul id='myTab' class='nav nav-tabs'>\n"
+        finalObj += "<li class='active'><a href='#signIn' data-toggle='tab'><span class='glyphicon glyphicon-lock'></span> sign in</a></li>\n"
+        finalObj += "<li class=''><a href='#signUp' data-toggle='tab'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
+        finalObj += "</ul>"
+        var insertNonsense=document.getElementById("modalTabs")
+        insertNonsense.innerHTML=finalObj
+      }
+    </script>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.carousel.slide').carousel();
+      });
+    </script>
+  </body>
+</html>

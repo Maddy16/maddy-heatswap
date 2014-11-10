@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <title>HeatSwap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+        
+  <body>
+    
+    <div class="container">
+      <div id="logo-navbar" class="row navbar">
+        
+        <div class="col-xs-12 col-md-4" >
+          <a href="index.html"><img alt="logo" class="img-responsive center-block" src="images/logo.png"></a>
+        </div>
+  
+        <div class="col-xs-5 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+          <ul id="main-nav-social-icons" class="nav navbar-nav">
+            <li><a target="_blank" href="https://www.youtube.com/user/HeatSwapTV"><img alt="YouTube" class="img-responsive" src="images/YouTube-social-squircle_red_24px.png"></a></li>
+            <li><a target="_blank" href="http://instagram.com/heatswap"><img alt="Instagram" class="img-responsive" src="images/Instagram_Icon_24px.png"></a></li>
+          </ul>
+        </div>
+        <div id="login-menu" class="col-xs-7 col-md-5 col-md-offset-3 col-lg-4 col-lg-offset-4 text-right">    
+          <div id="logTest">
+          </div>
+          <script>
+            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+             var images = new Array();
+
+            var currentUser = Parse.User.current()
+            var currentName=""
+
+            if(currentUser!=null) currentName=currentUser.get("username");
+              if(currentName!=null&&currentName!=""){
+                var finalObj=""
+                finalObj += "<ul class='nav navbar-nav navbar-right'>\n"
+
+                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'>What's up <b>"+currentName+"</b>?</a>\n"
+                finalObj += "<ul class='dropdown-menu'>\n"
+                finalObj += "<li><a href='storePreview.html'>View Store</a></li>\n"
+                if(currentUser.get("storeId")!="")
+                finalObj += "<li><a href='currentlyListed.html'>Manage Shoes</a></li>"
+                finalObj += "<li><a href='settings.html' role='button'>Account Settings</a></li>"
+                finalObj += "</ul>\n"
+
+                var alerts=0;
+                if(currentUser.get("emailVerified")==false){
+                  alerts=alerts+1;
+                }
+
+                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'><span class='badge' id='alertsBadge'>" + alerts + "</span>  alerts</a>\n"
+                finalObj += "<ul class='dropdown-menu'>\n"
+                if(alerts==0){
+                  finalObj += "<center style='cursor:default;'>No new alerts!</center>\n"
+                }
+
+                if(currentUser.get("emailVerified")==false){
+                  finalObj += "<center style='cursor:default;'>Please verify your email</center>\n"
+                }
+
+                finalObj += "</ul>\n"
+
+                finalObj += "<li onClick='logOut()'><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-lock'></span> log out</a></li>\n"
+
+                finalObj += "</li>\n"
+                finalObj += "</ul>\n"
+                var insertNonsense=document.getElementById("logTest")
+                insertNonsense.innerHTML=finalObj
+              }else{
+                var finalObj=""
+                finalObj += "<ul class='nav navbar-nav navbar-right'>\n"
+                finalObj += "<li><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-lock'></span> login</a></li>\n"
+                finalObj += "<li><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
+                finalObj += "</ul>"
+                var insertNonsense=document.getElementById("logTest")
+                insertNonsense.innerHTML=finalObj
+              }
+
+              if (currentUser) {
+                var pStuff = document.getElementById("loginItems");
+                    //just commented this to fix an error, you can do whatevs with this
+                    //pStuff.innerHTML = "<li style='padding-top:15px;padding-bottom:15px;'><span class=''></span> What's up "+ currentUser.get("username") +"? <li style='cursor:pointer;'><a onclick='logOut()''><span class='glyphicon glyphicon-lock'></span> logout</a>  <li><a href='#''><i class='glyphicon glyphicon-shopping-cart'></i> items in cart: <span style='color:#2A5469'>00</span></a></li>";
+                }
+                var logOut = function() {
+                  Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                  Parse.User.logOut();
+                var currentUser = Parse.User.current();
+              location.reload();
+            }
+          </script>    
+        </div><!-- /login-menu -->
+
+        <!-- Modal -->
+        <div id="accountModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h1 class="text-center blue">welcome!</h1>
+              </div>
+              <div class="modal-body">
+                <div id="modalTabs">
+                  <ul id="myTab" class="nav nav-tabs">
+                  </ul>
+                </div>
+                
+                <div id="myTabContent" class="tab-content">
+                  
+                  <!-- SIGN IN -->
+                  <div class="tab-pane fade active in" id="signIn">
+
+                      <!--Username input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"></div>
+                          <input required="" id="usernameInput" name="usernameInput" type="text" class="form-control input-lg" placeholder="username">
+                        </div>
+                      </div>
+
+                      <!-- Password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="passwordInput" name="passwordInput" class="form-control input-lg" type="password" placeholder="password">
+                        </div>
+                        <p id="loginPassError" class="errorAlert"></p>
+                      </div>
+                                      
+                      <!-- Checkbox -->
+                      <div class="form-group">                        
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="rememberMe" id="rememberMe" value="rememberMe">remember me
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Button -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onclick="logIn()"><span class="glyphicon glyphicon-ok"></span> log in</button>
+                      </div>
+                        <script>
+                          var logIn = function(){
+                            
+                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                            var nameStuff = document.getElementById("usernameInput").value.toLowerCase();
+                            var passStuff = document.getElementById("passwordInput").value;
+
+                            Parse.User.logIn(nameStuff, passStuff, {
+                              success: function(user) {
+                                location.reload();
+                              },
+                              error: function(user, error) {
+                                loginPassError.innerHTML="Your username or password is incorrect"
+                                //alert(document.getElementById("loginPassError"))
+                              }
+                            });
+                            event.preventDefault();
+                          }
+                        </script>                      
+                      <p><a href="#">forgot password?</a></p>
+                        
+                  </div><!-- /signIn -->
+                  
+                  <!-- SIGN UP -->
+                  <div class="tab-pane fade in" id="signUp">
+                                            
+                      <!-- first input-->
+                      <div class="form-group">
+                        <input required="" id="fNameInput" name="fNameInput" type="text" class="form-control input-lg" placeholder="first name">
+                      </div>
+                      
+                      <!-- last name input-->
+                      <div class="form-group">
+                        <input required="" id="lNameInput" name="lNameInput" type="text" class="form-control input-lg" placeholder="last name">
+                      </div>
+                      
+                      <!-- username input-->
+                      <div class="form-group">
+                        <input required="" id="SUusernameInput" name="usernameInput" type="text" class="form-control input-lg" placeholder="username">
+                        <p class="help-block"><em>this is the name that will appear next to your comments, etc.</em></p>
+                      </div>
+
+                      <!-- Email input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">@</div>
+                          <input required="" id="SUemailInput" name="emailInput" type="text" class="form-control input-lg" placeholder="email">
+                        </div>
+                      </div>
+
+                      <!-- Password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="SUpasswordInput" name="passwordInput" class="form-control input-lg" type="password" placeholder="password">
+                        </div>
+                      </div>
+                      
+                      <!-- check password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="SUpassword2Input" name="password2Input" class="form-control input-lg" type="password" placeholder="re-type password">
+                        </div>
+                        <p id="woahThere" class="errorAlert"></p>
+                      </div>
+                      
+                      <div>
+                        <a href="terms.html">
+                          <p>Click here to read terms and conditions</p>
+                        </a>
+                      </div>
+
+                      <div class="form-group">                        
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="terms" id="terms" value="accept" required>I have read and accept the terms and conditions
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Button -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onclick="signUp();return false;"><span class="glyphicon glyphicon-ok"></span> sign up</button>
+                      </div>
+                        <script>
+                          var signUp = function() {
+                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                            var nameStuff = document.getElementById("SUusernameInput").value.toLowerCase();
+                            var passStuff = document.getElementById("SUpasswordInput").value;
+                            var passStuff2 = document.getElementById("SUpassword2Input").value;
+                            var emailStuff = document.getElementById("SUemailInput").value;
+                            var firstStuff = document.getElementById("fNameInput").value;
+                            var lastStuff = document.getElementById("lNameInput").value;
+                            if (passStuff2 === passStuff) {
+
+                              var user = new Parse.User();
+                              user.set("username", nameStuff);
+                              user.set("password", passStuff);
+                              user.set("email", emailStuff);
+                              user.set("firstName", firstStuff);
+                              user.set("lastName", lastStuff);
+                              user.set("storeId", "")
+
+
+                              user.signUp(null, {
+                                success: function(user) {
+                                  alert("Congrats "+nameStuff+", please verify your email");
+                                  location.reload();
+                                },
+                                error: function(user, error) {
+                                  alert("Error: " + error.code + " " + error.message);
+                                }
+                              });
+                            }
+                            else {
+                              woahThere.innerHTML = "Your passwords do not match";
+                            }
+                          }
+                        </script>                        
+                  </div><!-- /signUp -->
+                  
+
+                  
+                  <!-- ACCOUNT SETTINGS -->
+                  <div class="tab-pane fade in" id="account">
+                    
+                      <!-- email change-->
+                      <div class="form-group">
+                        <label class="form-label" for="emailChange">change your email:</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">@</div>
+                          <input  id="emailChange" name="emailChange" type="text" class="form-control input-lg" placeholder="enter new email">
+                        </div>  
+                      </div><!-- /form-group -->
+                    
+                      <!-- password change-->
+                      <div class="form-group">
+                        <label class="form-label" for="passwordChange">change your password:</label>
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input  id="passwordChange" name="passwordChange" class="form-control input-lg" type="password" placeholder="enter new password">
+                        </div>
+                      </div>
+                                          
+                      <!-- check password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input  id="changePasswordCheck" name="changePasswordCheck" class="form-control input-lg" type="password" placeholder="re-type new password">
+                        </div>
+                        <p id="changePasswordAlert" class="errorAlert"></p>
+                      </div>
+                      
+                      <!-- username change-->
+                      <div class="form-group">
+                        <label class="form-label" for="usernameChange">change your user name:</label>
+                        <input  id="usernameChange" name="usernameChange" class="form-control input-lg" type="password" placeholder="enter new user name">
+                      </div>
+                      
+                      <!-- BUTTON -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onClick="saveClose()"><span class="glyphicon glyphicon-ok"></span> save and close</button>
+                      </div>
+                      <script> 
+                        var saveClose = function(){
+                          Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                          //checks if current user is logged in
+                          var currentUser = Parse.User.current();
+                          var currentName = currentUser.get("username")
+                          if(currentName==null||currentName==""){
+                            alert("Please log in to continue")
+                          }else{
+                            if(document.getElementById("emailChange").value!=null&&document.getElementById("emailChange").value!=""){
+                                user.set("email", document.getElementById("emailChange"));
+                                alert("email changed to " + emailChange);
+                            }else{
+                            }
+                            if(document.getElementById("passwordChange").value!=null&&document.getElementById("passwordChange").value!=""){
+                              if(document.getElementById("passwordChange")==document.getElementById("changePasswordCheck")){
+                                user.set("password", document.getElementById("passwordChange"))
+                              }else{
+                                changePasswordAlert.innerHTML="Your passwords do not match"
+                              }
+                            }
+                            if(document.getElementById("usernameChange").value!=null&&document.getElementById("usernameChange".value)!=""){
+                              user.set("username", document.getElementById("usernameChange"));
+                              alert("username changed to " + usernameChange)
+                            }
+                          }
+                        }
+                      </script>
+                     <!--<a href="storePreview.html" class="btn btn-lg btn-warning" role="button">edit your store »</a> -->
+                  </div><!-- /account -->
+                  
+                </div><!-- /myTabContent -->
+              </div><!-- /modal-body -->
+              
+              <div class="modal-footer">
+                  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">cancel</button>
+              </div>
+              
+            </div><!-- /modal-content -->
+          </div><!-- /modal-dialog -->
+        </div><!-- /accountModal -->
+        
+      </div><!-- /logo row -->
+      
+      <!-- Static navbar -->
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">home</a>
+          </div><!-- /header -->
+          
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">buy <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="popular.html">popular</a></li>
+                  <!--<li><a href="buy.html">buy page</a></li>
+                  <li><a href="store.html">store</a></li>-->
+                  <li class="dropdown-submenu"><a href="#">brand</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="popular.html?brand=adidas">Adidas</a></li>
+                      <li><a href="popular.html?brand=airjordan">Air Jordan</a></li>
+                      <li><a href="popular.html?brand=asics">Asics</a></li>
+                      <li><a href="popular.html?brand=converse">Converse</a></li>
+                      <li><a href="popular.html?brand=newbalance">New Balance</a></li>
+                      <li><a href="popular.html?brand=nike">Nike</a></li>
+                      <li><a href="popular.html?brand=puma">Puma</a></li>
+                      <li><a href="popular.html?brand=reebok">Reebok</a></li>
+                      <li><a href="popular.html?brand=saucony">Saucony</a></li>
+                      <li><a href="popular.html?brand=vans">Vans</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="sell.html">sell</a></li>
+              <li><a target=_blank href="http://heatswap.com/news">news</a>
+              <li><a href="team.html">our team</a></li>
+              <li><a href="story.html">a good story</a></li>
+            </ul>
+            
+            <form class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+      <div id="main-wrap"><!-- Main content wrapper -->
+
+        <div style="margin-bottom:1em">
+          <div class="pull-left">
+            <h1 style="margin-right:10px" class="red">sell a shoe</h1>
+          </div>
+  
+          <div class="clearfix">      
+            <ol class="breadcrumb pull-right breadcrumb-right">
+              <li><a href="index.html">home</a></li>
+              <li><a href="sell.html">sell</a></li>
+              <li class="active">shop setup</li>
+            </ol>
+            <hr class="breadcrumb-hr">
+          </div>
+        </div><!-- /margin-bottom -->
+
+        <!--
+        <div class="well" id="storeName">
+          <form class="form-horizontal" role="form">
+            <div class="form-group form-group-lg">
+              <label for="nameStore" class="col-sm-2 col-sm-offset-1 control-label">store name</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="nameStore" placeholder="Sweet Stuff">
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="describeStore" class="col-sm-2 col-sm-offset-1 control-label">store description</label>
+              <div class="col-sm-8">
+                <textarea id="describeStore" class="form-control" rows="3" placeholder="describe your store in a sentence or two here..."></textarea>
+              </div>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-sm-offset-3 col-sm-8">
+            </div>
+          </div>
+        </div> -->
+        
+        <div class="well" id="shoeUpload">
+          <div class="form-horizontal" role="form">            
+            <div class="form-group">
+              <label for="shoeName" class="col-sm-2 col-sm-offset-1 control-label">name of shoe</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="shoeName">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="shoeBrand" class="col-sm-2 col-sm-offset-1 control-label">brand</label>
+              <div class="col-sm-4">
+                <select id="shoeBrandSelect" class="form-control">
+                  <option>select brand</option>
+                  <option value="adidas">Adidas</option>
+                  <option value="airjordan">Air Jordan</option>
+                  <option value="asics">Asics</option>
+                  <option value="converse">Converse</option>
+                  <option value="newbalance">New Balance</option>
+                  <option value="nike">Nike</option>
+                  <option value="puma">Puma</option>
+                  <option value="reebok">Reebok</option>
+                  <option value="saucony">Saucony</option>
+                  <option value="vans">Vans</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+			<div class="form-group">
+			  <label for="gender" class="col-sm-2 col-sm-offset-1 control-label">gender</label>
+			  <div class="col-sm-4">
+			    <select id="shoeGender" class="form-control" onChange="changeSize()">
+			      <option>select size</option>
+			      <option>women</option>
+			      <option>men</option>
+			    </select>
+			  </div>
+			</div>
+            <div class="form-group">
+              <label for="shoeSize" class="col-sm-2 col-sm-offset-1 control-label">size</label>
+              <div class="col-sm-4">
+                <select id="shoeSizeSelect" class="form-control">
+                  <option>select size</option>
+                </select>
+              </div>
+                  <script>
+                  function changeSize(){
+                    var finalObj;
+                    if(document.getElementById("shoeGender").value=="women"){
+                      finalObj += "<option>select size</option>"
+                      finalObj += "<option>5</option>"
+                      finalObj += "<option>5.5</option>"
+                      finalObj += "<option>6</option>"
+                      finalObj += "<option>6.5</option>"
+                      finalObj += "<option>7</option>"
+                      finalObj += "<option>7.5</option>"
+                      finalObj += "<option>8</option>"
+                      finalObj += "<option>8.5</option>"
+                      finalObj += "<option>9</option>"
+                      finalObj += "<option>9.5</option>"
+                      finalObj += "<option>10</option>"
+                      finalObj += "<option>10.5</option>"
+                      finalObj += "<option>11</option>"
+                      finalObj += "<option>11.5</option>"
+                      finalObj += "<option>12</option>"
+                      finalObj += "<option>12.5</option>"
+                      finalObj += "<option>13</option>"
+                      //finalObj +=
+                    }else if(document.getElementById("shoeGender").value=="men"){
+                      finalObj += "<option>select size</option>"
+                      finalObj += "<option>8</option>"
+                      finalObj += "<option>8.5</option>"
+                      finalObj += "<option>9</option>"
+                      finalObj += "<option>9.5</option>"
+                      finalObj += "<option>10</option>"
+                      finalObj += "<option>10.5</option>"
+                      finalObj += "<option>11</option>"
+                      finalObj += "<option>11.5</option>"
+                      finalObj += "<option>12</option>"
+                      finalObj += "<option>12.5</option>"
+                      finalObj += "<option>13</option>"
+                    }
+
+                    var insertNonsense = document.getElementById("shoeSizeSelect");
+                    insertNonsense.innerHTML = finalObj
+                  }
+                  </script>
+            </div>
+            <div class="form-group">
+              <label for="shoeCondition" class="col-sm-2 col-sm-offset-1 control-label">condition</label>
+              <div class="col-sm-4">
+                <select id="shoeConditionSelect" class="form-control">
+                  <option>select condition</option>
+                  <option>new with box</option>
+                  <option>new without box</option>
+                  <option>preowned</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="shoePrice" class="col-sm-2 col-sm-offset-1 control-label">price</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <input type="text" class="form-control" id="shoePrice">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="uploadImages" class="col-sm-2 col-sm-offset-1 control-label">upload images</label>
+              <div class="col-sm-8">
+                <input type="hidden" name="image1URL" id="image1URL"/>
+                <form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
+                  <fieldset>
+                    <div id="uploads">
+                    <input type="file" name="fileselect" id="fileselect1" accept="image/*" multiple></input>
+                    </div>
+                  </fieldset>
+                </form>
+                <div class="row" id="imagePreview1"> 
+              </div>
+              <div class="row" id="imagePreview2"> 
+              </div>
+              <div id="pickFeature" style="padding-top: 10px">
+                <button id="deletePhoto" type="button" class="btn btn-default btn-sm red" style="border: 0px;" onClick="removePhoto()">
+                <span class='glyphicon glyphicon-trash'></span>
+                </button>
+              </div>
+              </div>
+
+              <script>
+              var tempClicked="";
+                var makePrimary=function(clickedId){
+                  //var clickedSplit=clickedId.split("v")
+                  //alert(clickedSplit[2])
+                    $("div").removeClass("featuredShoe");
+                    document.getElementById(clickedId).className += " featuredShoe";
+                    tempClicked=clickedId;
+                }
+
+                var removePhoto=function(){
+                  if(tempClicked!=""){
+                    var a=parseInt(tempClicked.substr(tempClicked.length - 1));
+                    for(a; a<images.length; a++){
+                      //alert(document.getElementById("previewDiv"+a).innerHTML)
+                      //alert(document.getElementById("previewDiv"+(a+1)).innerHTML)
+                      if(a!=images.length-1){
+                        document.getElementById("previewDiv"+a).innerHTML=document.getElementById("previewDiv"+(a+1)).innerHTML;
+                        images[a]=images[a+1];
+                      }else{
+                        document.getElementById("previewDiv"+a).innerHTML="";
+                        $( "#previewDiv"+a).remove();
+                        images.splice(-1,1);
+                      }
+                    }
+                  }
+                }
+              </script>
+              
+            
+            </div>
+            <div class="form-group">
+              <label for="shoeDescription" class="col-sm-2 col-sm-offset-1 control-label">shoe details</label>
+              <div class="col-sm-8">
+                <textarea id="shoeDescription" class="form-control" rows="3" ></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-4 col-sm-offset-3">
+                <!--
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" onclick="return false;" disabled="disabled"> make this my featured shoe
+                  </label>
+                </div>
+                //-->
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"  required>I have read and accept the <a href="terms.html" target="_blank">terms and conditions</a>
+                  </label>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-offset-3 col-sm-3">
+            </div>
+          </div>
+        </div><!-- /shoeUpload -->
+        
+        <div class="well" id="shoeShipping">
+          <div class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="shoePayment" class="col-sm-2 col-sm-offset-1 control-label">Payment</label>
+              <div class="col-sm-4">
+                  <input type="text" class="form-control" id="shoeName" placeholder="Paypal Email">
+                  <em style="font-size:80%">make sure this is accurate, this is how you get paid</em>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="well" id="shoeShipping">
+          <div class="form-horizontal" role="form">                
+            <div class="form-group">
+              <label for="shoeShipping" class="col-sm-2 col-sm-offset-1 control-label">shipping</label>
+              <div class="col-sm-4">
+                <select id="shippingLocationSelect" class="form-control">
+                  <option>your location</option>
+                  <option>USA</option>
+                  <option>Uganda</option>
+                  <option>Alaska</option>
+                  <option>Atlantis</option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" id="shippingprice" placeholder="shipping cost">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-4">
+                <select id="shippingMethodSelect" class="form-control">
+                  <option>shipping method</option>
+                  <option>USPS standard</option>
+                  <option>USPS first class</option>
+                  <option>UPS ground</option>
+                  <option>FedEx ground</option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <div class="checkbox">
+                  <label>
+                    <input id="checkBoxStuff" onclick="coolChange()" type="checkbox"> free shipping
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="shoeShippingDescription" class="col-sm-2 col-sm-offset-1 control-label">shipping policy</label>
+              <div class="col-sm-8">
+                <textarea id="shoeShippingDescription" class="form-control" rows="3" placeholder="describe your shipping policy here..."></textarea>
+              </div>
+            </div>
+          
+          <hr class="alt-hr" />-->
+           
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-5">
+              <p>
+              <button onclick="sellItem()" class="btn btn-lg btn-block btn-primary" id="saveAndShow" disabled><span class="glyphicon glyphicon-picture"></span> please upload an image</button>
+              </p>
+            </div>
+            <div class="col-sm-5">
+              <p>
+              <button onclick="location.reload()" type="submit" class="btn btn-lg btn-block btn-default"><span class="glyphicon glyphicon-repeat"></span> upload a different pair of shoes</button>
+              </p>
+            </div>
+          </div><!-- /row -->
+        </div><!-- /shoeShipping -->
+      
+      </div><!-- /main-wrap -->
+
+      <script>
+      Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+      var urlParams;
+                  (window.onpopstate = function () {
+                    var match,
+                      pl     = /\+/g,  // Regex for replacing addition symbol with a space
+                      search = /([^&=]+)=?([^&]*)/g,
+                      decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                      query  = window.location.search.substring(1);
+
+                    urlParams = {};
+                    while (match = search.exec(query))
+                      urlParams[decode(match[1])] = decode(match[2]);
+                  })();
+            if(urlParams["item"]==null){
+              //alert("hi")
+            }else{
+              var courrier = Parse.Object.extend("courrier");
+                var query = new Parse.Query(courrier);
+                query.equalTo("objectId", urlParams["item"]);
+                query.find({
+                  success: function(results) {
+                    var nowEditing=results[0];
+                    $("#shoeGender").val(nowEditing.get("gender"));
+                    changeSize();
+                    $("#shoeName").val(nowEditing.get("item"));
+                    $("#shoeBrandSelect").val(nowEditing.get("brand"));
+                    $("#shoeConditionSelect").val(nowEditing.get("condition"));
+                    $("#shoePrice").val(nowEditing.get("price"));
+                    $("#shoeSizeSelect").val(nowEditing.get("size"));
+                    //document.getElementById("shoeBrandSelect").innerHTML=nowEditing.get("brand");
+                  },
+                  error: function(error) {
+                    alert("Error: " + error.code + " " + error.message);
+                  }
+                });
+            }
+      </script>
+
+      <footer>
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="list-inline">
+              <li><a href="terms.html" class="footer-text" target="_blank">terms</a> &nbsp;/</li>
+              <li><a href="privacy.html" class="footer-text" target="_blank">privacy</a> &nbsp;/</li>
+              <li><a href="#" class="footer-text">help</a> &nbsp;/</li>
+              <li><a href="contact.html" class="footer-text" target="_blank">contact</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <p class="footer-text">&copy; 2014 HeatSwap, all rights reserved</p>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline">
+              <li><a href="https://www.youtube.com/user/HeatSwapTV" target="_blank" class="footer-text"><i class="fa fa-youtube-play fa-lg"></i></a>
+              <li><a href="http://instagram.com/heatswap" target="_blank" class="footer-text"><i class="fa fa-instagram fa-lg"></i></a>
+            </ul>
+          </div>
+        </div><!-- /row -->
+      </footer>
+
+  </div><!-- /container -->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+
+      $(function() {
+        var imageUploadPreview="";
+        var imageUploadPreview1="";
+        var imageUploadPreview2="";
+          var file;
+          // Set an event listener on the Choose File field.
+          //figure out what e is, how to change. filePull[i] is the name of the file
+          $('#fileselect1').bind("change", function(e) {
+            var filePull = e.target.files || e.dataTransfer.files;
+            saveAndShow.innerHTML="<span class='glyphicon glyphicon-time'></span> files are uploading";
+            saveAndShow.disabled=true;
+            var currentE;
+            if(fileselect1.multiple == true){
+              //alert(filePull.length + images.length)
+              if(images.length+filePull.length>1){
+                //alert("featured");
+                pickFeature.innerHTML+="<p>Click an image to make it the featured image</p>"
+              }
+              if(filePull.length+images.length>8){
+                alert("Only 8 images can be uploaded at a time")
+              }else{
+                
+                for (var i = 0; i < filePull.length; i++){
+                  //alert(i)
+                  //alert(images.length+i)
+                  //alert(images.length)
+                  upload(filePull[i], images.length+i, filePull.length, images.length);
+                }
+              }
+            }
+            
+          });
+
+          function upload(file, i, m, n) {
+          // Our file var now holds the selected file
+            //alert("hello1")
+          //});
+
+          // This function is called when the user clicks on Upload to Parse. It will create the REST API request to upload this image to Parse.
+          //$('#uploadbutton').click(function() {
+            //alert("HI")
+            var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+
+            $.ajax({
+              type: "POST",
+              beforeSend: function(request) {
+                request.setRequestHeader("X-Parse-Application-Id", 'tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn');
+                request.setRequestHeader("X-Parse-REST-API-Key", '9zykrS1DlSkF7iNDMVx8rKVlOzEnDaiiyACdMcsb');
+                request.setRequestHeader("Content-Type", file.type);
+              },
+              url: serverUrl,
+              data: file,
+              processData: false,
+              contentType: false,
+              //alert("hello")
+              success: function(data) {
+                //alert("File available at: " + data.url);
+                //alert(images.length+i)
+                images[i]=data.url;
+
+
+
+                var imageFloat;
+
+
+                var img = $('<img src="'+images[i]+'"/>').load(function(){
+                  var ratio=100/this.height;
+                  var ratioWidth=this.width*ratio;
+                  imageFloat=(150-ratioWidth)/2
+                  imageUploadPreview += "<div class='previewDiv' id='previewDiv"+i+"' onClick='makePrimary(this.id)'>";
+                  imageUploadPreview += "<img style='margin-left:"+imageFloat+"px' class='previewImage' src='"+ images[i] + "' alt='...''>"
+                  imageUploadPreview += "</div>";
+
+                  if(i<4){
+                    imageUploadPreview1 += imageUploadPreview;
+                    var insertNonsense=document.getElementById("imagePreview1")
+                    insertNonsense.innerHTML=imageUploadPreview1
+                  }else{
+                    imageUploadPreview2 += imageUploadPreview;
+                    var insertNonsense=document.getElementById("imagePreview2")
+                    insertNonsense.innerHTML=imageUploadPreview2
+                  }
+                  imageUploadPreview="";
+                });
+                
+                
+                
+                //alert(images[i]);
+
+                if(n+m==i+1){
+                  saveAndShow.disabled=false;
+                    saveAndShow.innerHTML="<span class='glyphicon glyphicon-ok'></span> save and show listing";
+                }
+              },
+              error: function(data) {
+                var obj = jQuery.parseJSON(data);
+                alert(obj.error);
+              }
+            });
+          }
+
+        });
+
+    var sellItem = function () {
+      var currentUser = Parse.User.current();
+      if(currentUser===""||currentUser===null){
+          $('#myModal').modal({ show: false})
+          $('#accountModal').modal('show'); 
+      }else{
+        var iName = document.getElementById("shoeName").value;
+        if (iName.length > 50) {
+          alert("The name must be less than 50 characters");
+          return;
+        }
+
+        var iDesc = document.getElementById("shoeDescription").value;
+        var iPrice = document.getElementById("shoePrice").value;
+        var iBrand = document.getElementById("shoeBrandSelect").value.replace(/ +/g, "").toLowerCase();
+        var iCondition = document.getElementById("shoeConditionSelect").value;
+        var iSize = document.getElementById("shoeSizeSelect").value;
+        var iMainImage = document.getElementById("image1URL").value;
+        var iGender = document.getElementById("shoeGender").value
+        
+        var d = new Date();
+        var month = 0;
+        month=d.getMonth()+1;
+        var day = d.getDate()
+        var year = d.getFullYear();
+        
+        var iListedDate = (month + "/" + day + "/" + year);
+        
+        //var iSecondImage = document.getElementById("image2").value;
+        //var iThirdImage = document.getElementById("username123").value;
+        //var iLocation = document.getElementById("shippingLocationSelect").value;
+        //var iShipMethod = document.getElementById("shippingMethodSelect").value;
+        //var iShipPrice = document.getElementById("shippingprice").value;
+        //var iShipPolicy = document.getElementById("shippingprice").value;
+
+        Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+
+        var courrier = Parse.Object.extend("courrier");
+        var postOffice = new courrier();
+
+        if (!(iName === "")) {
+          postOffice.set("item", iName);
+        }
+        else {
+          alert("Please fill out everything");
+          return
+        }
+
+        var featuredInt=0;
+        for(var i=0; i<images.length; i++){
+          if(document.getElementById("previewDiv"+i).className.match(/(?:^|\s)featuredShoe(?!\S)/) ){
+            featuredInt=i;
+          }
+        }
+
+        if(featuredInt!=0){
+          var a = images[featuredInt];
+          images[featuredInt]=images[0];
+          images[0] = a;
+        }
+
+        postOffice.set("itemDesc", iDesc);
+        postOffice.set("price", iPrice);
+        postOffice.set("brand", iBrand);
+        postOffice.set("condition", iCondition);
+        postOffice.set("gender", iGender);
+        postOffice.set("size", iSize);
+        postOffice.set("image", images[0]);
+        postOffice.set("listedDate", iListedDate);
+        postOffice.set("secondImage", images[1]);
+        postOffice.set("thirdImage", images[2]);
+        postOffice.set("fourthImage", images[3]);
+        postOffice.set("fifthImage", images[4]);
+        postOffice.set("sixthImage", images[5]);
+        postOffice.set("seventhImage", images[6]);
+        postOffice.set("eighthImage", images[7]);
+        
+        postOffice.set("featuredImage", featuredInt)
+        //postOffice.set("Location", iLocation);
+        //postOffice.set("shipMethod", iShipMethod);
+        //postOffice.set("shipPrice", iShipPrice);
+        //postOffice.set("shipPolicy", iShipPolicy);
+        postOffice.set("userNameStuff", Parse.User.current().get("username"));
+
+        //alert(Parse.User.current().get("username"));
+
+        postOffice.save(null, {
+          success: function(postOffice) {
+            window.location.href = "popular.html";
+        },
+        error: function(postOffice, error) {
+            alert('Failed to create new object, with error code: ' + error.message);
+        }
+        });
+      }
+    }
+
+    var coolChange = function() {
+      if (document.getElementById("checkBoxStuff").checked == true) {
+        document.getElementById("shippingprice").setAttribute("disabled","disabled");
+        document.getElementById("shippingprice").setAttribute("background-color","DCDAD1");
+      }
+      else {
+        document.getElementById("shippingprice").removeAttribute("disabled");
+        document.getElementById("shippingprice").setAttribute("background-color","ffffff");
+      }
+    }
+        </script>
+
+     <script>
+      if(currentName!=null&&currentName!=""){
+        var finalObj=document.getElementById("account");
+        document.getElementById("myTabContent").innerHTML = finalObj.innerHTML;
+      }else{
+        var finalObj=""
+        finalObj += "<ul id='myTab' class='nav nav-tabs'>\n"
+        finalObj += "<li class='active'><a href='#signIn' data-toggle='tab'><span class='glyphicon glyphicon-lock'></span> sign in</a></li>\n"
+        finalObj += "<li class=''><a href='#signUp' data-toggle='tab'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
+        finalObj += "</ul>"
+        var insertNonsense=document.getElementById("modalTabs")
+        insertNonsense.innerHTML=finalObj
+      }
+    </script>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.carousel.slide').carousel();
+      });
+    </script>
+
+  </body>
+</html>
+
+

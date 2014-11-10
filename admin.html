@@ -1,0 +1,116 @@
+<html>
+	<head>
+	    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+		<style>
+			table,th,td
+			{
+				border:1px solid black;
+				border-collapse:collapse;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<center>
+		<table id="adminTable" style="width:1000px">
+		</table>
+		</center>
+		
+		<script>
+			Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+				var courrier = Parse.Object.extend("payLogs");
+				var mailbox = new Parse.Query(courrier);
+				mailbox.exists("amount");
+				mailbox.descending("createdAt");
+				mailbox.find({
+					success: function(returnObj) {			
+						var finalObj = ""	
+						finalObj += "<tr><td>Seller</td><td>Buyer</td><td>Shoe Name</td><td>ID</td><td>Buyer Address</td><td>Sale Price</td><td>Send Price</td><td>Complete</td></tr>";	
+						for (var i = 0; i < returnObj.length; i++) { 					
+							var item = returnObj[i];	
+							finalObj += "<tr>"					
+							finalObj += "<td>" + item.get("seller") + "</td>"
+							finalObj += "<td>" + item.get("buyer") + "</td>"
+							finalObj += "<td>" + item.get("shoename") + "</td>"
+							finalObj += "<td id='" + i + "'>" + item.get("parent") + "</td>"
+							finalObj += "<td>" + item.get("buyerloc") + "</td>"
+							finalObj += "<td>" + item.get("amount") + "</td>"
+							var mathStuf = item.get("amount")
+							var mathStuf = parseInt(mathStuf.slice(1))
+							var mathStuff = mathStuf * .07
+							var mathStuff = mathStuf - mathStuff
+							finalObj += "<td>" + mathStuff + "</td>"
+
+							finalObj += "<td><button id='foo' onclick='sendEmail("+ i +")'>Foo</button></td>"
+							finalObj += "</tr>\n"
+						}				
+						var insertNonsense = document.getElementById("adminTable");
+						insertNonsense.innerHTML = finalObj;		
+					},
+					error: function(error) {
+						alert("Error: " + error.code + " " + error.message);
+					}
+				});
+		</script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+
+		var sendEmail = function(itemID) {
+				alert(itemID)
+				item = document.getElementById(itemID).value
+				alert(item);
+				var stuffz = Parse.Object.extend("payLogs");
+				var query = new Parse.Query(stuffz);
+				query.get(itemID, {
+				  success: function(item) {
+
+					msg = "<center><img src='heatswap.com/img/logo.png' height='100px' width='200px'></center><br>Congratulations! You have sold a shoe on HeatSwap. <br><br><b>Shoe Information:</b><br>Shoe Name:"+item.get('shoename')+"<br>Sale Price:" +item.get("amount")+ "<br>Amount you will recieve:"+mathStuff+"<br>Buyer Address:"+item.get("buyerloc")+"<br><br><u>Please ship the shoes to the buyer immediately.</u> The money should be in your Paypal account shortly.<br><br> If you have any more questions, please contact heatswap@gmail.com"
+					alert(msg)
+				    item.destroy({
+					  success: function(myObject) {
+					  	sendComplete(msg);
+					  },
+					  error: function(myObject, error) {
+					    // The delete failed.
+					    // error is a Parse.Error with an error code and description.
+					    alert(error)
+					  }
+					});
+				  },
+				  error: function(object, error) {
+				    // The object was not retrieved successfully.
+				    // error is a Parse.Error with an error code and description.
+				    alert(error)
+				  }
+			});
+		}
+
+			function sendComplete(msg) {
+				$.ajax({
+				  type: "POST",
+				  url: "https://mandrillapp.com/api/1.0/messages/send.json",
+				  data: {
+				    'key': '9JYVWj0aNO_pYLJWSl9_dQ',
+				    'message': {
+				      'from_email': 'info@heatswap.com',
+				      'to': [
+				          {
+				            'email': sellerEmail,
+				            'name': sellerName,
+				            'type': 'to'
+				          },
+				        ],
+				      'autotext': 'true',
+				      'subject': 'You have sold an item on HeatSwap',
+				      'html': msg
+				    }
+				  }
+				}).done(function(response) {
+				   console.log(response); // if you're into that sorta thing
+				});
+			};
+		</script>
+	</body>
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <title>Privacy</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+        
+ <body>
+    
+    <div class="container">
+      
+      <div id="logo-navbar" class="row navbar">
+        
+        <div class="col-xs-12 col-md-4" >
+          <a href="index.html"><img alt="logo" class="img-responsive center-block" src="images/logo.png"></a>
+        </div>
+  
+        <div class="col-xs-5 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+          <ul id="main-nav-social-icons" class="nav navbar-nav">
+            <li><a target="_blank" href="https://www.youtube.com/user/HeatSwapTV"><img alt="YouTube" class="img-responsive" src="images/YouTube-social-squircle_red_24px.png"></a></li>
+            <li><a target="_blank" href="http://instagram.com/heatswap"><img alt="Instagram" class="img-responsive" src="images/Instagram_Icon_24px.png"></a></li>
+          </ul>
+        </div>
+        <div id="login-menu" class="col-xs-7 col-md-5 col-md-offset-3 col-lg-4 col-lg-offset-4 text-right">    
+          <div id="logTest">
+          </div>
+          <script>
+            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+            
+            var currentUser = Parse.User.current()
+            var currentName=""
+
+            if(currentUser!=null) currentName=currentUser.get("username");
+              if(currentName!=null&&currentName!=""){
+                var finalObj=""
+                finalObj += "<ul class='nav navbar-nav navbar-right'>\n"
+
+                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'>What's up <b>"+currentName+"</b>?</a>\n"
+                finalObj += "<ul class='dropdown-menu'>\n"
+                finalObj += "<li><a href='storePreview.html'>View Store</a></li>\n"
+                if(currentUser.get("storeId")!="")
+                finalObj += "<li><a href='currentlyListed.html'>Manage Shoes</a></li>"
+                finalObj += "<li><a href='settings.html' role='button'>Account Settings</a></li>"
+                finalObj += "</ul>\n"
+
+                var alerts=0;
+                if(currentUser.get("emailVerified")==false){
+                  alerts=alerts+1;
+                }
+
+                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'><span class='badge' id='alertsBadge'>" + alerts + "</span>  alerts</a>\n"
+                finalObj += "<ul class='dropdown-menu'>\n"
+                if(alerts==0){
+                  finalObj += "<center style='cursor:default;'>No new alerts!</center>\n"
+                }
+
+                if(currentUser.get("emailVerified")==false){
+                  finalObj += "<center style='cursor:default;'>Please verify your email</center>\n"
+                }
+
+                finalObj += "</ul>\n"
+
+                finalObj += "<li onClick='logOut()'><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-lock'></span> log out</a></li>\n"
+
+                finalObj += "</li>\n"
+                finalObj += "</ul>\n"
+                var insertNonsense=document.getElementById("logTest")
+                insertNonsense.innerHTML=finalObj
+              }else{
+                var finalObj=""
+                finalObj += "<ul class='nav navbar-nav navbar-right'>\n"
+                finalObj += "<li><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-lock'></span> login</a></li>\n"
+                finalObj += "<li><a href='#accountModal' role='button' data-toggle='modal'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
+                finalObj += "</ul>"
+                var insertNonsense=document.getElementById("logTest")
+                insertNonsense.innerHTML=finalObj
+              }
+
+              if (currentUser) {
+                var pStuff = document.getElementById("loginItems");
+                    //just commented this to fix an error, you can do whatevs with this
+                    //pStuff.innerHTML = "<li style='padding-top:15px;padding-bottom:15px;'><span class=''></span> What's up "+ currentUser.get("username") +"? <li style='cursor:pointer;'><a onclick='logOut()''><span class='glyphicon glyphicon-lock'></span> logout</a>  <li><a href='#''><i class='glyphicon glyphicon-shopping-cart'></i> items in cart: <span style='color:#2A5469'>00</span></a></li>";
+                }
+                var logOut = function() {
+                  Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                  Parse.User.logOut();
+                var currentUser = Parse.User.current();
+              location.reload();
+            }
+          </script>    
+        </div><!-- /login-menu -->
+
+        <!-- Modal -->
+        <div id="accountModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h1 class="text-center blue">welcome!</h1>
+              </div>
+              <div class="modal-body">
+                <div id="modalTabs">
+                  <ul id="myTab" class="nav nav-tabs">
+                  </ul>
+                </div>
+                
+                <div id="myTabContent" class="tab-content">
+                  
+                  <!-- SIGN IN -->
+                  <div class="tab-pane fade active in" id="signIn">
+
+                      <!--Username input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"></div>
+                          <input required="" id="usernameInput" name="usernameInput" type="text" class="form-control input-lg" placeholder="username">
+                        </div>
+                      </div>
+
+                      <!-- Password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="passwordInput" name="passwordInput" class="form-control input-lg" type="password" placeholder="password">
+                        </div>
+                        <p id="loginPassError" class="errorAlert"></p>
+                      </div>
+                                      
+                      <!-- Checkbox -->
+                      <div class="form-group">                        
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="rememberMe" id="rememberMe" value="rememberMe">remember me
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Button -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onclick="logIn()"><span class="glyphicon glyphicon-ok"></span> log in</button>
+                      </div>
+                        <script>
+                          var logIn = function(){
+                            
+                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                            var nameStuff = document.getElementById("usernameInput").value.toLowerCase();
+                            var passStuff = document.getElementById("passwordInput").value;
+
+                            Parse.User.logIn(nameStuff, passStuff, {
+                              success: function(user) {
+                                location.reload();
+                              },
+                              error: function(user, error) {
+                                loginPassError.innerHTML="Your username or password is incorrect"
+                                //alert(document.getElementById("loginPassError"))
+                              }
+                            });
+                            event.preventDefault();
+                          }
+                        </script>                      
+                      <p><a href="#">forgot password?</a></p>
+                        
+                  </div><!-- /signIn -->
+                  
+                  <!-- SIGN UP -->
+                  <div class="tab-pane fade in" id="signUp">
+                                            
+                      <!-- first input-->
+                      <div class="form-group">
+                        <input required="" id="fNameInput" name="fNameInput" type="text" class="form-control input-lg" placeholder="first name">
+                      </div>
+                      
+                      <!-- last name input-->
+                      <div class="form-group">
+                        <input required="" id="lNameInput" name="lNameInput" type="text" class="form-control input-lg" placeholder="last name">
+                      </div>
+                      
+                      <!-- username input-->
+                      <div class="form-group">
+                        <input required="" id="SUusernameInput" name="usernameInput" type="text" class="form-control input-lg" placeholder="username">
+                        <p class="help-block"><em>this is the name that will appear next to your comments, etc.</em></p>
+                      </div>
+
+                      <!-- Email input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">@</div>
+                          <input required="" id="SUemailInput" name="emailInput" type="text" class="form-control input-lg" placeholder="email">
+                        </div>
+                      </div>
+
+                      <!-- Password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="SUpasswordInput" name="passwordInput" class="form-control input-lg" type="password" placeholder="password">
+                        </div>
+                      </div>
+                      
+                      <!-- check password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input required="" id="SUpassword2Input" name="password2Input" class="form-control input-lg" type="password" placeholder="re-type password">
+                        </div>
+                        <p id="woahThere" class="errorAlert"></p>
+                      </div>
+                      
+                      <div>
+                        <a href="terms.html">
+                          <p>Click here to read terms and conditions</p>
+                        </a>
+                      </div>
+
+                      <div class="form-group">                        
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="terms" id="terms" value="accept" required>I have read and accept the terms and conditions
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Button -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onclick="signUp();return false;"><span class="glyphicon glyphicon-ok"></span> sign up</button>
+                      </div>
+                        <script>
+                          var signUp = function() {
+                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                            var nameStuff = document.getElementById("SUusernameInput").value.toLowerCase();
+                            var passStuff = document.getElementById("SUpasswordInput").value;
+                            var passStuff2 = document.getElementById("SUpassword2Input").value;
+                            var emailStuff = document.getElementById("SUemailInput").value;
+                            var firstStuff = document.getElementById("fNameInput").value;
+                            var lastStuff = document.getElementById("lNameInput").value;
+                            if (passStuff2 === passStuff) {
+
+                              var user = new Parse.User();
+                              user.set("username", nameStuff);
+                              user.set("password", passStuff);
+                              user.set("email", emailStuff);
+                              user.set("firstName", firstStuff);
+                              user.set("lastName", lastStuff);
+                              user.set("storeId", "")
+
+
+                              user.signUp(null, {
+                                success: function(user) {
+                                  alert("Congrats "+nameStuff+", please verify your email");
+                                  location.reload();
+                                },
+                                error: function(user, error) {
+                                  alert("Error: " + error.code + " " + error.message);
+                                }
+                              });
+                            }
+                            else {
+                              woahThere.innerHTML = "Your passwords do not match";
+                            }
+                          }
+                        </script>                        
+                  </div><!-- /signUp -->
+                  
+
+                  
+                  <!-- ACCOUNT SETTINGS -->
+                  <div class="tab-pane fade in" id="account">
+                    
+                      <!-- email change-->
+                      <div class="form-group">
+                        <label class="form-label" for="emailChange">change your email:</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">@</div>
+                          <input  id="emailChange" name="emailChange" type="text" class="form-control input-lg" placeholder="enter new email">
+                        </div>  
+                      </div><!-- /form-group -->
+                    
+                      <!-- password change-->
+                      <div class="form-group">
+                        <label class="form-label" for="passwordChange">change your password:</label>
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input  id="passwordChange" name="passwordChange" class="form-control input-lg" type="password" placeholder="enter new password">
+                        </div>
+                      </div>
+                                          
+                      <!-- check password input-->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="fa fa-key"></span></div>
+                          <input  id="changePasswordCheck" name="changePasswordCheck" class="form-control input-lg" type="password" placeholder="re-type new password">
+                        </div>
+                        <p id="changePasswordAlert" class="errorAlert"></p>
+                      </div>
+                      
+                      <!-- username change-->
+                      <div class="form-group">
+                        <label class="form-label" for="usernameChange">change your user name:</label>
+                        <input  id="usernameChange" name="usernameChange" class="form-control input-lg" type="password" placeholder="enter new user name">
+                      </div>
+                      
+                      <!-- BUTTON -->
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" onClick="saveClose()"><span class="glyphicon glyphicon-ok"></span> save and close</button>
+                      </div>
+                      <script> 
+                        var saveClose = function(){
+                          Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                          //checks if current user is logged in
+                          var currentUser = Parse.User.current();
+                          var currentName = currentUser.get("username")
+                          if(currentName==null||currentName==""){
+                            alert("Please log in to continue")
+                          }else{
+                            if(document.getElementById("emailChange").value!=null&&document.getElementById("emailChange").value!=""){
+                                user.set("email", document.getElementById("emailChange"));
+                                alert("email changed to " + emailChange);
+                            }else{
+                            }
+                            if(document.getElementById("passwordChange").value!=null&&document.getElementById("passwordChange").value!=""){
+                              if(document.getElementById("passwordChange")==document.getElementById("changePasswordCheck")){
+                                user.set("password", document.getElementById("passwordChange"))
+                              }else{
+                                changePasswordAlert.innerHTML="Your passwords do not match"
+                              }
+                            }
+                            if(document.getElementById("usernameChange").value!=null&&document.getElementById("usernameChange".value)!=""){
+                              user.set("username", document.getElementById("usernameChange"));
+                              alert("username changed to " + usernameChange)
+                            }
+                          }
+                        }
+                      </script>
+                     <!--<a href="storePreview.html" class="btn btn-lg btn-warning" role="button">edit your store »</a> -->
+                  </div><!-- /account -->
+                  
+                </div><!-- /myTabContent -->
+              </div><!-- /modal-body -->
+              
+              <div class="modal-footer">
+                  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">cancel</button>
+              </div>
+              
+            </div><!-- /modal-content -->
+          </div><!-- /modal-dialog -->
+        </div><!-- /accountModal -->
+        
+      </div><!-- /logo row -->
+      
+      <!-- Static navbar -->
+      <div class="navbar navbar-default without-subnav" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">home</a>
+          </div><!-- /header -->
+          
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">buy <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="popular.html">popular</a></li>
+                  <!-- <li><a href="buy.html">buy page</a></li>
+				 <li><a href="store.html">store</a></li> -->
+                  <li class="dropdown-submenu"><a href="#">brand</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="popular.html?brand=adidas">Adidas</a></li>
+                      <li><a href="popular.html?brand=airjordan">Air Jordan</a></li>
+                      <li><a href="popular.html?brand=asics">Asics</a></li>
+                      <li><a href="popular.html?brand=converse">Converse</a></li>
+                      <li><a href="popular.html?brand=newbalance">New Balance</a></li>
+                      <li><a href="popular.html?brand=nike">Nike</a></li>
+                      <li><a href="popular.html?brand=puma">Puma</a></li>
+                      <li><a href="popular.html?brand=reebok">Reebok</a></li>
+                      <li><a href="popular.html?brand=saucony">Saucony</a></li>
+                      <li><a href="popular.html?brand=vans">Vans</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="sell.html">sell</a></li>
+              <li><a target=_blank href="http://heatswap.com/news">news</a>
+			 <li><a href="team.html">our team</a></li>
+              <li><a href="story.html">a good story</a></li>
+            </ul>
+            
+            <form class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+
+      <div id="main-wrap"><!-- Main content wrapper -->
+
+        <div class="pull-left">
+          <h1 style="margin-right:10px" class="red">Privacy Policy</h1>
+        </div>
+  
+        <div class="clearfix">      
+          <ol class="breadcrumb pull-right breadcrumb-right">
+            <li><a href="index.html">home</a></li>
+            <li class="active">privacy</li>
+          </ol>
+          <hr class="breadcrumb-hr">
+        </div>
+        
+        <p>Welcome to the HeatSwap community! We’re very happy you’ve chosen to do business on the HeatSwap platform and will do everything we can to make the experience a good one for you. That starts with being transparent about our practices and letting you know as much as possible about how we gather, use, and protect your information. 
+        <br>
+        <br>
+        Note: By visiting HeatSwap’s website you are accepting the terms of this Privacy Policy. Any external links to other websites are identifiable as such and we are not responsible for the content or the privacy policies of these other websites. 
+        <br>
+        <br>
+        <b>Information collected or received</b>
+        <br>
+        HeatSwap requires a member to provide a valid email address and choose a username connected with your site activity. Depending on the services you choose, additional information may be collected, for example: billing or payment information, a telephone number, and a physical address.
+        You may choose to provide your full name and other personal information (such as birthday, gender, location) to be publicly displayed. You may connect to HeatSwap with an external application, in which case HeatSwap may receive some information from that other service.
+        <br>
+        <br>
+        HeatSwap automatically receives and records some information from your browser or your mobile device when you visit the Site, such as your IP address or unique device identifier, cookies and data about which pages you visit on the Site. This information helps us analyze and understand how the Site works for members and visitors, and provides a more personalized experience for members and visitors. 
+        <br>
+        <br>
+        HeatSwap may receive or collect information (for example: an email address) about a person who is not yet a registered HeatSwap member (a “non-member”) in connection with certain HeatSwap features, including but not limited to: a non-member subscribing to a HeatSwap newsletter, a member inviting a non-member to visit the Site, a non-member engaging in a transaction, or a member sending a gift card code to a non-member. Non-member information is used only for the purpose it was originally submitted to HeatSwap. A non-member can contact HeatSwap support if they do not want HeatSwap to retain their information.
+        <br>
+        <br>
+        HeatSwap uses the information described in this policy to provide and improve our services and products, for billing and payments, for identification and authentication, for targeted online marketing, to contact members or interested parties, and for general research and aggregate reporting.
+        <br>
+        <br>
+        HeatSwap’s <a href="terms.html" target="_blank">Terms of Use</a> requires all account owners to be at least 18 years of age (or have the permission and supervision of a responsible parent or legal guardian), therefore, this policy does not discuss use of our Site by minors.
+        <br>
+        <br>
+        <b>Uses and sharing</b>
+        <br>
+        We use the information that we gather from our users in a number of ways, including to provide and improve our services, for targeted online marketing, and to communicate with you. HeatSwap will not sell or disclose your personal information to third parties without your explicit consent, except as specified in our Privacy Policy.
+        <br>
+        <br>
+        <b>Choices</b>
+        <br>
+        You may review and change your information in your account settings and you may remove certain optional pieces of information.
+        You may opt-out of receiving certain types of communications from HeatSwap in your account settings.You may change or correct your HeatSwap account information (except your username) on the Site. You may also remove certain optional information on the Site that you no longer wish to be publicly visible, such as your full name.
+        <br>
+        <br>
+        For various reasons, HeatSwap may contact you about our services or your activity. Some of these messages are required, service-related messages for members. Other messages are not required, and you can control which optional messages you choose to receive by changing your settings in your account. If you no longer wish to use HeatSwap’s services or receive service-related messages, then you may close your account. 
+        <br>
+        <br>
+        <b>Messages from HeatSwap</b>
+        <br>
+        HeatSwap might have occasion to contact you by email or use push notifications to alert you to changes on the Site or issues with your account so you are required to keep a valid email address on file to receive messages. In some situations, HeatSwap may contact you by telephone, SMS message or physical mail in order to provide you with customer support or to provide you with information about products and features you my find of interest. You may update your contact preferences in your account settings. 
+        <br>
+        <br>
+        Some messages from HeatSwap are service-related and required for members. Examples of service-related messages include, but are not limited to: a welcome/confirmation email when you register your account, notification of an order, or correspondence with HeatSwap’s support team. These messages are not promotional in nature. You may not opt-out of receiving service-related messages from HeatSwap, unless you close your account.
+        
+        As a member, HeatSwap may also send you messages related to certain features or your activity on the Sit. HeatSwap may also send you news or updates about changes to our Site or services. Newsletters are available to both members and non-members. Members may subscribe or unsubscribe from optional newsletters under your account settings or by following the instructions contained in the newsletter emails. Non-members may subscribe by providing an email address, which will only be used by HeatSwap for these newsletters. Non-members may unsubscribe from newsletters by following the instructions contained in the newsletter.
+        <br>
+        <br>
+        <b>Information sharing & disclosure</b>
+        <br>
+        We want to respect your privacy. HeatSwap will not disclose your name, email address or other personal information to third parties without your explicit consent, except as specified in this policy. HeatSwap limits access to your personal information to employees who we believe reasonably need to come into contact with that information to provide products or services to you or in order to do their jobs. 
+        <br>
+        <br>
+        As part of the buying and selling process, HeatSwap will facilitate the sharing of information between the two members involved in the transaction. As part of the buying or selling process, you may obtain another HeatSwap member's email address, shipping address, payment information, and/or other information. As described in HeatSwap’s <a href="terms.html" target="_blank">Terms of Use</a> you have a limited license to use this information only for HeatSwap-related communications or for HeatSwap-facilitated transactions. HeatSwap has not granted you a license to use the information for unsolicited commercial messages. Without express consent from that person, you must not add any HeatSwap member to your email or physical mailing list.
+        <br>
+        <br>
+        HeatSwap may release your personal information to a third-party in order to protect, establish, or exercise our legal rights or defend against legal claims; comply with a subpoena, court order, legal process, or other legal requirement; or when we believe in good faith that such disclosure is necessary to comply with the law, prevent imminent physical harm or financial loss, or investigate, prevent, or take action regarding illegal activities, suspected fraud, threats to our property, or violations of HeatSwap's <a href="terms.html" target="_blank">Terms of Use</a>. We may disclose personally identifiable information to parties in compliance with our Copyright and Intellectual Property Policy as we in our sole discretion believe necessary or appropriate in connection with an investigation of fraud, intellectual property infringement, piracy, or other unlawful activity. In such events, HeatSwap may disclose a name, address, country, phone number, email address and company name.
+        <br>
+        <br>
+        In some cases, HeatSwap may choose to buy or sell assets. In these types of transactions (such as a sale, merger, liquidation, receivership or transfer of all or substantially all of HeatSwap’s assets), member information is typically one of the business assets that is transferred. In the event that HeatSwap transfers information about you, HeatSwap will notify you by email or by putting a prominent notice on the Site and you will be afforded an opportunity to opt-out before information about you becomes subject to a different privacy policy.
+        <br>
+        <br>
+        Third-party plug-ins also may collect information about your use of the Site. For example, when you a load a page on HeatSwap that has a social plug-in from a third-party site or service, such as a Like or Send button, you are also loading content from that third-party site. That site may request cookies directly from your browser. These interactions are subject to the privacy policy of the third-party site. In addition, certain cookies and other tracking mechanisms on our site are used by third parties for targeted online marketing and other purposes. These technologies allow a partner to recognize your computer or mobile device each time you visit HeatSwap, but do not allow access to personally identifiable information from HeatSwap. HeatSwap does not have access or control over these third-party technologies, and they are not covered by our privacy policy. If you prefer to prevent third parties from setting and accessing cookies on your computer, you may set your browser to block cookies. 
+        <br>
+        <br>
+        This policy does not apply to the practices of third parties that HeatSwap does not own or control, or individuals that HeatSwap does not employ or manage. If you provide your information to others on HeatSwap or throughout the Internet, different rules may apply to the use or disclosure of the information you provide to them. HeatSwap does not control the privacy policies of third parties and you are subject to the privacy policies of those third parties where applicable. HeatSwap is not responsible for the privacy or security practices of other websites on the Internet, even those linked to or from the HeatSwap Site. We encourage you to ask questions before you disclose your personal information to others. 
+         <br>
+         <br>
+        <b>Security</b>
+        <br>
+        The security of your personal information is important to us. Your HeatSwap account information is protected by a password. It is important that you protect against unauthorized access of your account and information by choosing your password carefully, and keeping your password and computer secure by signing out after using our services.  
+        <br>
+        <br>
+        HeatSwap encrypts sensitive information using secure socket layer technology (SSL). HeatSwap follows generally accepted industry standards to protect the personal information submitted to us, both during transmission and once HeatSwap receives it. No method of transmission over the Internet, or method of electronic storage, is 100% secure. Therefore, while we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security. 
+        <br>
+        <br>
+        <b>Data retention</b>
+        <br>
+        HeatSwap will keep your information only for as long as is necessary or your account is active or as needed to provide you services. If you no longer want HeatSwap to use your information to provide you services, you may close your account. HeatSwap will retain and use your information as necessary to comply with our legal obligations, resolve disputes, and enforce our agreements. 
+        <br>
+        <br>
+        You may inform us of any changes or requests in regards to your personal data, and in accordance with our obligations under local data protection law, we may update or delete your personal data accordingly.
+        <br>
+        <br>
+        <b>Privacy policy changes</b>
+        <br>
+        HeatSwap reserves the right to modify this privacy policy at any time, so please review it periodically. We’ll communicate changes by posting a notice on the Site. If we make material changes to this policy, prior to the change becoming effective, you will be notified here, by email, or other places HeatSwap deems appropriate.
+        <br>
+        <br>
+        <b>Contact HeatSwap</b>
+        If you have questions about personal information or suggestions you can contact HeatSwap’s support team via our Help Center. You can email us about the Privacy Policy at contact@heatswap.com. We will respond to you within 30 days of receipt of your correspondence. 
+        <br>
+        
+        </p>
+        
+      
+               
+      </div><!-- /main -->
+      
+      <footer>
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="list-inline">
+              <li><a href="terms.html" class="footer-text" target="_blank">terms</a> &nbsp;/</li>
+              <li class="active">privacy</a> &nbsp;/</li>
+              <li><a href="#" class="footer-text">help</a> &nbsp;/</li>
+              <li><a href="contact.html" class="footer-text" target="_blank">contact</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <p class="footer-text">&copy; 2014 HeatSwap, all rights reserved</p>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline">
+              <li><a href="https://www.youtube.com/user/HeatSwapTV" target="_blank" class="footer-text"><i class="fa fa-youtube-play fa-lg"></i></a>
+              <li><a href="http://instagram.com/heatswap" target="_blank" class="footer-text"><i class="fa fa-instagram fa-lg"></i></a>
+            </ul>
+          </div>
+        </div><!-- /row -->
+      </footer>
+      
+    </div> <!-- /container -->
+
+     <script>
+      if(currentName!=null&&currentName!=""){
+        var finalObj=document.getElementById("account");
+        document.getElementById("myTabContent").innerHTML = finalObj.innerHTML;
+      }else{
+        var finalObj=""
+        finalObj += "<ul id='myTab' class='nav nav-tabs'>\n"
+        finalObj += "<li class='active'><a href='#signIn' data-toggle='tab'><span class='glyphicon glyphicon-lock'></span> sign in</a></li>\n"
+        finalObj += "<li class=''><a href='#signUp' data-toggle='tab'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
+        finalObj += "</ul>"
+        var insertNonsense=document.getElementById("modalTabs")
+        insertNonsense.innerHTML=finalObj
+      }
+    </script>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.carousel.slide').carousel();
+      });
+    </script>
+  </body>
+</html>
