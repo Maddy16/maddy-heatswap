@@ -48,6 +48,7 @@
           <script>
             Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
              var images = new Array();
+             var currentItem="";
 
             var currentUser = Parse.User.current()
             var currentName=""
@@ -637,9 +638,9 @@
                 </div>
                 //-->
 
-                <div class="checkbox">
+                <div class="checkbox" style="width: 500px">
                   <label>
-                    <input type="checkbox"  required>I have read and accept the <a href="terms.html" target="_blank">terms and conditions</a>
+                    <input type="checkbox" id="termsCheck" required>I have read and accept the <a href="terms.html" target="_blank">terms and conditions</a>
                   </label>
                 </div>
               </div>
@@ -657,7 +658,8 @@
             <div class="form-group">
               <label for="shoePayment" class="col-sm-2 col-sm-offset-1 control-label">Payment</label>
               <div class="col-sm-4">
-                  <input type="text" class="form-control" id="shoeName" placeholder="Paypal Email">
+                  <input type="text" class="form-control" id="paypalEmail" placeholder="Paypal Email">
+                  <input type="text" class="form-control" id="paypalConfirm" placeholder="Confirm Email">
                   <em style="font-size:80%">make sure this is accurate, this is how you get paid</em>
               </div>
             </div>
@@ -728,6 +730,9 @@
       </div><!-- /main-wrap -->
 
       <script>
+        var imageUploadPreview="";
+        var imageUploadPreview1="";
+        var imageUploadPreview2="";
       Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
       var urlParams;
                   (window.onpopstate = function () {
@@ -742,8 +747,8 @@
                       urlParams[decode(match[1])] = decode(match[2]);
                   })();
             if(urlParams["item"]==null){
-              //alert("hi")
             }else{
+              currentItem=urlParams["item"];
               var courrier = Parse.Object.extend("courrier");
                 var query = new Parse.Query(courrier);
                 query.equalTo("objectId", urlParams["item"]);
@@ -757,6 +762,55 @@
                     $("#shoeConditionSelect").val(nowEditing.get("condition"));
                     $("#shoePrice").val(nowEditing.get("price"));
                     $("#shoeSizeSelect").val(nowEditing.get("size"));
+                    $("shoeDescription").val(nowEditing.get("itemDesc"))
+                    for(var b=0; b<8; b++){
+                      var imageName="";
+                      if(b==0){
+                        imageName=nowEditing.get("image");
+                      }else if(b==1){
+                        imageName=nowEditing.get("secondImage");
+                      }else if(b==2){
+                        imageName=nowEditing.get("thirdImage");
+                      }else if(b==3){
+                        imageName=nowEditing.get("fourthImage");
+                      }else if(b==4){
+                        imageName=nowEditing.get("fifthImage");
+                      }else if(b==5){
+                        imageName=nowEditing.get("sixthImage");
+                      }else if(b==6){
+                        imageName=nowEditing.get("seventhImage")
+                      }else if(b==7){
+                        imageName=nowEditing.get("eighthImage")
+                      }
+                      if(imageName!=""&&imageName!=undefined){
+                        images[b]=imageName;
+                        var imageFloat;
+
+                        //var img = $('<img src="'+images[b]+'"/>').load(function(){
+                          var ratio=100/this.height;
+                          var ratioWidth=this.width*ratio;
+                          imageFloat=(150-ratioWidth)/2
+                          imageUploadPreview += "<div class='previewDiv' id='previewDiv"+b+"' onClick='makePrimary(this.id)'>";
+                          imageUploadPreview += "<img style='margin-left:"+imageFloat+"px' class='previewImage' src='"+ images[b] + "' alt='...''>"
+                          imageUploadPreview += "</div>";
+                          if(b<4){
+                            imageUploadPreview1 += imageUploadPreview;
+                            var insertNonsense=document.getElementById("imagePreview1")
+                            insertNonsense.innerHTML=imageUploadPreview1;
+                          }else{
+                            imageUploadPreview2 += imageUploadPreview;
+                            var insertNonsense=document.getElementById("imagePreview2")
+                            insertNonsense.innerHTML=imageUploadPreview2;
+                          }
+                          imageUploadPreview="";
+                        //});
+
+                      }
+                    }
+                    if(images.length!=0){
+                      saveAndShow.disabled=false;
+                    saveAndShow.innerHTML="<span class='glyphicon glyphicon-ok'></span> save and show listing";
+                    }
                     //document.getElementById("shoeBrandSelect").innerHTML=nowEditing.get("brand");
                   },
                   error: function(error) {
@@ -809,19 +863,13 @@
             saveAndShow.disabled=true;
             var currentE;
             if(fileselect1.multiple == true){
-              //alert(filePull.length + images.length)
               if(images.length+filePull.length>1){
-                //alert("featured");
-                pickFeature.innerHTML+="<p>Click an image to make it the featured image</p>"
               }
               if(filePull.length+images.length>8){
                 alert("Only 8 images can be uploaded at a time")
               }else{
                 
                 for (var i = 0; i < filePull.length; i++){
-                  //alert(i)
-                  //alert(images.length+i)
-                  //alert(images.length)
                   upload(filePull[i], images.length+i, filePull.length, images.length);
                 }
               }
@@ -831,12 +879,10 @@
 
           function upload(file, i, m, n) {
           // Our file var now holds the selected file
-            //alert("hello1")
           //});
 
           // This function is called when the user clicks on Upload to Parse. It will create the REST API request to upload this image to Parse.
           //$('#uploadbutton').click(function() {
-            //alert("HI")
             var serverUrl = 'https://api.parse.com/1/files/' + file.name;
 
             $.ajax({
@@ -850,10 +896,8 @@
               data: file,
               processData: false,
               contentType: false,
-              //alert("hello")
               success: function(data) {
-                //alert("File available at: " + data.url);
-                //alert(images.length+i)
+
                 images[i]=data.url;
 
 
@@ -911,21 +955,6 @@
           return;
         }
 
-        var iDesc = document.getElementById("shoeDescription").value;
-        var iPrice = document.getElementById("shoePrice").value;
-        var iBrand = document.getElementById("shoeBrandSelect").value.replace(/ +/g, "").toLowerCase();
-        var iCondition = document.getElementById("shoeConditionSelect").value;
-        var iSize = document.getElementById("shoeSizeSelect").value;
-        var iMainImage = document.getElementById("image1URL").value;
-        var iGender = document.getElementById("shoeGender").value
-        
-        var d = new Date();
-        var month = 0;
-        month=d.getMonth()+1;
-        var day = d.getDate()
-        var year = d.getFullYear();
-        
-        var iListedDate = (month + "/" + day + "/" + year);
         
         //var iSecondImage = document.getElementById("image2").value;
         //var iThirdImage = document.getElementById("username123").value;
@@ -936,14 +965,93 @@
 
         Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
 
-        var courrier = Parse.Object.extend("courrier");
-        var postOffice = new courrier();
+        var postOffice;
+        if(currentItem==""){
+          var courrier = Parse.Object.extend("courrier");
+          postOffice = new courrier();
+          if(document.getElementById("termsCheck").checked){
+            succeeded(postOffice, iName);
+          }else{
+            alert("Please agree to the terms and conditions")
+          }
+        }else{
+          var courrier = Parse.Object.extend("courrier");
+          var query = new Parse.Query(courrier);
+          query.get(currentItem, {
+            success: function(courrier) {
+              postOffice=courrier;
+              succeeded(postOffice, iName);
+            },
+            error: function(object, error) {
+              // The object was not retrieved successfully.
+              // error is a Parse.Error with an error code and message.
+            }
+          });
+        }
 
-        if (!(iName === "")) {
+        //alert(Parse.User.current().get("username"));
+
+
+        /*
+        if(currentItem==""){
+          //alert("no")
+          postOffice.save(null, {
+            success: function(postOffice) {
+              window.location.href = "popular.html";
+          },
+          error: function(postOffice, error) {
+              alert('Failed to create new object, with error code: ' + error.message);
+          }
+          });
+        }else{
+          var courrier = Parse.Object.extend("courrier");
+          var query = new Parse.Query(courrier);
+          query.get(currentItem, {
+            success: function(courrier) {
+              courrier.set(postOffic;
+              courrier.save();
+              window.location.href = "popular.html";
+            },
+            error: function(object, error) {
+              // The object was not retrieved successfully.
+              // error is a Parse.Error with an error code and message.
+            }
+          });
+        }
+        */
+      }
+    }
+
+    var succeeded=function(postOffice, iName){
+      //alert("hi")
+        var d = new Date();
+        var month = 0;
+        month=d.getMonth()+1;
+        var day = d.getDate()
+        var year = d.getFullYear();
+        
+        var iListedDate = (month + "/" + day + "/" + year);
+        var iDesc = document.getElementById("shoeDescription").value;
+        var iPrice = document.getElementById("shoePrice").value;
+        var iBrand = document.getElementById("shoeBrandSelect").value.replace(/ +/g, "").toLowerCase();
+        var iCondition = document.getElementById("shoeConditionSelect").value;
+        var iSize = document.getElementById("shoeSizeSelect").value;
+        var iMainImage = document.getElementById("image1URL").value;
+        var iGender = document.getElementById("shoeGender").value
+        var paypalEmail=document.getElementById("paypalEmail").value;
+        var paypalConfirm=document.getElementById("paypalConfirm").value;
+        
+          //alert("hi")
+        if (!(iName === "")&&iListedDate!=""&&iDesc!=""&&iPrice!=""&&iBrand!=="selectbrand"&&iCondition!=="select condition"&&/*iMainImage!==""&&*/iSize!=="select size"&&iGender!=="select size"&&paypalEmail!=""&&paypalConfirm!="") {
           postOffice.set("item", iName);
         }
         else {
           alert("Please fill out everything");
+          return
+        }
+
+        if(paypalEmail!=paypalConfirm){
+          alert("Emails do not match")
           return
         }
 
@@ -975,6 +1083,7 @@
         postOffice.set("sixthImage", images[5]);
         postOffice.set("seventhImage", images[6]);
         postOffice.set("eighthImage", images[7]);
+        postOffice.set("storeId", currentUser.get("storeId"))
         
         postOffice.set("featuredImage", featuredInt)
         //postOffice.set("Location", iLocation);
@@ -983,18 +1092,15 @@
         //postOffice.set("shipPolicy", iShipPolicy);
         postOffice.set("userNameStuff", Parse.User.current().get("username"));
 
-        //alert(Parse.User.current().get("username"));
-
         postOffice.save(null, {
-          success: function(postOffice) {
-            window.location.href = "popular.html";
-        },
-        error: function(postOffice, error) {
-            alert('Failed to create new object, with error code: ' + error.message);
+            success: function(postOffice) {
+              window.location.href = "popular.html";
+          },
+          error: function(postOffice, error) {
+              alert('Failed to create new object, with error code: ' + error.message);
+          }
+          });
         }
-        });
-      }
-    }
 
     var coolChange = function() {
       if (document.getElementById("checkBoxStuff").checked == true) {

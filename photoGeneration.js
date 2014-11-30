@@ -30,3 +30,7 @@ var imageBuyDisplay = function (woot, imageName, imageId, isfirst){
 var lowResImage=function(url){
 	return "http://www.school-pages.com/image.cgi/?img="+url;
 }
+
+var lowResImageLandscape=function(url){
+    return "http://www.school-pages.com/image.cgi/?landscape=1&img="+url;
+}

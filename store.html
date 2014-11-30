@@ -496,6 +496,9 @@
                         document.getElementById("subHead").innerHTML=currentStore.get("coolName");
                         document.getElementById("storeDescription").innerHTML=currentStore.get("coolDesc");
                         document.getElementById("title").innerHTML=currentStore.get("coolName");
+                        document.getElementById("storeOwner").innerHTML=currentStore.get("userNameStuff");
+                        document.getElementById("openDate").innerHTML="opened: <span class='text-muted'>"+currentStore.get("iListedDate")+"</span>";
+
                         //document.getElementById("storeOwner").innerHTML=currentStore.get("coolName");
                       },
                       error: function(error) {
@@ -586,7 +589,7 @@
             <div class="well">
               <img class="thumbnail img-responsive center-block" src="http://placehold.it/200x200" alt="store owner">
               <h3 class="red text-center" id="storeOwner">store owner</h3>
-              <p class="text-center" style="color:#777">Danielle San Francisco</p>
+              <!-- <p class="text-center" style="color:#777">Danielle San Francisco</p> -->
               <p class="text-center">
                 <button type="button" class="btn btn-default btn-lg red">
                 <span class="glyphicon glyphicon-envelope"></span> contact owner
@@ -600,7 +603,7 @@
                 <h3 class="panel-title red"><span class="glyphicon glyphicon-info-sign"></span> store info</h3>
               </div>
               <ul class="list-group">
-                  <li class="list-group-item">opened: <span class="text-muted"> January 1, 2001</span></li>
+                  <li class="list-group-item" id="openDate">opened: <span class="text-muted"> January 1, 2001</span></li>
                   <li class="list-group-item">sales: <span class="text-muted"> 140</span></li>
                   <li class="list-group-item">rating: <span class="text-muted fa fa-star"></span> <span class="text-muted fa fa-star"></span> <span class="text-muted fa fa-star"></span> <span class="text-muted fa fa-star"></span> <span class="text-muted fa fa-star-o"></span></li>
                   <li class="list-group-item">return clients: <span class="text-muted">20</span></li>

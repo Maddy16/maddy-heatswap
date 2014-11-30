@@ -5032,7 +5032,10 @@ a.list-group-item-danger.active:focus {
 }
 .well {
   min-height: 20px;
-  padding: 19px;
+  padding-top: 5px;
+  padding-left: 19px;
+  padding-right: 19px;
+  padding-bottom: 19px;
   margin-bottom: 20px;
   background-color: #efefef;
   border: 1px solid #dddddd;

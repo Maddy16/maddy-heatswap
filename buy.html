@@ -932,8 +932,8 @@
           <div class="col-md-4">
             <div class="well buy-page-side-well">
               <h3 class="red text-center" id="itemName">Air Jordan 11s</h3>
-              <!--<a href="" id="storeLink">--><p class="text-center" style="color:#777" id="sellerName"><strong>seller</strong> Daniel Knickerbocker</p>
-              <!--<a>-->
+              <a href="" id="storeLink"><p class="text-center" style="color:#777" id="sellerName"><strong>seller</strong> Daniel Knickerbocker</p>
+              </a>
               <hr class="alt-hr" />
               <dl class="dl-horizontal">
                 <dt>price</dt>
@@ -1083,7 +1083,7 @@ return queryItem
           success: function(woot) {
             document.getElementById("itemName").innerHTML = woot.get("item");
             document.getElementById("sellerName").innerHTML = "<strong>seller</strong> " + woot.get("userNameStuff");
-            //document.getElementById("storeLink").href=""
+            document.getElementById("storeLink").href="store.html?user="+woot.get("storeId")
 
             document.getElementById("itemPrice").innerHTML = "$"+woot.get("price");
             document.getElementById("itemSize").innerHTML = woot.get("size");

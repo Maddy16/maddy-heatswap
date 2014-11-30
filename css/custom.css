@@ -154,14 +154,15 @@ div#hotkicks-header {
 /* ALSO MIGHT NEED TO CHANGE JUMBOTRON TO WELL */
 #hotkicks .carousel a {color: #fff;}
 
-#home-carousel img {
-  width:100%;
-  height: auto;
+#home-carousel .hot img{
+  width: 242px;
+  height: 100%;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #home-carousel{
-  height:376px;
+  height:325px;
 }
 
 #carousel-example-generic img{
@@ -185,7 +186,9 @@ div#hotkicks-header {
   margin-top: 1px;
 }
 
-#home-carousel .thumbnail {margin-bottom: 10px;}
+#home-carousel .thumbnail {
+  margin-bottom: 10px;
+}
 
 /*
 #hotkicks
@@ -335,7 +338,10 @@ footer {
 /* ========================================================== */
 .buy-page-main-body {margin-top: 2em;}
 
-.buy-page-side-well {margin-bottom: 2.500em;}
+.buy-page-side-well {
+  margin-bottom: 2.500em;
+  height: auto;
+}
 
 .chosen-shoe img {
   margin-left: auto;
