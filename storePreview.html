@@ -59,6 +59,10 @@
             var currentUser = Parse.User.current()
             var currentName=""
 
+            if(currentUser==null){
+            window.location.href="index.html";
+            }
+
             if(currentUser!=null) currentName=currentUser.get("username");
               if(currentName!=null&&currentName!=""){
                 var finalObj=""
@@ -114,7 +118,7 @@
                   Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
                   Parse.User.logOut();
                 var currentUser = Parse.User.current();
-              window.location.href="index.html";
+                window.location.href="index.html";
             }
           </script>    
         </div><!-- /login-menu -->

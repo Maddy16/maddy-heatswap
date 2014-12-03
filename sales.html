@@ -56,6 +56,10 @@
             var currentUser = Parse.User.current()
             var currentName=""
 
+            if(currentUser==null){
+            window.location.href="index.html";
+            }
+
             if(currentUser!=null) currentName=currentUser.get("username");
               if(currentName!=null&&currentName!=""){
                 var finalObj=""
