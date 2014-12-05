@@ -5,7 +5,7 @@ document.getElementsByTagName('head')[0].appendChild(Parse);
 
 
 var menuSetup = function () {
-  Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+  Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
 
   var currentUser = Parse.User.current();
   var currentName = "";
@@ -62,7 +62,7 @@ var menuSetup = function () {
           //pStuff.innerHTML = "<li style='padding-top:15px;padding-bottom:15px;'><span class=''></span> What's up "+ currentUser.get("username") +"? <li style='cursor:pointer;'><a onclick='logOut()''><span class='glyphicon glyphicon-lock'></span> logout</a>  <li><a href='#''><i class='glyphicon glyphicon-shopping-cart'></i> items in cart: <span style='color:#2A5469'>00</span></a></li>";
       }
       var logOut = function() {
-        Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+        Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
         Parse.User.logOut();
       var currentUser = Parse.User.current();
     location.reload();
