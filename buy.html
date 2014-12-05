@@ -1035,7 +1035,7 @@
 
 <script>       
       var populateSecond = function(user,stuffId) {
-        var delivery = new Parse.Query("courrier");
+        var delivery = new Parse.Query("shoe");
         delivery.exists("item");
         delivery.limit(4);
         delivery.equalTo("user", user);
@@ -1076,9 +1076,15 @@ var queryItem = urlParams["item"];
 return queryItem
 }
   var queryItem = decodeStuffz();
+<<<<<<< HEAD
      Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");  
         var courrier = Parse.Object.extend("courrier");
         var mailbox = new Parse.Query(courrier);
+=======
+     Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");  
+        var shoe = Parse.Object.extend("shoe");
+        var mailbox = new Parse.Query(shoe);
+>>>>>>> FETCH_HEAD
         mailbox.get(queryItem, {
           success: function(woot) {
             document.getElementById("itemName").innerHTML = woot.get("item");
@@ -1324,7 +1330,7 @@ return queryItem
         });
 
         var populateSecond = function(user,stuffId) {
-        var delivery = new Parse.Query("courrier");
+        var delivery = new Parse.Query("shoe");
         delivery.exists("item");
         delivery.limit(4);
         delivery.equalTo("user", user);

@@ -487,8 +487,8 @@
                 <script>
                   Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
                   dashUsername.innerHTML=Parse.User.current().get("username");
-                  var Courrier = Parse.Object.extend("courrier");
-                  var query = new Parse.Query(Courrier);
+                  var Shoe = Parse.Object.extend("shoe");
+                  var query = new Parse.Query(Shoe);
                   query.equalTo("userNameStuff", Parse.User.current().get("username"));
                   query.find({
                     success: function(results) {
