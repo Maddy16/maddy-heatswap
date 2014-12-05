@@ -485,8 +485,8 @@
                 </div>
                 <script>
                   Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
-                  var Courrier = Parse.Object.extend("courrier");
-                  var query = new Parse.Query(Courrier);
+                  var Shoe = Parse.Object.extend("shoe");
+                  var query = new Parse.Query(Shoe);
                   query.equalTo("userNameStuff", Parse.User.current().get("username"));
                   query.find({
                     success: function(results) {
@@ -540,13 +540,13 @@
 
                 var deleteShoe=function(a){
                   var res = a.substr(6)
-                  var Courrier = Parse.Object.extend("courrier");
-                    var query = new Parse.Query(Courrier);
+                  var Shoe = Parse.Object.extend("shoe");
+                    var query = new Parse.Query(Shoe);
                     query.get(res, {
-                      success: function(courrier) {
+                      success: function(shoe) {
                         var answer = confirm("Are you sure you want to delete this listing?")
                               if (answer){
-                                courrier.destroy({
+                                shoe.destroy({
                                   success: function(myObject) {
                                     location.reload()
                                     // The object was deleted from the Parse Cloud.

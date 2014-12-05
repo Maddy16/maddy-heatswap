@@ -753,8 +753,8 @@
             if(urlParams["item"]==null){
             }else{
               currentItem=urlParams["item"];
-              var courrier = Parse.Object.extend("courrier");
-                var query = new Parse.Query(courrier);
+              var shoe = Parse.Object.extend("shoe");
+                var query = new Parse.Query(shoe);
                 query.equalTo("objectId", urlParams["item"]);
                 query.find({
                   success: function(results) {
@@ -971,19 +971,19 @@
 
         var postOffice;
         if(currentItem==""){
-          var courrier = Parse.Object.extend("courrier");
-          postOffice = new courrier();
+          var shoe = Parse.Object.extend("shoe");
+          postOffice = new shoe();
           if(document.getElementById("termsCheck").checked){
             succeeded(postOffice, iName);
           }else{
             alert("Please agree to the terms and conditions")
           }
         }else{
-          var courrier = Parse.Object.extend("courrier");
-          var query = new Parse.Query(courrier);
+          var shoe = Parse.Object.extend("shoe");
+          var query = new Parse.Query(shoe);
           query.get(currentItem, {
-            success: function(courrier) {
-              postOffice=courrier;
+            success: function(shoe) {
+              postOffice=shoe;
               succeeded(postOffice, iName);
             },
             error: function(object, error) {
@@ -1008,12 +1008,12 @@
           }
           });
         }else{
-          var courrier = Parse.Object.extend("courrier");
-          var query = new Parse.Query(courrier);
+          var shoe = Parse.Object.extend("shoe");
+          var query = new Parse.Query(shoe);
           query.get(currentItem, {
-            success: function(courrier) {
-              courrier.set(postOffic;
-              courrier.save();
+            success: function(shoe) {
+              shoe.set(postOffic;
+              shoe.save();
               window.location.href = "popular.html";
             },
             error: function(object, error) {

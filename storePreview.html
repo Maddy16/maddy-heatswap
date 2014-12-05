@@ -720,7 +720,7 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
 
       Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
 
-      var courrier = Parse.Object.extend("storeInfo");
+      var shoe = Parse.Object.extend("storeInfo");
       var postOffice;
       var saving = function(){
         if(!currentEdit){
@@ -750,10 +750,10 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
       }
 
       if(!existingStore){
-      postOffice = new courrier();
+      postOffice = new shoe();
       saving();
       }else{
-        var query = new Parse.Query(courrier);
+        var query = new Parse.Query(shoe);
           query.get(currentUser.get("storeId"), {
             success: function(currentStore) {
               // The object was retrieved successfully.
