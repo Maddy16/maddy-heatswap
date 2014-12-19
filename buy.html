@@ -52,8 +52,8 @@
           </div>
           <script>
             Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
-            var currentUser = Parse.User.current()
-            var currentName=""
+            var currentUser = Parse.User.current();
+            var currentName="";
 
             if(currentUser!=null) currentName=currentUser.get("username");
               if(currentName!=null&&currentName!=""){
@@ -640,7 +640,7 @@
                                   location.reload();
                                 },
                                 error: function(user, error) {
-                                  alert("Error: " + error.code + " " + error.message);
+                                  alert("1Error: " + error.code + " " + error.message);
                                 }
                               });
                             }
@@ -903,25 +903,68 @@
                   })();
 
                 var holdMessage = comment.value;
-                var holdUser = Parse.User.current().id
-                var holdUsing = urlParams["item"];
+                if(Parse.User.current()!=null&&Parse.User.current()!=undefined){
+                  var holdUser = Parse.User.current().get("username");
 
-                if(holdMessage!=""){
-                  tempMessage.set("comment", holdMessage);
-                  tempMessage.set("user", holdUser);
-                  tempMessage.set("shoe", holdUsing)
-                  tempMessage.save();
-                }
+                  var holdUsing = urlParams["item"];
 
-                Parse.Cloud.run('retrieveComments', {"shoe": holdUsing}, {
-                  success: function(result) {
-                    // result is 'Hello world!'
-                  },
-                  error: function(error) {
-                    alert("hello")
+                  if(holdMessage!=""){
+                    tempMessage.set("comment", holdMessage);
+                    tempMessage.set("user", holdUser);
+                    tempMessage.set("shoe", holdUsing)
+                    tempMessage.save();
+                    location.reload();
                   }
-                });
+
+                  Parse.Cloud.run('retrieveComments', {"shoe": holdUsing}, {
+                    success: function(result) {
+                      // result is 'Hello world!'
+                    },
+                    error: function(error) {
+                      alert("hello")
+                    }
+                  });
+                }else{
+                  alert("Please log in to continue")
+                }
               }
+
+              //this displays the comments
+              var commentFinalObj="";
+              var urlParams;
+                  (window.onpopstate = function () {
+                    var match,
+                      pl     = /\+/g,  // Regex for replacing addition symbol with a space
+                      search = /([^&=]+)=?([^&]*)/g,
+                      decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                      query  = window.location.search.substring(1);
+
+                    urlParams = {};
+                    while (match = search.exec(query))
+                      urlParams[decode(match[1])] = decode(match[2]);
+                  })();
+              var messages = Parse.Object.extend("messages");
+              var query = new Parse.Query("messages");
+              query.equalTo("shoe", urlParams["item"]);
+              query.find({
+                success: function(results) {
+                  //alert("Successfully retrieved " + results.length + " scores.");
+                  // Do something with the returned Parse.Object values
+                  for (var i = 0; i < results.length; i++) { 
+                    var object = results[i];
+                    commentFinalObj += "<div>"
+                    commentFinalObj += "<p><font color='#808080'>at "+results[i].createdAt+", <strong>"+results[i].get("user")+"</strong> said:</font> </p>"
+                    commentFinalObj += "<p>"+results[i].get("comment")+"</p>"
+                    //commentFinalObj += "<div>"
+                    commentFinalObj += "</div>"
+                    //alert(object.id + ' - ' + object.get('playerName'));
+                  }
+                  document.getElementById("commentArea").innerHTML=commentFinalObj;
+                },
+                error: function(error) {
+                  alert("Error: " + error.code + " " + error.message);
+                }
+              });
             </script>
           </div><!-- col-md-7 -->
 
@@ -1055,6 +1098,7 @@
             var insertNonsense = document.getElementById("otherShoes");
             insertNonsense.innerHTML = finalObj
         }
+
       })
       }
 
@@ -1076,15 +1120,10 @@ var queryItem = urlParams["item"];
 return queryItem
 }
   var queryItem = decodeStuffz();
-<<<<<<< HEAD
      Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");  
-        var courrier = Parse.Object.extend("courrier");
-        var mailbox = new Parse.Query(courrier);
-=======
-     Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");  
         var shoe = Parse.Object.extend("shoe");
         var mailbox = new Parse.Query(shoe);
->>>>>>> FETCH_HEAD
+
         mailbox.get(queryItem, {
           success: function(woot) {
             document.getElementById("itemName").innerHTML = woot.get("item");

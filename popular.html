@@ -636,15 +636,10 @@ if (first > 1) {
   document.getElementById("nextClass").setAttribute("class", "cool");
 }
 
-<<<<<<< HEAD
 Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
-          var courrier = Parse.Object.extend("courrier");
-          var mailbox = new Parse.Query(courrier);
-=======
-Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
           var shoe = Parse.Object.extend("shoe");
           var mailbox = new Parse.Query(shoe);
->>>>>>> FETCH_HEAD
+
           mailbox.exists("item");
           if (querySize !== undefined) mailbox.equalTo("size", querySize);
           if (queryGender !== undefined) mailbox.equalTo("gender", queryGender);
@@ -665,7 +660,6 @@ Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fc
           mailbox.find({
             success: function(returnObj) {
               var finalObj = ""
-
               for (var i = 0; i < returnObj.length; i++) { 
 
                 var item = returnObj[i];
