@@ -51,17 +51,13 @@
           <div id="logTest">
           </div>
           <script>
-            Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
             var currentEdit=false;
             var clicked=false;
             var existingStore=false;
             
             var currentUser = Parse.User.current()
             var currentName=""
-
-            if(currentUser==null){
-            window.location.href="index.html";
-            }
 
             if(currentUser!=null) currentName=currentUser.get("username");
               if(currentName!=null&&currentName!=""){
@@ -115,10 +111,10 @@
                     //pStuff.innerHTML = "<li style='padding-top:15px;padding-bottom:15px;'><span class=''></span> What's up "+ currentUser.get("username") +"? <li style='cursor:pointer;'><a onclick='logOut()''><span class='glyphicon glyphicon-lock'></span> logout</a>  <li><a href='#''><i class='glyphicon glyphicon-shopping-cart'></i> items in cart: <span style='color:#2A5469'>00</span></a></li>";
                 }
                 var logOut = function() {
-                  Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+                  Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
                   Parse.User.logOut();
                 var currentUser = Parse.User.current();
-                window.location.href="index.html";
+              location.reload();
             }
           </script>    
         </div><!-- /login-menu -->
@@ -175,7 +171,7 @@
                         <script>
                           var logIn = function(){
                             
-                            Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
                             var nameStuff = document.getElementById("usernameInput").value.toLowerCase();
                             var passStuff = document.getElementById("passwordInput").value;
 
@@ -259,7 +255,7 @@
                       </div>
                         <script>
                           var signUp = function() {
-                            Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
                             var nameStuff = document.getElementById("SUusernameInput").value.toLowerCase();
                             var passStuff = document.getElementById("SUpasswordInput").value;
                             var passStuff2 = document.getElementById("SUpassword2Input").value;
@@ -338,7 +334,7 @@
                       </div>
                       <script> 
                         var saveClose = function(){
-                          Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+                          Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
                           //checks if current user is logged in
                           var currentUser = Parse.User.current();
                           var currentName = currentUser.get("username")
@@ -505,7 +501,7 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
           </div><!-- /col-md-8 -->        
 
           <script>
-            Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
             ///alert("hiiii")
             var currentUser=""
             var currentName=""
@@ -565,7 +561,7 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
                   </button>
               </p>
               <script>
-              Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+              Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
               currentUser=Parse.User.current()
 
               document.getElementById("ownerUsername").innerHTML=currentUser.get("username")
@@ -587,15 +583,6 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
                   <li class="list-group-item">return clients: <span class="text-muted">0</span></li>
                 </ul>
             </div><!-- /panel -->
-
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title red"><span class="fa fa-truck"></span> shipping policy</h3>
-              </div>
-              <div class="panel-body">
-                <p class="text-muted"><small id="shipping">Shipping policy Stumptown gluten-free sriracha, PBR&B Williamsburg you probably haven't heard of them cray. Crucifix PBR mlkshk, sartorial messenger bag Pinterest skateboard. Dreamcatcher Austin wolf irony. Cred wayfarers fap blog Odd Future vegan, PBR&B readymade ethnic art party chia Austin keytar PBR Bushwick. Photo booth cred keffiyeh keytar drinking vinegar jean shorts, ethical Etsy wolf asymmetrical freegan ennui.</small></p>
-              </div>
-            </div><!-- /panel -->
             
             <!--
             <div class="panel panel-default">
@@ -615,14 +602,12 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
       <script>
         var switchEdit = function () {
           if(currentEdit==false){
-            var storeName= document.getElementById('storeName').innerHTML;
-            var storeDesc = document.getElementById('storeDesc').innerHTML;
-            var shippingPolicy=document.getElementById('shipping').innerHTML;
-            //var storeDescValue=storeDesc.innerHTML;
-            //var storeName = document.getElementById('storeName');
-            //var userImg = document.getElementById("userImg");
-            
-            //var mainImg = document.getElementById("mainImg");
+            var tempName= document.getElementById('storeName').innerHTML;
+            var storeDesc = document.getElementById('storeDesc');
+            var storeDescValue=storeDesc.innerHTML;
+            var storeName = document.getElementById('storeName');
+            var userImg = document.getElementById("userImg");
+            var mainImg = document.getElementById("mainImg");
             var continueButton = document.getElementById("continueButton");
             continueButton.innerHTML = "<span class='glyphicon glyphicon-ok'></span> save and continue";
             continueButton.disabled = false;
@@ -631,27 +616,24 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
                 return 'Are you sure you want to leave this page? Any unsaved changes will be lost.';
               }
             };
-            document.getElementById('storeDesc').innerHTML = "<textarea id='storeDescEdit' rows='3' cols='99.5'>"+storeDesc+"</textarea>";
-            document.getElementById('storeName').innerHTML = "<input id='storeNameEdit' style='margin-top:20px; margin-bottom:10px; height:57x; width:500px;' value='"+storeName+"'></input>";
+            storeDesc.innerHTML = "<textarea id='storeDescr' rows='3' cols='99.5'>"+storeDescValue+"</textarea>";
+            storeName.innerHTML = "<input id='storeNames' style='margin-top:20px; margin-bottom:10px; height:57x; width:500px;' placeholder='Sweet Stuff'></input>";
+            storeNames.value = tempName;
             editButton.innerHTML = "<button onclick='switchEdit();return false;'' type='submit' class='btn btn-lg btn-block btn-warning'><span class='glyphicon glyphicon-pencil'></span> Preview</button>";
-            //shippingPolicy.innerHTML = "<textarea id='shippingEdit' style='width: 325px; min-height: 192px'>"+shippingPolicy+"</textarea>"
-
 
             //userImg.innerHTML = "<a href='#' onclick='alert(\"foo\"); return false;'><img class='thumbnail img-responsive center-block' src='http://placehold.it/200x200' alt='store owner'></a>"
             //mainImg.innerHTML = '<a href="#" onclick="return false;"><img src="http://placehold.it/500x400" class="img-responsive center-block" alt="store"></a><input type="file" id="mainUpload" style="display: none;" />'
             currentEdit=true;
           }else{
-            var storeInput = document.getElementById('storeDescEdit').value;
-            var storeName = document.getElementById("storeNameEdit").value;
+            var storeInput = document.getElementById('storeDescr').value;
+            var storeName = document.getElementById("storeNames").value;
             var userImg = document.getElementById("userImg");
             var mainImg = document.getElementById("mainImg");
             var continueButton = document.getElementById("continueButton");
             var storeDesc=document.getElementById('storeDesc');
-            var shipping=document.getElementById('shippingEdit').value
             storeDesc.innerHTML=storeInput;
             storeNameHolder.innerHTML = "<h1 id='storeName' style='margin-right:10px' class='red'>"+storeName+"</h1>";
             editButton.innerHTML = "<button onclick='switchEdit();return false;'' type='submit' class='btn btn-lg btn-block btn-warning'><span class='glyphicon glyphicon-pencil'></span> Edit</button>";
-            shipping.innerHTML=shipping;
             currentEdit=false;
           }
         }
@@ -718,9 +700,9 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
       var storeMain = mainImg;
       var storeProf = prof;
 
-      Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+      Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
 
-      var shoe = Parse.Object.extend("storeInfo");
+      var courrier = Parse.Object.extend("storeInfo");
       var postOffice;
       var saving = function(){
         if(!currentEdit){
@@ -750,10 +732,10 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
       }
 
       if(!existingStore){
-      postOffice = new shoe();
+      postOffice = new courrier();
       saving();
       }else{
-        var query = new Parse.Query(shoe);
+        var query = new Parse.Query(courrier);
           query.get(currentUser.get("storeId"), {
             success: function(currentStore) {
               // The object was retrieved successfully.
@@ -794,100 +776,101 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
 
 <script>
 $(document).ready(function() {
+//if(currentEdit){
+    $('#mainImg').contenthover({
+        overlay_background:'#000',
+        overlay_opacity:0.8
+    });
 
-  $('#mainImg').contenthover({
-    overlay_background:'#000',
-    overlay_opacity:0.8
-  });
+    $('#ownerPic').contenthover({
+      overlay_background:'#000',
+      overlay_opacity:0.8
+    });
+    
+    $('#mainFile').hide();
+    $('#userFile').hide(); 
 
-  $('#ownerPic').contenthover({
-    overlay_background:'#000',
-    overlay_opacity:0.8
-  });
+    $('#mainImgClick').click(function() {
+      $("#mainFile").click();
+    });
 
-  $('#mainFile').hide(); 
-  $('#userFile').hide(); 
+    $('#userImgClick').click(function() {
+      $("#userFile").click();
+    });
 
-  $('#mainImgClick').click(function() {
-    $("#mainFile").click();
-  });
+    $('#mainFile').bind("change", function(e) {
+      var currentE;
+      var filePull = e.target.files || e.dataTransfer.files;
+      readURL(e ,0);
+      upload(filePull, 0);
+    });
 
-  $('#userImgClick').click(function() {
-    $("#userFile").click();
-  });
+    $('#userFile').bind("change", function(e) {
+      var currentE;
+      var filePull = e.target.files || e.dataTransfer.files;
+      readURL(e ,1);
+      upload(filePull, 1);
+    });
 
-  $('#mainFile').bind("change", function(e) {
-    var currentE;
-    var filePull = e.target.files || e.dataTransfer.files;
-    readURL(e ,0);
-    upload(filePull, 0);
-  });
-
-  $('#userFile').bind("change", function(e) {
-    var currentE;
-    var filePull = e.target.files || e.dataTransfer.files;
-    readURL(e ,1);
-    upload(filePull, 1);
-  });
-
-  $('#continueButton').click(function() {
-    var continueButton = document.getElementById("continueButton");
-    if (continueButton.innerHTML === '<span class="glyphicon glyphicon-ok"></span> save and continue') {
-      sellItem();
-    } else {
-      
-    }
-  });
-
-  function upload(file, i) {
-    var serverUrl = 'https://api.parse.com/1/files/' + file.name;
-
-    $.ajax({
-      type: "POST",
-      beforeSend: function(request) {
-        request.setRequestHeader("X-Parse-Application-Id", 'tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn');
-        request.setRequestHeader("X-Parse-REST-API-Key", '9zykrS1DlSkF7iNDMVx8rKVlOzEnDaiiyACdMcsb');
-        request.setRequestHeader("Content-Type", file.type);
-      },
-      url: serverUrl,
-      data: file,
-      processData: false,
-      contentType: false,
-      success: function(data) {
-        if(i === 0) {
-          main=data.url;
-        } else {
-          prof=data.url
-        }
-      },
-      error: function(data) {
-        var obj = jQuery.parseJSON(data);
-        alert(obj.error);
+    $('#continueButton').click(function() {
+      var continueButton = document.getElementById("continueButton");
+      if (continueButton.innerHTML === '<span class="glyphicon glyphicon-ok"></span> save and continue') {
+        sellItem();
+      } else {
+        
       }
     });
-  }
 
-  function readURL(e, i) {
-    if (i === 0) {
-      if (e.target.files && e.target.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var foo = document.getElementsByClassName("img-responsive center-block");
-            $(foo[2]).attr('src', e.target.result);
+    function upload(file, i) {
+      var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+
+      $.ajax({
+        type: "POST",
+        beforeSend: function(request) {
+          request.setRequestHeader("X-Parse-Application-Id", 'tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn');
+          request.setRequestHeader("X-Parse-REST-API-Key", '9zykrS1DlSkF7iNDMVx8rKVlOzEnDaiiyACdMcsb');
+          request.setRequestHeader("Content-Type", file.type);
+        },
+        url: serverUrl,
+        data: file,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          if(i === 0) {
+            main=data.url;
+          } else {
+            prof=data.url
+          }
+        },
+        error: function(data) {
+          var obj = jQuery.parseJSON(data);
+          alert(obj.error);
         }
-        reader.readAsDataURL(e.target.files[0]);
-      }
-    } else {
-      if (e.target.files && e.target.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var foo = document.getElementsByClassName("thumbnail img-responsive center-block");
-            $(foo[1]).attr('src', e.target.result);
-        }
-        reader.readAsDataURL(e.target.files[0]);
-      }      
+      });
     }
-  }
+
+    function readURL(e, i) {
+      if (i === 0) {
+        if (e.target.files && e.target.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              var foo = document.getElementsByClassName("img-responsive center-block");
+              $(foo[2]).attr('src', e.target.result);
+          }
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      } else {
+        if (e.target.files && e.target.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              var foo = document.getElementsByClassName("thumbnail img-responsive center-block");
+              $(foo[1]).attr('src', e.target.result);
+          }
+          reader.readAsDataURL(e.target.files[0]);
+        }      
+      }
+    }
+  //}
 });
 </script>
 
