@@ -383,32 +383,11 @@
           
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">buy <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="popular.html">popular</a></li>
-                  <!-- <li><a href="buy.html">buy page</a></li>
-				 <li><a href="store.html">store</a></li> -->
-                  <li class="dropdown-submenu"><a href="#">brand</a>
-                    <ul class="dropdown-menu">
-                      <li><a href="popular.html?brand=adidas">Adidas</a></li>
-                      <li><a href="popular.html?brand=airjordan">Air Jordan</a></li>
-                      <li><a href="popular.html?brand=asics">Asics</a></li>
-                      <li><a href="popular.html?brand=converse">Converse</a></li>
-                      <li><a href="popular.html?brand=newbalance">New Balance</a></li>
-                      <li><a href="popular.html?brand=nike">Nike</a></li>
-                      <li><a href="popular.html?brand=puma">Puma</a></li>
-                      <li><a href="popular.html?brand=reebok">Reebok</a></li>
-                      <li><a href="popular.html?brand=saucony">Saucony</a></li>
-                      <li><a href="popular.html?brand=vans">Vans</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="sell.html">sell</a></li>
-              <li><a target=_blank href="http://heatswap.com/news">news</a>
-			 <li><a href="team.html">our team</a></li>
-              <li><a href="story.html">a good story</a></li>
+              <li><a href="contactDashboard.html?filter=other" class="dropdown-toggle">other</a></li>
+              <li><a href="contactDashboard.html?filter=buying">buying</a></li>
+              <li><a href="contactDashboard.html?filter=selling">selling</a></li>
+              <li><a href="contactDashboard.html?filter=login">login</a>
+              <li><a href="contactDashboard.html?filter=user">user</a></li>
             </ul>
             
             <form class="navbar-form navbar-right" role="search">
@@ -424,6 +403,7 @@
 
       <div id="main-wrap"><!-- Main content wrapper -->
         <script>
+          /*
           var passwordText="Please enter your password";
           var passwordCheck = function(){
             var password=prompt(passwordText, "");
@@ -433,6 +413,7 @@
             passwordText="Your password was incorrect"
             passwordCheck();
           }
+          */
         </script>
 
         <div class="pull-left">
@@ -447,45 +428,42 @@
           <hr class="breadcrumb-hr">
         </div>
         <div id="questions" style="min-height:auto">
+      <div id="leftMenu" class="kevin" style="height: 450px">
+        <div>
+          <h1 id="filterName" >filter</h1>
+          <h4>"This is a paragraph. It goes under the filter name"</h4>
+          <li>This is a list</li>
+          <li>This is the second thing in the list</li>
+          </li>
         </div>
+      </div>     
 
-        <script>
-          Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
-          var contact = Parse.Object.extend("contact");
-            var query = new Parse.Query(contact);
-            query.equalTo("resolved", false);
-            query.find({
-              success: function(results) {
-                //alert("Successfully retrieved " + results.length + " scores.");
-                // Do something with the returned Parse.Object values
-                for (var i = 0; i < results.length; i++) { 
-                  var object = results[i];
-                  //alert(object.id + ' - ' + object.get('playerName'));
-                  sendQuestions(results[i]);
-                }
-              },
-              error: function(error) {
-                alert("Error: " + error.code + " " + error.message);
-              }
-            });
-            var sendQuestions = function(a){
-              var insertNonsense="";
-              var subject=a.get("subject");
-              var name=a.get("name");
-              var date=a.get("createdAt");
-              var issue=a.get("details");
-              insertNonsense += "<div>\n";
-              insertNonsense += "<h3>Subject: "+subject+"</h3>\n";
-              insertNonsense += "<p>"+issue+"<p>\n";
-              //insertNonsense += "<div>";
-              insertNonsense += "</div>\n";
-              //alert(insertNonsense)
-              document.getElementById("questions").innerHTML+=insertNonsense;
-            }
-        </script>
+      <div id="rightMenu" class="kevin" style="height: 450px">
+
+      </div>   
 
       </div><!-- /main -->
       
+      <script>
+        Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+        var urlParams;
+        (window.onpopstate = function () {
+          var match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.search.substring(1);
+
+          urlParams = {};
+          while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+        })();
+
+        var holdUsing = urlParams["filter"];
+        document.getElementById("filterName").innerHTML=holdUsing;
+      </script>
+
+
       <footer>
         <div class="row">
           <div class="col-md-4">

@@ -485,3 +485,18 @@ hr.team-page-thumbs {
     float: right;
     }
   }
+
+  .kevin{
+    border-width: 2px;
+    border-color: red;
+    border-style: dotted;
+    display: inline-block;
+  }
+
+  #leftMenu{
+    width: 35%;
+  }
+
+  #rightMenu{
+    width:64%;
+  }
