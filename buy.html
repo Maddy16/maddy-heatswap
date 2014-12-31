@@ -12,9 +12,6 @@
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="photoGeneration.js"></script>
-    <link rel="stylesheet" type="text/css" href="dist/css/picedit.min.css" />
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="dist/js/picedit.min.js"></script>
 
     <title>Buy Shoes</title>
 
@@ -130,7 +127,7 @@
                  <div style="width: 80%; margin-left: 10%">
                     <div class="buyInput">
                       <p style="float: left; margin-right: 10px; clear: both; ">First Name: </p>
-                      <input type="text" id="buyfirstname" style="float: right" placeholder="first">
+                      <input type="text" id="buyfirstname" style="float: right" placeholder="first" required>
                     </div>
                     <div class="buyInput">
                       <p style="float: left; margin-right: 10px; clear: both; ">Last Name: </p>
@@ -915,6 +912,14 @@
                     tempMessage.set("comment", holdMessage);
                     tempMessage.set("user", holdUser);
                     tempMessage.set("shoe", holdUsing)
+                    var d= new Date();
+                    var hour
+                    if(d.getHours()>12){
+                      hour=d.getHours()-12;
+                    }
+                    alert(d.getYear())
+                    tempMessage.set("time", hour+":"+d.getMinutes())
+                    tempMessage.set("date", d.getMonth()+1+"/"+d.getDate()+"/"+d.getFullYear());
                     tempMessage.save();
                     location.reload();
                   }
@@ -924,7 +929,7 @@
                       // result is 'Hello world!'
                     },
                     error: function(error) {
-                      alert("hello")
+                      //alert("hello")
                     }
                   });
                 }else{
@@ -953,10 +958,10 @@
                 success: function(results) {
                   //alert("Successfully retrieved " + results.length + " scores.");
                   // Do something with the returned Parse.Object values
-                  for (var i = 0; i < results.length; i++) { 
+                  for (var i = results.length-1; i > -1; i--) { 
                     var object = results[i];
                     commentFinalObj += "<div>"
-                    commentFinalObj += "<p><font color='#808080'>at "+results[i].createdAt+", <strong>"+results[i].get("user")+"</strong> said:</font> </p>"
+                    commentFinalObj += "<p><font color='#808080'>at "+results[i].get("time")+" on "+results[i].get("date")+", <strong>"+results[i].get("user")+"</strong> said:</font> </p>"
                     commentFinalObj += "<p>"+results[i].get("comment")+"</p>"
                     //commentFinalObj += "<div>"
                     if(results[i].get("user")==currentUser.get("username")){
