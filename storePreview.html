@@ -51,10 +51,12 @@
           <div id="logTest">
           </div>
           <script>
-            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+            Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
             var currentEdit=false;
             var clicked=false;
             var existingStore=false;
+            var mainImgURL;
+            var profImgURL;
             
             var currentUser = Parse.User.current()
             var currentName=""
@@ -111,7 +113,7 @@
                     //pStuff.innerHTML = "<li style='padding-top:15px;padding-bottom:15px;'><span class=''></span> What's up "+ currentUser.get("username") +"? <li style='cursor:pointer;'><a onclick='logOut()''><span class='glyphicon glyphicon-lock'></span> logout</a>  <li><a href='#''><i class='glyphicon glyphicon-shopping-cart'></i> items in cart: <span style='color:#2A5469'>00</span></a></li>";
                 }
                 var logOut = function() {
-                  Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                  Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
                   Parse.User.logOut();
                 var currentUser = Parse.User.current();
               location.reload();
@@ -171,7 +173,7 @@
                         <script>
                           var logIn = function(){
                             
-                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                            Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
                             var nameStuff = document.getElementById("usernameInput").value.toLowerCase();
                             var passStuff = document.getElementById("passwordInput").value;
 
@@ -255,7 +257,7 @@
                       </div>
                         <script>
                           var signUp = function() {
-                            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                            Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
                             var nameStuff = document.getElementById("SUusernameInput").value.toLowerCase();
                             var passStuff = document.getElementById("SUpasswordInput").value;
                             var passStuff2 = document.getElementById("SUpassword2Input").value;
@@ -334,7 +336,7 @@
                       </div>
                       <script> 
                         var saveClose = function(){
-                          Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+                          Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
                           //checks if current user is logged in
                           var currentUser = Parse.User.current();
                           var currentName = currentUser.get("username")
@@ -501,7 +503,7 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
           </div><!-- /col-md-8 -->        
 
           <script>
-            Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+            Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
             ///alert("hiiii")
             var currentUser=""
             var currentName=""
@@ -561,7 +563,7 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
                   </button>
               </p>
               <script>
-              Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+              Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
               currentUser=Parse.User.current()
 
               document.getElementById("ownerUsername").innerHTML=currentUser.get("username")
@@ -602,37 +604,41 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
       <script>
         var switchEdit = function () {
           if(currentEdit==false){
-            var tempName= document.getElementById('storeName').innerHTML;
-            var storeDesc = document.getElementById('storeDesc');
-            var storeDescValue=storeDesc.innerHTML;
-            var storeName = document.getElementById('storeName');
-            var userImg = document.getElementById("userImg");
-            var mainImg = document.getElementById("mainImg");
-            var continueButton = document.getElementById("continueButton");
-            continueButton.innerHTML = "<span class='glyphicon glyphicon-ok'></span> save and continue";
-            continueButton.disabled = false;
+            var tempNameValue= document.getElementById('storeName').innerHTML;
+            var tempDesc = document.getElementById('storeDesc');
+            var tempDescValue=tempDesc.innerHTML;
+            var tempName = document.getElementById('storeName');
+            var tempUserImg = document.getElementById("userImg");
+            var tempMainImg = document.getElementById("mainImg");
+            var tempContinueButton = document.getElementById("continueButton");
+            
+            //continue button becomes enabled whenever someone is editing. When clicked, it asks if they really want to leave page
+            tempContinueButton.innerHTML = "<span class='glyphicon glyphicon-ok'></span> save and continue";
+            tempContinueButton.disabled = false;
             window.onbeforeunload = function(){
               if(!clicked){
                 return 'Are you sure you want to leave this page? Any unsaved changes will be lost.';
               }
             };
-            storeDesc.innerHTML = "<textarea id='storeDescr' rows='3' cols='99.5'>"+storeDescValue+"</textarea>";
-            storeName.innerHTML = "<input id='storeNames' style='margin-top:20px; margin-bottom:10px; height:57x; width:500px;' placeholder='Sweet Stuff'></input>";
-            storeNames.value = tempName;
+            tempDesc.innerHTML = "<textarea id='storeDescInput' rows='3' cols='99.5'>"+tempDescValue+"</textarea>";
+            tempName.innerHTML = "<input id='storeNameInput' style='margin-top:20px; margin-bottom:10px; height:57x; width:500px;' placeholder='Sweet Stuff'></input>";
+            document.getElementById("storeNameInput").value=tempNameValue;
             editButton.innerHTML = "<button onclick='switchEdit();return false;'' type='submit' class='btn btn-lg btn-block btn-warning'><span class='glyphicon glyphicon-pencil'></span> Preview</button>";
 
             //userImg.innerHTML = "<a href='#' onclick='alert(\"foo\"); return false;'><img class='thumbnail img-responsive center-block' src='http://placehold.it/200x200' alt='store owner'></a>"
             //mainImg.innerHTML = '<a href="#" onclick="return false;"><img src="http://placehold.it/500x400" class="img-responsive center-block" alt="store"></a><input type="file" id="mainUpload" style="display: none;" />'
             currentEdit=true;
           }else{
-            var storeInput = document.getElementById('storeDescr').value;
-            var storeName = document.getElementById("storeNames").value;
-            var userImg = document.getElementById("userImg");
-            var mainImg = document.getElementById("mainImg");
-            var continueButton = document.getElementById("continueButton");
-            var storeDesc=document.getElementById('storeDesc');
-            storeDesc.innerHTML=storeInput;
-            storeNameHolder.innerHTML = "<h1 id='storeName' style='margin-right:10px' class='red'>"+storeName+"</h1>";
+            var tempNameValue= document.getElementById('storeNameInput').value;
+            var tempDesc = document.getElementById('storeDesc');
+            var tempDescValue=document.getElementById("storeDescInput").value;
+            var tempName = document.getElementById('storeName');
+            var tempUserImg = document.getElementById("userImg");
+            var tempMainImg = document.getElementById("mainImg");
+            var tempContinueButton = document.getElementById("continueButton");
+
+            storeDesc.innerHTML=tempDescValue;
+            storeNameHolder.innerHTML = "<h1 id='storeName' style='margin-right:10px' class='red'>"+tempNameValue+"</h1>";
             editButton.innerHTML = "<button onclick='switchEdit();return false;'' type='submit' class='btn btn-lg btn-block btn-warning'><span class='glyphicon glyphicon-pencil'></span> Edit</button>";
             currentEdit=false;
           }
@@ -667,7 +673,7 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
     </div> <!-- /container -->
 
 <script>
-  var sellItem = function () {
+  var saveStore = function () {
     clicked=true;
     //alert("test")
     var currentUser = Parse.User.current();
@@ -687,32 +693,35 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
       var year = d.getFullYear();
       
       var iListedDate = (month + "/" + day + "/" + year);
+      var holdDesc;
+      var holdName;
 
-      if(document.getElementById("storeDescr")!=null){
-      var storeDesc = document.getElementById("storeDescr").innerHTML;
-      var storeName = document.getElementById("storeNames").value;
+      if(currentEdit){
+        holdDesc = document.getElementById("storeDescInput").value;
+        holdName = document.getElementById("storeNameInput").value;
 
       }else{
-      var storeDesc = document.getElementById("storeDesc").innerHTML;
-      var storeName = document.getElementById("storeName").value;
+        holdDesc = document.getElementById("storeDesc").innerHTML;
+        holdName = document.getElementById("storeName").innerHTML;
       }
-      
+
       var storeMain = mainImg;
       var storeProf = prof;
 
-      Parse.initialize("tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn", "zvZ345M8m9y136I9fcDtMMG1kP732SPItGFnj8zr");
+      Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
 
-      var courrier = Parse.Object.extend("storeInfo");
+      var shoe = Parse.Object.extend("storeInfo");
       var postOffice;
       var saving = function(){
-        if(!currentEdit){
-          postOffice.set("coolDesc",  document.getElementById("storeDesc").value);
-        }else{
-          postOffice.set("coolDesc", document.getElementById("storeDescr").value);
-        }
-        postOffice.set("coolName", storeName);
-        //postOffice.set("storeMain", storeMain);
-        //postOffice.set("storeProf", storeProf);
+        //alert("hi")
+          postOffice.set("coolDesc",  holdDesc);
+          postOffice.set("coolName", holdName);
+          if(mainImgURL!=null){
+           postOffice.set("storeMain", mainImgURL);
+          }
+          if(profImgURL!=null){
+           postOffice.set("storeProf", profImgURL);
+          }
         postOffice.set("user", Parse.User.current());
         postOffice.set("userNameStuff", Parse.User.current().get("username"));
         postOffice.set("iListedDate", iListedDate);
@@ -732,10 +741,10 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
       }
 
       if(!existingStore){
-      postOffice = new courrier();
+      postOffice = new shoe();
       saving();
       }else{
-        var query = new Parse.Query(courrier);
+        var query = new Parse.Query(shoe);
           query.get(currentUser.get("storeId"), {
             success: function(currentStore) {
               // The object was retrieved successfully.
@@ -803,6 +812,7 @@ $(document).ready(function() {
       var filePull = e.target.files || e.dataTransfer.files;
       readURL(e ,0);
       upload(filePull, 0);
+      document.getElementById("continueButton").disabled = false;
     });
 
     $('#userFile').bind("change", function(e) {
@@ -810,12 +820,13 @@ $(document).ready(function() {
       var filePull = e.target.files || e.dataTransfer.files;
       readURL(e ,1);
       upload(filePull, 1);
+      document.getElementById("continueButton").disabled = false;
     });
 
     $('#continueButton').click(function() {
       var continueButton = document.getElementById("continueButton");
       if (continueButton.innerHTML === '<span class="glyphicon glyphicon-ok"></span> save and continue') {
-        sellItem();
+        saveStore();
       } else {
         
       }
@@ -827,20 +838,25 @@ $(document).ready(function() {
       $.ajax({
         type: "POST",
         beforeSend: function(request) {
-          request.setRequestHeader("X-Parse-Application-Id", 'tl9Ud0lSR5yZp7Fh30tZSgfCJrGEURKe3PMWHGCn');
-          request.setRequestHeader("X-Parse-REST-API-Key", '9zykrS1DlSkF7iNDMVx8rKVlOzEnDaiiyACdMcsb');
+          request.setRequestHeader("X-Parse-Application-Id", 'Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP');
+          request.setRequestHeader("X-Parse-REST-API-Key", 'hlu8XA5zb1NxgexHzPUHRnSRLa3MAiw4vOyxEka0');
           request.setRequestHeader("Content-Type", file.type);
         },
         url: serverUrl,
         data: file,
         processData: false,
         contentType: false,
+        
         success: function(data) {
+          var images=new Array();
           if(i === 0) {
-            main=data.url;
+            images[0]=data.url;
           } else {
-            prof=data.url
+            images[1]=data.url
           }
+          mainImgURL=images[0];
+          profImgURL=images[1];
+          alert(mainImgURL)
         },
         error: function(data) {
           var obj = jQuery.parseJSON(data);

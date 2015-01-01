@@ -462,7 +462,7 @@
         <div class="row store-page-main-body">
           <div class="col-md-8">
             <div class="store-banner-image">
-              <img src="http://placehold.it/500x400" class="img-responsive center-block" alt="store">
+              <img id="mainImg" src="http://placehold.it/500x400" class="img-responsive center-block" alt="store">
             </div>
             
             <div class="panel panel-default">
@@ -498,6 +498,9 @@
                         document.getElementById("title").innerHTML=currentStore.get("coolName");
                         document.getElementById("storeOwner").innerHTML=currentStore.get("userNameStuff");
                         document.getElementById("openDate").innerHTML="opened: <span class='text-muted'>"+currentStore.get("iListedDate")+"</span>";
+                        if(currentStore.get("storeMain")!=null){
+                          document.getElementById("mainImg").src=currentStore.get("storeMain")
+                        }
 
                         //document.getElementById("storeOwner").innerHTML=currentStore.get("coolName");
                       },
