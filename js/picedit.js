@@ -91,7 +91,7 @@
 				// Get reference to the main canvas element
 				this._canvas = $(this.element).find(".picedit_canvas > canvas")[0];
 				// Create and set the 2d context for the canvas
-				this._ctx = this._canvas.getContext('2d');
+				this._ctx = this._canvas.getContext("2d");
 				// Reference to video elemment holder element
 				this._videobox = $(this.element).find(".picedit_video");
 				// Reference to the painter element

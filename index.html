@@ -593,8 +593,8 @@
                       finalObj+="<div class='info'>"
                         finalObj+="<a href='buy.html?item="+featuredPic.id+"'>"
                           finalObj+="<div class='separator' style='height: 75px'>"
-                            finalObj+="<div class='row'>"
-                              finalObj+="<div class='hotkicks-shoe-name col-md-8'>"
+                            finalObj+="<div class='row' style='height: 75px; display: table; overflow: hidden'>"
+                              finalObj+="<div style='height: 75px; display: table-cell; vertical-align: middle;' class='hotkicks-shoe-name col-md-8'>"
                               var shortName=(featuredPic.get("item"));
                               if(featuredPic.get("item").length>45){
                                 shortName="";
@@ -603,7 +603,7 @@
                                 }
                                 shortName += "..."
                               }
-                                finalObj+="<h4>"+shortName+"</h4>"
+                                finalObj+="<p>"+shortName+"</p>"
                               finalObj+="</div>"
                               finalObj+="<div class='hotkicks-shoe-price col-md-4'>"
                                 finalObj+="<p>$"+featuredPic.get('price')+"</p>"
