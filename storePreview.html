@@ -469,7 +469,7 @@
           <div class="col-md-8">
             <div class="store-banner-image">
               <center>
-                <img id="mainImg" src="images/500x400.gif" style="cursor:pointer;" class="img-responsive center-block" alt="store">
+                <img id="mainImg" src="images/500x400.gif" style="cursor:pointer;" class="img-responsive center-block main" alt="store">
                 <div class="contenthover" id="mainImgClick">
                   <h3>Click me to edit</h3>
                 </div>
@@ -520,6 +520,30 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
             query.get(storeIdNumber, {
               success: function(currentStore) {
                   existingStore=true;
+                  var mainImgTemp=currentStore.get("storeMain")
+                  var profImgTemp=currentStore.get("storeProf");
+                  //alert(mainImgTemp)
+                  if(mainImgTemp!=null){
+                    //alert(document.getElementById("mainImg").src)
+                    //alert(mainImgTemp)
+                    $(function() {
+                      $('.img-responsive.center-block.main').attr('src', mainImgTemp);
+                      //alert("1"+document.getElementById("mainImg").src)
+                      //alert(mainImg)
+
+                    });
+                  }
+
+                  if(profImgTemp!=null){
+                    //alert(document.getElementById("mainImg").src)
+                    //alert(mainImgTemp)
+                    $(function() {
+                      $('.img-responsive.center-block.prof').attr('src', profImgTemp);
+                      //alert("1"+document.getElementById("mainImg").src)
+                      //alert(mainImg)
+
+                    });
+                  }
                   //alert("true")
 
                   //alert("success")
@@ -529,6 +553,7 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
                   document.getElementById("storeName").innerHTML=currentStoreName;
                   currentFiller=currentStore.get("coolDesc");
                   document.getElementById("storeDesc").innerHTML=currentFiller;
+
               },
               error: function(object, error) {
                // alert(error.message)
@@ -544,7 +569,7 @@ Sweet Stuff specializes in locating hard-to-find sneakers. All of our stuff is a
             <div class="well" style="position:relative">
               <div style="position: relative; height: 250px;">
                 <div id="userImg" style="position:absolute; top:20px; left:55px; ">
-                  <img class="thumbnail img-responsive center-block" style="cursor: pointer;" id="ownerPic" src="images/200x200.gif" alt="store owner">
+                  <img class="thumbnail img-responsive center-block prof" style="cursor: pointer;" id="ownerPic" src="images/200x200.gif" alt="store owner">
                   <div class="contenthover" id="userImgClick">
                     <h3>Click me to edit</h3>
                   </div>
@@ -811,7 +836,7 @@ $(document).ready(function() {
       var currentE;
       var filePull = e.target.files || e.dataTransfer.files;
       readURL(e ,0);
-      upload(filePull, 0);
+      upload(filePull[0], 0);
       document.getElementById("continueButton").disabled = false;
     });
 
@@ -819,7 +844,7 @@ $(document).ready(function() {
       var currentE;
       var filePull = e.target.files || e.dataTransfer.files;
       readURL(e ,1);
-      upload(filePull, 1);
+      upload(filePull[0], 1);
       document.getElementById("continueButton").disabled = false;
     });
 
@@ -834,6 +859,7 @@ $(document).ready(function() {
 
     function upload(file, i) {
       var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+      //alert(file.name)
 
       $.ajax({
         type: "POST",
@@ -846,17 +872,18 @@ $(document).ready(function() {
         data: file,
         processData: false,
         contentType: false,
-        
+
         success: function(data) {
           var images=new Array();
           if(i === 0) {
             images[0]=data.url;
+            alert(data.url)
           } else {
             images[1]=data.url
           }
           mainImgURL=images[0];
           profImgURL=images[1];
-          alert(mainImgURL)
+          //alert(mainImgURL)
         },
         error: function(data) {
           var obj = jQuery.parseJSON(data);

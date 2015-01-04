@@ -501,6 +501,9 @@
                         if(currentStore.get("storeMain")!=null){
                           document.getElementById("mainImg").src=currentStore.get("storeMain")
                         }
+                        if(currentStore.get("storeProf")!=null){
+                          document.getElementById("prof").src=currentStore.get("storeProf")
+                        }
 
                         //document.getElementById("storeOwner").innerHTML=currentStore.get("coolName");
                       },
@@ -590,7 +593,7 @@
           <div class="col-md-4">
           
             <div class="well">
-              <img class="thumbnail img-responsive center-block" src="http://placehold.it/200x200" alt="store owner">
+              <img id="prof" class="thumbnail img-responsive center-block" src="http://placehold.it/200x200" alt="store owner">
               <h3 class="red text-center" id="storeOwner">store owner</h3>
               <!-- <p class="text-center" style="color:#777">Danielle San Francisco</p> -->
               <p class="text-center">
