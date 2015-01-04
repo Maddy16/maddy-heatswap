@@ -466,11 +466,16 @@ hr.team-page-thumbs {
 
 .store-page-seemore .thumbnail .caption a {
   color: #276E85;
-  }
-  .store-page-seemore .thumbnail .caption a:hover {
-    color: #D9562A;
-    text-decoration: none;
-    }
+}
+.store-page-seemore .thumbnail .caption a:hover {
+  color: #D9562A;
+  text-decoration: none;
+}
+
+.queryInput {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
 
 /* my media queries ============================================ */
 /* ========================================================== */
