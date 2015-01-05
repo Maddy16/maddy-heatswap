@@ -426,20 +426,6 @@
       </div>
       <div id="main-wrap"><!-- Main content wrapper -->
 
-        <div id="instafeed"></div>
-
-        <script type="text/javascript"> //Instagram feed
-          var feed = new Instafeed({
-              get: 'tagged',
-              tagName: 'heatswap',
-              clientId: '6db2ad6073a042d5ad146ab4e340d579',
-              limit: 1,
-              resolution: 'standard_resolution',
-              useHTTP: true
-          });
-          feed.run();
-        </script>
-        
         <div id="tagline" class="page-header hidden-xs">
           <h1>Cop Heat. <span>Swap Heat.</span> Be Authentic.</h1>
         </div>
@@ -1080,6 +1066,44 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
         </div>
         <hr style="margin-top:44px" />
         
+        <div id="popular-header" class="clearfix">
+          <div class="pull-left">
+            <h2><b>#heatswap on instagram</b></h2>
+          </div>
+          <hr style="margin-top:48px" /> 
+        </div>
+        <div id="instafeed"></div>
+        <div id="popular-see-more" class="pull-right">
+          <a class="btn btn-lg btn-primary" href="instagram.com/heatswap" role="button">more &raquo;</a>  
+        </div>
+        <hr style="margin-top:44px" />
+
+         <script> //Instagram feed
+
+          var feed = new Instafeed({
+            clientId: '02191d0fb54f4e63bad232bf0c89404d',
+            sortBy: 'most-liked',
+            useHttp: true,
+            get: 'tagged',
+            tagName: 'heatswap',
+            limit: 8,
+            after: function () {
+              var images = $("#instafeed").find('a');
+              $.each(images, function(index, image) {
+                var delay = (index * 75) + 'ms';
+                $(image).css('-webkit-animation-delay', delay);
+                $(image).css('-moz-animation-delay', delay);
+                $(image).css('-ms-animation-delay', delay);
+                $(image).css('-o-animation-delay', delay);
+                $(image).css('animation-delay', delay);
+                $(image).addClass('animated flipInX');
+              });
+            },
+            template: '<a href="{{link}}" target="_blank" style="width: 20%;"><img style="width: 100%" src="{{image}}" /></a>'
+          });
+          feed.run();
+        </script>
+
         <div class="well well-lg bottom-well">
           <div class="row">
             <div class="col-sm-6 col-md-4">
