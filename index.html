@@ -11,7 +11,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
     <script src="photoGeneration.js"></script>
-    <script type="text/javascript" src="js/instafeed.js"></script>
+    <script type="text/javascript" src="js/instafeed.min.js"></script>
 
 
     <title>HeatSwap</title>
@@ -426,6 +426,25 @@
       </div>
       <div id="main-wrap"><!-- Main content wrapper -->
 
+<<<<<<< Updated upstream
+=======
+        <div id="instafeed"></div>
+
+        <script type="text/javascript"> //Instagram feed
+          var feed = new Instafeed({
+              get: 'tagged',
+              tagName: 'heatswap',
+              useHTTP: true,
+              clientId: '6db2ad6073a042d5ad146ab4e340d579',
+              limit: 1,
+              resolution: 'standard_resolution'
+
+
+          });
+          feed.run();
+        </script>
+        
+>>>>>>> Stashed changes
         <div id="tagline" class="page-header hidden-xs">
           <h1>Cop Heat. <span>Swap Heat.</span> Be Authentic.</h1>
         </div>
