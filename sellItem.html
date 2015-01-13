@@ -11,8 +11,12 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <!--
     <link rel="stylesheet" type="text/css" href="css/picedit.css" />
     <script type="text/javascript" src="js/picedit.js"></script>
+  -->
+    <script src="js/jcrop/js/jquery.Jcrop.min.js"></script>
+    <link rel="stylesheet" href="js/jcrop/css/jquery.Jcrop.css" type="text/css" />
 
     <title>HeatSwap</title>
 
@@ -583,7 +587,7 @@
                 <form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
                   <fieldset>
                     <div id="uploads">
-                      <input type="file" name="fileselect" id="fileselect1"></input>
+                      <input type="file" name="fileselect" id="fileselect1" accept="image/*" multiple></input>
                     </div>
                   </fieldset>
                 </form>
@@ -599,9 +603,6 @@
               </div>
 
               <script type="text/javascript">
-                $(function() {
-                  $('#fileselect1').picEdit();
-                });
               </script>
 
               <script>
@@ -612,6 +613,11 @@
                     $("div").removeClass("featuredShoe");
                     document.getElementById(clickedId).className += " featuredShoe";
                     tempClicked=clickedId;
+                    cropModal.show=true;
+                  jQuery(function($) {
+                    alert("cropping")
+                      $('#image0').Jcrop();
+                  });
                 }
 
                 var removePhoto=function(){
@@ -633,6 +639,24 @@
                 }
               </script>
               
+              <!--Image crop modal-->
+              <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                      ...
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             
             </div>
             <div class="form-group">
@@ -881,7 +905,6 @@
               if(filePull.length+images.length>8){
                 alert("Only 8 images can be uploaded at a time")
               }else{
-                
                 for (var i = 0; i < filePull.length; i++){
                   upload(filePull[i], images.length+i, filePull.length, images.length);
                 }
@@ -923,7 +946,7 @@
                   var ratioWidth=this.width*ratio;
                   imageFloat=(150-ratioWidth)/2
                   imageUploadPreview += "<div class='previewDiv' id='previewDiv"+i+"' onClick='makePrimary(this.id)'>";
-                  imageUploadPreview += "<img style='margin-left:"+imageFloat+"px' class='previewImage' src='"+ images[i] + "' alt='...''>"
+                  imageUploadPreview += "<img style='margin-left:"+imageFloat+"px' class='previewImage' id='image"+i+"' src='"+ images[i] + "' alt='...''>"
                   imageUploadPreview += "</div>";
 
                   if(i<4){

@@ -115,7 +115,7 @@
           </script>    
         </div><!-- /login-menu -->
 
-
+<!--
 <div id="buyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -467,7 +467,7 @@
               </div>
             </div>
           </div>
-            <button onclick="paypalDetect(); return false;" class="btn btn-primary" style="width:100%">Pay Now</button>
+            <button onclick="paypalDetect(); return false;" class="btn btn-primary" style="width:100%"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></button>
         </div>
 
         <script>
@@ -478,6 +478,7 @@
             </div>
           </div>
          </div>
+       -->
 
 
         <!-- Modal -->
@@ -1047,8 +1048,8 @@
                         });
                       }
                     </script>
-                    <form method="post" id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top"><div class="hide" id="errorBox"></div><input type="hidden" name="button" value="buynow"><input id="paypalName" type="hidden" name="item_name" value="Product via QR code"><input id="paypalPrice" type="hidden" name="amount" value="10"><input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="business" value="austenkeene@gmail.com"><input type="hidden" name="bn" value="JavaScriptButton_buynow"><input type="hidden" name="env" value="www"></form>
-                    <button id="paypalBtn" class="btn btn-primary" style="width:100%;" onclick="modalTrigger()">Buy Now</button>
+                    <!--<form method="post" id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top"><div class="hide" id="errorBox"></div><input type="hidden" name="button" value="buynow"><input id="paypalName" type="hidden" name="item_name" value="Product via QR code"><input id="paypalPrice" type="hidden" name="amount" value="10"><input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="business" value="austenkeene@gmail.com"><input type="hidden" name="bn" value="JavaScriptButton_buynow"><input type="hidden" name="env" value="www"></form>-->
+                    <button id="paypalBtn" class="btn btn-primary" style="width:100%;" onclick="modalTrigger()"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="center" style="margin-right:7px;"></button>
 
                     <script>
                       var modalTrigger = function () {
