@@ -98,6 +98,9 @@
                 finalObj += "</ul>"
                 var insertNonsense=document.getElementById("logTest")
                 insertNonsense.innerHTML=finalObj
+                    $(window).load(function(){
+                        $('#accountModal').modal('show');
+                    });
               }
 
               if (currentUser) {
