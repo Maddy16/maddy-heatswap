@@ -9,6 +9,8 @@
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src="js/instafeed.min.js"></script>
+
 
 
     <title>Media</title>
@@ -406,9 +408,10 @@
                 </ul>
               </li>
               <li><a href="sell.html">sell</a></li>
-              <li class="active"><a href="heatswap.com/news">news</a></li>
+              <li><a href="heatswap.com/news">news</a></li>
 			        <li><a href="team.html">our team</a></li>
               <li><a href="story.html">a good story</a></li>
+              <li class="active"><a href="media.html">media</a></li>
             </ul>
             
             <form class="navbar-form navbar-right" role="search">
@@ -436,29 +439,41 @@
           <hr class="breadcrumb-hr" />
         </div>
         
-        <div class="media">
-          <a class="pull-left" href="#">
-            <img class="media-object" src="http://placehold.it/350x150" alt="...">
-          </a>
-          <div class="media-body">
-            <h4 class="media-heading">Media heading</h4>
-            <p> Descriptive stuff here...</p>
+        <div style="float: left; width: 49%">
+          <h3 style="margin-right:10px" class="blue">heatswap on youtube</h3>
+          <div>
+            <iframe width="560" height="315" src="http://www.youtube.com/embed/UzyTdZSlGJo" frameborder="0" allowfullscreen></iframe>
           </div>
-        </div><!-- /media -->
-        <div class="media">
-          <a class="pull-left" href="#">
-            <img class="media-object" src="http://placehold.it/350x150" alt="...">
-          </a>
-          <div class="media-body">
-            <h4 class="media-heading">Media heading</h4>
-            <p> Descriptive stuff here...</p>
-          </div>
-        </div><!-- /media -->
+        </div>
+        <div id="instafeed" style="width: 50%; float: right;">
+          <h3 style="margin-right:10px" class="blue">@heatswap on instagram</h3>
+        </div>
+
+        <script>
+            var userFeed = new Instafeed({
+                get: 'user',
+                userId: 637247145,
+                useHttp:true,
+                limit: 24,
+                accessToken: '637247145.467ede5.73963a5f189647b7b62372e15e121426',
+                template: '<a href="{{link}}" target="_blank" style="width: 15%; margin-left: .5%; margin-right: .5%;"><img style="width: 100%" src="{{image}}" /><div style="width: 95%; height: 95%"></div></a>'
+            });
+            userFeed.run();
+        </script>
+        <div style="clear: both">
+        </div>
+        <div id="twitterFeed">
+          <h3 style="margin-right:10px" class="blue">@heatswapSF on twitter</h3>
+          <a class="twitter-timeline" href="https://twitter.com/HeatSwapSF" data-widget-id="556917057883602944">Tweets by @HeatSwapSF</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+        <div style="clear: both">
+        </div>
                
       </div><!-- /main -->
       
       <footer>
-        <div class="row">
+        <div class="row" style="clear: both">
           <div class="col-md-4">
             <ul class="list-inline">
               <li><a href="terms.html" class="footer-text" target="_blank">terms</a> &nbsp;/</li>
