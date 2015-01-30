@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">    
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
@@ -55,6 +56,7 @@
             Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
              var images = new Array();
              var currentItem="";
+             var currentlyEditing;
 
             var currentUser = Parse.User.current()
             var currentName=""
@@ -421,6 +423,7 @@
               <li><a target=_blank href="http://heatswap.com/news">news</a>
               <li><a href="team.html">our team</a></li>
               <li><a href="story.html">a good story</a></li>
+              <li><a href="media.html">media</a></li>
             </ul>
             
             <form class="navbar-form navbar-right" role="search">
@@ -596,8 +599,11 @@
                 <div class="row" id="imagePreview2"> 
                 </div>
                 <div id="pickFeature" style="padding-top: 10px">
-                  <button id="deletePhoto" type="button" class="btn btn-default btn-sm red" style="border: 0px;" onClick="removePhoto()">
+                  <button id="deletePhoto" type="button" class="btn btn-default btn-sm red" style="border: 0px;" onClick="removePhoto()" disabled>
                   <span class='glyphicon glyphicon-trash'></span>
+                  </button>
+                  <button id="cropPhoto" type="button" class="btn btn-default btn-sm red" style="border: 0px;" onClick="openCropModal()" disabled>
+                  <image src="images/crop.png" style="height: 12px; width: 12px"></image>
                   </button>
                 </div>
               </div>
@@ -610,14 +616,11 @@
                 var makePrimary=function(clickedId){
                   //var clickedSplit=clickedId.split("v")
                   //alert(clickedSplit[2])
+                  currentlyEditing=clickedId;
                     $("div").removeClass("featuredShoe");
                     document.getElementById(clickedId).className += " featuredShoe";
-                    tempClicked=clickedId;
-                    cropModal.show=true;
-                  jQuery(function($) {
-                    alert("cropping")
-                      $('#image0').Jcrop();
-                  });
+                    //cropModal.show=true;
+                  
                 }
 
                 var removePhoto=function(){
@@ -637,22 +640,50 @@
                     }
                   }
                 }
+
+                var openCropModal=function(){
+                  if(currentlyEditing!=undefined){
+                    //alert("test")
+                    tempClicked=currentlyEditing;
+                    //alert(currentlyEditing.src)
+                    var imageId="image"+ currentlyEditing.slice(-1)
+                    var tempvar=document.getElementById(imageId)
+                    //alert(tempvar.src)
+                    $('#cropModal').modal('show');
+                    document.getElementById("workingImage").src=tempvar.src
+                    cropModalScript();
+                  }else{
+                    //alert("undefined")
+                  }
+                }
               </script>
               
               <!--Image crop modal-->
               <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                      <h4 class="modal-title" id="myModalLabel">Crop Image</h4>
                     </div>
                     <div class="modal-body">
-                      ...
+                      <img id="workingImage" src="" style="width: 858px; height: auto; border: 1px solid black"></img>
                     </div>
+                    <script>
+                    var cropModalScript = function(){
+                      jQuery(function($) {
+                        //alert("cropping")
+                        $('#workingImage').Jcrop({
+                          aspectRatio: 273 / 182
+                        });
+                      });
+                    }
+                    </script>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                      <button type="button" class="btn btn-primary">undo</button>
+                      <button type="button" class="btn btn-primary">crop</button>
+                      <button type="button" class="btn btn-primary">save changes</button>
                     </div>
                   </div>
                 </div>
@@ -888,6 +919,7 @@
     <script>
 
       $(function() {
+
         var imageUploadPreview="";
         var imageUploadPreview1="";
         var imageUploadPreview2="";
@@ -914,6 +946,8 @@
           });
 
           function upload(file, i, m, n) {
+            document.getElementById("deletePhoto").disabled=false;
+            document.getElementById("cropPhoto").disabled=false;
           // Our file var now holds the selected file
           //});
 
