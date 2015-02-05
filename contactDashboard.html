@@ -512,6 +512,7 @@
           var finalObj = "<div class='queryInput'><input type='text' id='tempName' placeholder='name'></div>"; //Name input field
           finalObj += "<div class='queryInput'><input type='text' id='tempSubject' placeholder='subject'></div>"; //Subject input field
           finalObj += "<div class='queryInput'><input type='text' id='tempEmail' placeholder='email'></div>"; //Subject input field
+          finalObj += "<div class='queryInput'><select id = 'tempCatagory'><option value = ''>Please select a Catagory</option><option value='buying'>Buying</option><option value='selling'>Selling</option><option value='login'>Login</option><option value='user'>User</option></select>"
           finalObj += "<div class='queryInput'><textarea placeholder='question' type='text' id='tempQuestion' rows=5 cols=150> </textarea></div>"; //Subject input field
           finalObj += "<div class='queryInput'><button id='submitQuery' class='btn btn-primary' onClick='submitQuestion()'>submit</button></div>"; //Submit button
           document.getElementById("threads").innerHTML=finalObj;
@@ -519,7 +520,7 @@
 
         var submitQuestion=function()
         {
-          if (document.getElementById("tempName").value != "" & document.getElementById("tempSubject").value != "" & document.getElementById("tempQuestion").value != "" & document.getElementById("tempEmail").value != "")
+          if (document.getElementById("tempName").value != "" & document.getElementById("tempSubject").value != "" & document.getElementById("tempQuestion").value != "" & document.getElementById("tempEmail").value != "" & document.getElementById("tempCatagory").value != "")
           {
             // Simple syntax to create a new subclass of Parse.Object.
             var Contact = Parse.Object.extend("contact");
@@ -531,6 +532,7 @@
             contact.set("subject", document.getElementById("tempSubject").value) //Set subject
             contact.set("email", document.getElementById("tempEmail").value) //Set email
             contact.set("resolved", false) //Set resolved to false
+            contact.set("filter", document.getElementById("tempCatagory").value) //Set the filter
 
             contact.save(null,
             {
