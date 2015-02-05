@@ -918,8 +918,10 @@
                     var hour
                     if(d.getHours()>12){
                       hour=d.getHours()-12;
+                    }else{
+                      hour=d.getHours();
                     }
-                    alert(d.getYear())
+                    alert(hour)
                     tempMessage.set("time", hour+":"+d.getMinutes())
                     tempMessage.set("date", d.getMonth()+1+"/"+d.getDate()+"/"+d.getFullYear());
                     tempMessage.save();
@@ -963,6 +965,16 @@
                   for (var i = results.length-1; i > -1; i--) { 
                     var object = results[i];
                     commentFinalObj += "<div>"
+                    commentFinalObj += '<div class="dropdown">'
+                    commentFinalObj += '<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">'
+                    commentFinalObj += '<span class="caret"></span>'
+                    commentFinalObj += '</button>'
+                    commentFinalObj += '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">'
+                    commentFinalObj += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-flag"></span> report</a></li>'
+                    commentFinalObj += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>'
+                    commentFinalObj += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-trash"></span> delete</a></li>'
+                    commentFinalObj += '</ul>'
+                    commentFinalObj += '</div>'
                     commentFinalObj += "<p><font color='#808080'>at "+results[i].get("time")+" on "+results[i].get("date")+", <strong>"+results[i].get("user")+"</strong> said:</font> </p>"
                     commentFinalObj += "<p>"+results[i].get("comment")+"</p>"
                     //commentFinalObj += "<div>"
