@@ -492,17 +492,83 @@
             document.getElementById("questionName").innerHTML=results[0].get("subject")
             // Do something with the returned Parse.Object values
             var finalObj = "";
+            var temporaryStr = "";
             for (var i = 0; i < results.length; i++) { 
               finalObj += "<div class='thread'>";
-              finalObj += "<p>" + results[i].get("details") + "</p>";
+              finalObj += "<h4>" + results[i].get("details") + "</h4>";
               finalObj += "</div>";
+
+              finalObj += "<div class='thread'><h4>Comments</h4></div>"
+
+              //Add the comments (incomplete)
+              // alert("Finding all the comments"); //For debugging
+              var comment = Parse.Object.extend("comments");
+              var commentQuery = new Parse.Query(comment);
+              // alert(holdUsing)
+              commentQuery.equalTo("threadID", holdUsing); //Find all that correspond with this thread
+              commentQuery.find({
+                success: function(allComments) {
+                  // alert(allComments.length)
+                  temporaryStr += "<div class='thread'>"; //Add opening div
+                  for (var j = 0; j < allComments.length; j++)
+                  {
+                    var addCommentStr = "<p>" + allComments[j].get("comment") + "</p>";
+                    // alert(addCommentStr); //For debugging
+                    temporaryStr += addCommentStr;
+                  }
+                  temporaryStr += "</div>" //Close div
+                  finalObj += temporaryStr; //Add to finalObj
+
+                  //Add comment input box
+                  finalObj += "<div class='queryInput'><textarea placeholder='question' type='text' id='tempComment' rows=2 cols=100> </textarea></div>";
+                  finalObj += "<div class='queryInput'><button id='submitquestion' class='btn btn-primary' onClick='submitComment()'>comment</button></div>";
+                  document.getElementById("threads").innerHTML=finalObj;
+                },
+                error: function(error) {
+                  alert("Error: " + error.code + " " + error.message);
+                }
+              })
             }
-            document.getElementById("threads").innerHTML=finalObj;
           },
           error: function(error) {
             alert("Error: " + error.code + " " + error.message);
           }
         });
+
+        var submitComment = function()
+        {
+          if (document.getElementById("tempComment").value != "" & document.getElementById("tempComment").value != " ") //If there is a comment
+          {
+            var Comment = Parse.Object.extend("comments");
+
+            var comment = new Comment();
+            comment.set("comment", document.getElementById("tempComment").value) //Set comment
+            comment.set("threadID", holdUsing) //set the corresponding thread
+            comment.set("threadSubject", document.getElementById("questionName").innerHTML) //Set subject for organizational purposes
+            
+            comment.save(null,
+            {
+              success: function(contact)
+              {
+              // Execute any logic that should take place after the object is saved.
+              // alert('New object created with objectId: ' + contact.id); //Feedback
+              window.location.href="query.html?question=" + holdUsing;
+              },
+              error: function(contact, error)
+              {
+              // Execute any logic that should take place if the save fails.
+              // error is a Parse.Error with an error code and message.
+              alert('Failed to create new object, with error code: ' + error.message);
+              }
+            });
+          }
+          else
+          {
+            alert(document.getElementById("tempSubject").value);
+            alert("Please fill out all fields");
+          }
+        }
+
       </script>
 
 
