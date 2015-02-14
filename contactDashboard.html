@@ -494,6 +494,7 @@
             success: function(results) {
               // Do something with the returned Parse.Object values
               var finalObj = "";
+              finalObj += "<h3>Threads (" + results.length + ")</h3>"
               for (var i = 0; i < results.length; i++) { 
                 finalObj += "<div class='thread'>";
                 finalObj += "<h4><a href='query.html?question=" + results[i].id + "'>" + results[i].get("subject") + "</a></h4>";
@@ -531,6 +532,7 @@
             contact.set("name", document.getElementById("tempName").value) //Set name
             contact.set("subject", document.getElementById("tempSubject").value) //Set subject
             contact.set("email", document.getElementById("tempEmail").value) //Set email
+            contact.set("numViews", 0) //Set number of views
             contact.set("resolved", false) //Set resolved to false
             contact.set("filter", document.getElementById("tempCatagory").value) //Set the filter
 
