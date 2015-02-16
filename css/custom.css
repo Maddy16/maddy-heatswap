@@ -541,11 +541,3 @@ hr.team-page-thumbs {
 #instafeed a:hover .likes {
   opacity:1;
 }
-
-.leftpillstacked{
-  border-radius: 20px;
-}
-
-.rightpillcontent{
-  width: 80%;
-}
