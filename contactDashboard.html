@@ -430,7 +430,6 @@
           </ol>
           <hr class="breadcrumb-hr">
         </div>
-        <div style="background-color: rgb(201, 62, 26)" class="navbar navbar-default without-subnav" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -442,22 +441,21 @@
             <!-- <a class="navbar-brand" href="index.html">faq</a> -->
           </div><!-- /header -->
           
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="contactDashboard.html?filter=submit">submit</a></li>
-              <li><a href="contactDashboard.html?filter=faq">faq</a></li>
-              <li><a href="contactDashboard.html?filter=buying">buying</a></li>
-              <li><a href="contactDashboard.html?filter=selling">selling</a></li>
-              <li><a href="contactDashboard.html?filter=login">login</a>
-              <li><a href="contactDashboard.html?filter=user">user</a></li>
-              <li><a href="contactDashboard.html?filter=other">other</a></li> <!-- Added other category -->
+          <div class="nav nav-pills nav-stacked leftpillstacked" style="">
+              <li role="presentation"><a href="contactDashboard.html?filter=submit">submit</a></li>
+              <li role="presentation"><a href="contactDashboard.html?filter=faq">faq</a></li>
+              <li role="presentation"><a href="contactDashboard.html?filter=buying">buying</a></li>
+              <li role="presentation"><a href="contactDashboard.html?filter=selling">selling</a></li>
+              <li role="presentation"><a href="contactDashboard.html?filter=login">login</a>
+              <li role="presentation"><a href="contactDashboard.html?filter=user">user</a></li>
+              <li role="presentation"><a href="contactDashboard.html?filter=other">other</a></li> <!-- Added other category -->
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
 
 
-        <div>
+        <div class="rightpillcontent" style="">
           <h1 id="filterName" >filter</h1>
 
           <div id="threads">
@@ -465,7 +463,8 @@
           </div>
         </div>
 
-
+        <div style="clear: both">
+        </div>
       </div><!-- /main -->
       
       <script>
