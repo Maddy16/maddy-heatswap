@@ -439,7 +439,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <!-- <a class="navbar-brand" href="index.html">faq</a> -->
+            <a class="navbar-brand" href="index.html">faq</a>
           </div><!-- /header -->
           
           <div class="navbar-collapse collapse">
@@ -450,7 +450,6 @@
               <li><a href="contactDashboard.html?filter=selling">selling</a></li>
               <li><a href="contactDashboard.html?filter=login">login</a>
               <li><a href="contactDashboard.html?filter=user">user</a></li>
-              <li><a href="contactDashboard.html?filter=other">other</a></li> <!-- Added other category -->
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -486,41 +485,7 @@
         var holdUsing = urlParams["filter"];
         document.getElementById("filterName").innerHTML=holdUsing;
 
-        if (holdUsing == "submit") //If on submit page
-        {
-          var finalObj = "<div class='queryInput'><input type='text' id='tempName' placeholder='name'></div>"; //Name input field
-          finalObj += "<div class='queryInput'><input type='text' id='tempSubject' placeholder='subject'></div>"; //Subject input field
-          finalObj += "<div class='queryInput'><input type='text' id='tempEmail' placeholder='email'></div>"; //Subject input field
-          finalObj += "<div class='queryInput'><select id = 'tempCatagory'><option value = ''>Please select a Catagory</option><option value='buying'>Buying</option><option value='selling'>Selling</option><option value='login'>Login</option><option value='user'>User</option><option value='other'>Other</option></select>"
-          finalObj += "<div class='queryInput'><textarea placeholder='question' type='text' id='tempQuestion' rows=5 cols=150> </textarea></div>"; //Subject input field
-          finalObj += "<div class='queryInput'><button id='submitQuery' class='btn btn-primary' onClick='submitQuestion()'>submit</button></div>"; //Submit button
-          document.getElementById("threads").innerHTML=finalObj;
-        }
-        else if (holdUsing == "faq") //If on FAQ's
-        {
-          document.getElementById("filterName").innerHTML = ""
-          var faq = Parse.Object.extend("faqs");
-          var query = new Parse.Query(faq);
-          query.find({
-            success: function(results) {
-              // Do something with the returned Parse.Object values
-              var finalObj = "";
-              finalObj += "<h2>Frequently Asked Questions</h2>"
-              for (var i = 0; i < results.length; i++) { 
-                finalObj += "<div class='thread'>";
-                finalObj += "<h3>" + results[i].get("question") + "</a></h3>";
-                finalObj += "<p>" + results[i].get("answer") + "</p>";
-                finalObj += "</div>";
-              }
-              document.getElementById("threads").innerHTML=finalObj;
-            },
-            error: function(error) {
-              alert("Error: " + error.code + " " + error.message);
-            }
-          });
-          document.getElementById("threads").innerHTML = finalObj;
-        }
-        else //If not on the submit page or FAQ page
+        if (holdUsing != "submit") //If not on the submit page running this code
         {
           var contact = Parse.Object.extend("contact");
           var query = new Parse.Query(contact);
@@ -542,6 +507,16 @@
               alert("Error: " + error.code + " " + error.message);
             }
           });
+        }
+        else if (holdUsing == "submit")
+        {
+          var finalObj = "<div class='queryInput'><input type='text' id='tempName' placeholder='name'></div>"; //Name input field
+          finalObj += "<div class='queryInput'><input type='text' id='tempSubject' placeholder='subject'></div>"; //Subject input field
+          finalObj += "<div class='queryInput'><input type='text' id='tempEmail' placeholder='email'></div>"; //Subject input field
+          finalObj += "<div class='queryInput'><select id = 'tempCatagory'><option value = ''>Please select a Catagory</option><option value='buying'>Buying</option><option value='selling'>Selling</option><option value='login'>Login</option><option value='user'>User</option></select>"
+          finalObj += "<div class='queryInput'><textarea placeholder='question' type='text' id='tempQuestion' rows=5 cols=150> </textarea></div>"; //Subject input field
+          finalObj += "<div class='queryInput'><button id='submitQuery' class='btn btn-primary' onClick='submitQuestion()'>submit</button></div>"; //Submit button
+          document.getElementById("threads").innerHTML=finalObj;
         }
 
         var submitQuestion=function()
