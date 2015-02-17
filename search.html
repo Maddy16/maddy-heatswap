@@ -11,7 +11,7 @@
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
-    <title>Customer Service</title>
+    <title>Search</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -404,7 +404,7 @@
               {
                 var linkTo = "search.html?search=" + searchQuery + "#filter=shoes#page=1";
                 alert("Redirecting to..." + linkTo);
-                window.location.href = linkTo; //Redirect
+                window.location.href = "search.html?search=" + searchQuery + "#filter=shoes#page=1"; //Redirect
                 alert("Got past the link");
                 // window.location.href = 'http://www.google.com'; //For debugging
                 // location.reload(); //Reload window
@@ -521,6 +521,8 @@
                 var strPosition = currentShoe.search(holdUsing.toUpperCase()); //Find the location in the string of the phrase
                 if (strPosition != -1){ //if it exists
                   //This is what happens to each individual search result
+                  var picture = "<div>" + "<img src=" + results[i].get("image") + " class='shoeSearchPicture'></div>";
+                  finalObj += picture;
                   var link = "<a href=buy.html?item=" + results[i].get("objectid") + ">";
                   finalObj += "<h5>" + link + results[i].get("item") + "</h5>"
                 }
