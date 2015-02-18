@@ -394,7 +394,7 @@
               <div class="form-group">
                 <input id="tempSearch" type="text" class="form-control" placeholder="Search">
               </div>
-              <button type="submit" class="btn btn-primary" onClick="submitSearch()"><span class="glyphicon glyphicon-search"></span></button>
+              <button type="submit" class="btn btn-primary" onClick="submitSearch(); return false;"><span class="glyphicon glyphicon-search"></span></button>
             </form>
 
             <script>
@@ -403,11 +403,18 @@
               if (searchQuery != "" & searchQuery != " ") //If there is a search
               {
                 var linkTo = "search.html?search=" + searchQuery + "#filter=shoes#page=1";
-                alert("Redirecting to..." + linkTo);
-                window.location.href = "search.html?search=" + searchQuery + "#filter=shoes#page=1"; //Redirect
-                alert("Got past the link");
+                // alert("Redirecting to..." + linkTo);
+                var url = linkTo;    
+                $(location).attr('href',url);
+                // window.location.replace("google.com")
+                //window.location.assign("index.html")
+                //alert(window.location.href)
+                //location.reload();
+                ///window.location.href = "search.html?search=" + searchQuery + "#filter=shoes#page=1"; //Redirect
+                //alert("Got past the link");
                 // window.location.href = 'http://www.google.com'; //For debugging
                 // location.reload(); //Reload window
+                return false;
               }
               else
               {
