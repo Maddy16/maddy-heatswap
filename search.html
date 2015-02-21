@@ -402,8 +402,9 @@
               var searchQuery = document.getElementById("tempSearch").value;
               if (searchQuery != "" & searchQuery != " ") //If there is a search
               {
-                var linkTo = "search.html?search=" + searchQuery + "#filter=shoes#page=1#resultsPerPage=" + document.getElementById("resultsPerPage").value;
-                // alert("Redirecting to..." + linkTo);
+                var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value;
+                var linkTo = "search.html?search=" + searchQuery + RPP + "#filter=shoes#page=1";
+                alert("Redirecting to..." + linkTo);
                 var url = linkTo;    
                 $(location).attr('href',url);
                 // window.location.replace("google.com")
@@ -585,8 +586,8 @@
         var tempResultsPerPage = currentURL.charAt(resultsPerPagePosition + 15) + currentURL.charAt(resultsPerPagePosition + 16) + currentURL.charAt(resultsPerPagePosition + 17);
         // alert(tempResultsPerPage);
 
-        var maxResults = tempResultsPerPage;
-        alert("Results per page: " + maxResults)
+        var maxResults = parseInt(tempResultsPerPage);
+        // alert("Search: " + holdUsing + " Filter: " + filterCategory + " RPP: " + maxResults + " Page: " + pageNumber)
         var totalResults = 0;
         var sampleAmount = 500;
         // alert("Showing results: " + firstResult + "-" + lastResult);
@@ -636,6 +637,12 @@
                           var link = "<a href=buy.html?item=" + results[i].get("objectid") + ">";
                           finalObj += "<div><h4>" + link + results[i].get("item") + "</h4></div>";
                         }
+                        // else
+                        // {
+                        //   alert("Max results per page: " + maxResults)
+                        //   alert("Found object, but not within the range: " + totalResults)
+                        //   alert("Needed to be greater than: " + pageCompensation)
+                        // }
                       }
                     }
                   }
@@ -756,7 +763,8 @@
                         if (totalResults > pageCompensation) //If it's past the first object on page
                         {
                           //This is where you put code to actually do something with the object
-                          finalObj += "<div><h3>" + results[i].get("subject") + "</h4></div>";
+                          var link = "<a href=query.html?question=" + results[i].id + ">"
+                          finalObj += "<div><h3>" + link + results[i].get("subject") + "</h4></div>";
                         }
                       }
                     }
@@ -785,7 +793,8 @@
           if (pageNumber != 1) //If not on page 1 add previous page button
           {
             var num = parseInt(pageNumber) - 1;
-            finalObj += "<li><a href=search.html?search=" + holdUsing + "#filter=" + filterCategory + "#page=" + num + ">";
+            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
+            finalObj += "<li><a href=search.html?search=" + holdUsing + RPP + "#filter=" + filterCategory + "#page=" + num + ">";
             finalObj += "Previous Page</a></li>"
           }
           if (!conditional) //Next page button (if the search was stopped before the last object was searched)
@@ -793,7 +802,8 @@
             // alert(pageNumber); //Debugging
             var num = parseInt(pageNumber) + 1;
             // alert("Variable num = " + num) //Debugging
-            finalObj += "<li><a href=search.html?search=" + holdUsing + "#filter=" + filterCategory + "#page=" + num + ">";
+            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
+            finalObj += "<li><a href=search.html?search=" + holdUsing + RPP + "#filter=" + filterCategory + "#page=" + num + ">";
             finalObj += "Next Page</a></li>"
           }
           finalObj += "</ul></nav>"
