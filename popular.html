@@ -47,6 +47,7 @@
           <div id="logTest">
           </div>
           <script>
+          var holdBrand="";
             Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
             
             var currentUser = Parse.User.current()
@@ -517,7 +518,7 @@
               var price = document.getElementById("price").value;
               var size = document.getElementById("size").value;
               var gender = document.getElementById("gender").value;
-
+              
               var searchitem = "";
 
               if (condition !== "condition") {
@@ -539,6 +540,10 @@
               if (gender !== "gender") {
                 gender = "&&gender="+gender; 
                 searchitem = searchitem + gender;
+              }
+              if(document.getElementById("popularTitle").innerHTML!="popular"){
+                var brand = "&&brand=" + holdBrand;
+                searchitem = searchitem + brand
               }
 
               searchitem = "popular.html?" + searchitem;
@@ -599,6 +604,8 @@ var queryCondition = urlParams["condition"];
 var queryBrand = urlParams["brand"];
 var queryPage = urlParams["page"];
 
+holdBrand=queryBrand;
+
 if(queryBrand=="adidas"){
   popularTitle.innerHTML="Adidas";
 }else if(queryBrand=="airjordan"){
@@ -645,7 +652,7 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
           if (querySize !== undefined) mailbox.equalTo("size", querySize), document.getElementById("size").value=querySize;
           if (queryGender !== undefined) mailbox.equalTo("gender", queryGender), document.getElementById("gender").value=queryGender;
           if (queryCondition !== undefined) mailbox.equalTo("condition", queryCondition), document.getElementById("condition").value=queryCondition;
-          if (queryBrand !== undefined) mailbox.equalTo("brand", queryBrand), document.getElementById("brand").value=queryBrand;
+          if (queryBrand !== undefined) mailbox.equalTo("brand", queryBrand);
           mailbox.limit(16);
           limitStuff = (first-1) * 16
           mailbox.skip(limitStuff);
