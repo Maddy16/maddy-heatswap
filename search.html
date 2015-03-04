@@ -430,6 +430,47 @@
 
       <div id="main-wrap"><!-- Main content wrapper -->
 
+        <button onclick="shoesFilter()">Shoes</button>
+        <button onclick="usersFilter()">User</button>
+        <button onClick="helpFilter()">Help</button>
+
+        <script>
+          var urlParams;
+          (window.onpopstate = function () {
+            var match,
+              pl     = /\+/g,  // Regex for replacing addition symbol with a space
+              search = /([^&=]+)=?([^&]*)/g,
+              decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+              query  = window.location.search.substring(1);
+
+            urlParams = {};
+            while (match = search.exec(query))
+              urlParams[decode(match[1])] = decode(match[2]);
+          })();
+          var holdUsing = urlParams["search"]; //Hold using is the search query
+
+          var shoesFilter = function(){
+            // alert("Changing filter to shoes")
+            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
+            window.location.href="search.html?search=" + holdUsing + RPP + "#filter=shoes#page=1";
+            location.reload();
+          }
+
+          var usersFilter = function(){
+            // alert("Changing filter to users")
+            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
+            window.location.href="search.html?search=" + holdUsing + RPP + "#filter=users#page=1";
+            location.reload();
+          }
+
+          var helpFilter = function(){
+            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
+            window.location.href="search.html?search=" + holdUsing + RPP + "#filter=help#page=1";
+            location.reload();
+          }
+        </script>
+
+
         <!-- more options -->
         <select id="resultsPerPage">
           <option value=002>2</option>
@@ -502,152 +543,272 @@
       <script>
         Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
 
-        if(currentName!=null&&currentName!=""){
-                    var finalObj=document.getElementById("account");
-                    document.getElementById("myTabContent").innerHTML = finalObj.innerHTML;
-                  }else{
-                    var finalObj=""
-                    finalObj += "<ul id='myTab' class='nav nav-tabs'>\n"
-                    finalObj += "<li class='active'><a href='#signIn' data-toggle='tab'><span class='glyphicon glyphicon-lock'></span> sign in</a></li>\n"
-                    finalObj += "<li class=''><a href='#signUp' data-toggle='tab'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
-                    finalObj += "</ul>"
-                    var insertNonsense=document.getElementById("modalTabs")
-                    insertNonsense.innerHTML=finalObj
-                  }
+        var headerObj = "";
+        var urlParams;
+        (window.onpopstate = function () {
+          var match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.search.substring(1);
 
-var urlParams;
-(window.onpopstate = function () {
-  var match,
-    pl     = /\+/g,  // Regex for replacing addition symbol with a space
-    search = /([^&=]+)=?([^&]*)/g,
-    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-    query  = window.location.search.substring(1);
+          urlParams = {};
+          while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+        })();
+        var holdUsing = urlParams["search"]; //Hold using is the search query
+        headerObj += "<h2>Search: '" + holdUsing + "'</h2>";
+        document.getElementById("pageTitle").innerHTML = "Heatswap Search: '" + holdUsing + "'"; //Rename the title of this page
 
-  urlParams = {};
-  while (match = search.exec(query))
-    urlParams[decode(match[1])] = decode(match[2]);
-})();
+        var currentURL = document.URL;
+        var pagePosition = currentURL.search("page=");
+        var pageNumber = currentURL.charAt(pagePosition+5);
+        // alert(pageNumber);
 
-var queryPrice = urlParams["price"];
-var querySize = urlParams["size"];
-var queryGender = urlParams["gender"];
-var queryCondition = urlParams["condition"];
-var queryBrand = urlParams["brand"];
-var queryPage = urlParams["page"];
-
-if(queryBrand=="adidas"){
-  popularTitle.innerHTML="Adidas";
-}else if(queryBrand=="airjordan"){
-  popularTitle.innerHTML="Air Jordan";
-}else if(queryBrand=="asics"){
-  popularTitle.innerHTML="Asics";
-}else if(queryBrand=="newbalance"){
-  popularTitle.innerHTML="New Balance";
-}else if(queryBrand=="nike"){
-  popularTitle.innerHTML="Nike";
-}else if(queryBrand=="puma"){
-  popularTitle.innerHTML="Puma";
-}else if(queryBrand=="reebok"){
-  popularTitle.innerHTML="Reebok";
-}else if(queryBrand=="Saucony"){
-  popularTitle.innerHTML="saucony";
-}else if(queryBrand=="vans"){
-  popularTitle.innerHTML="Vans";
-}
-
-if (queryPage === undefined) queryPage = 1;
-
-var first = parseInt(queryPage)
-var second = parseInt(queryPage) + 1
-var third = parseInt(queryPage) + 2
-
-document.getElementById("firstLink").innerHTML = first;
-document.getElementById("secondLink").innerHTML = second;
-document.getElementById("thirdLink").innerHTML = third;
-
-document.getElementById("firstLink").href = "popular.html?page=" + first;
-document.getElementById("secondLink").href = "popular.html?page=" + second;
-document.getElementById("thirdLink").href = "popular.html?page=" + third;
-
-if (first > 1) {
-  document.getElementById("nextClass").setAttribute("class", "cool");
-}
-
-Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
-          var shoe = Parse.Object.extend("shoe");
-          var mailbox = new Parse.Query(shoe);
-
-          mailbox.exists("item");
-          if (querySize !== undefined) mailbox.equalTo("size", querySize);
-          if (queryGender !== undefined) mailbox.equalTo("gender", queryGender);
-          if (queryCondition !== undefined) mailbox.equalTo("condition", queryCondition);
-          if (queryBrand !== undefined) mailbox.equalTo("brand", queryBrand);
-          mailbox.limit(16);
-          limitStuff = (first-1) * 16
-          mailbox.skip(limitStuff);
-          if (queryPrice !== undefined) {
-            if (queryPrice === "low") {
-              mailbox.ascending("price");
-            } else {
-              mailbox.descending("price");
-            }
-          } else {
-            mailbox.descending("createdAt");
-          };
-          mailbox.find({
-            success: function(returnObj) {
-              var finalObj = ""
-              for (var i = 0; i < returnObj.length; i++) { 
-
-                var item = returnObj[i];
-                finalObj += "<div class='col-sm-4 col-md-3'>\n"
-                //<a href='#'' class='thumbnail'>\n";
-                finalObj += "<div class='thumbnail'>\n"
-                finalObj += "<a href='buy.html?item=" + item.id + "'>"
-                finalObj += "<div style='width:250; height:200px; overflow:hidden; text-align: center;'>\n"
-                finalObj += "<img src='" + lowResImageLandscape(item.get("image")) + "' style='position:relative; left:100%; margin-left:-200%;' height='200'>\n"                
-                finalObj += "</div>"
-                finalObj += "</a>\n"
-                finalObj += "<div class='caption'>"
-                finalObj += "<h4 class='pull-right'> $" + item.get("price") + "</h4>\n"
-
-                var shortName=(item.get("item"));
-
-                if(item.get("item").length>13){
-                  shortName="";
-                  for(var m=0; m<15; m++){
-                    shortName += item.get("item").charAt(m);
-                  }
-                  shortName += "..."
-                }
-
-                finalObj += "<h4><a href='buy.html?item="+ item.id + "'>"+shortName+"</a></h4>\n"
-                finalObj += "<p class='text-muted'>" + item.get("brand") + "</p>\n"
-                finalObj += "</div>"
-                finalObj += "</div>"
-                finalObj += "</div> \n"
-            }
-
-            var insertNonsense = document.getElementById("row-popular-pg");
-            insertNonsense.innerHTML = finalObj
-
-
-
-
-            },
-              error: function(error) {
-                  alert("Error: " + error.code + " " + error.message);
-             }
-        });
-
-          var nextPage = function(ident) {
-            if (ident === 1) {
-              var next = first - 1;
-            } else {
-              var next = first + 1;
-            }
-            window.location.href = "popular.html?page=" + next;
+        var filterPosition = currentURL.search("filter=");
+        var filterCategory = "";
+        for (var i = filterPosition + 7; i < currentURL.length - 7; i++) //"filter=" is 7 characters
+        {
+          if (currentURL.charAt(i) == "#") //If at the results per page variable
+          {
+            i = currentURL.length; //Terminate loop
           }
+          else
+          {
+            filterCategory += currentURL.charAt(i);
+          }
+        }
+        headerObj += "<h4>Filter: '" + filterCategory + "'</h4>";
+        document.getElementById("searchInput").innerHTML = headerObj;
+        // alert("The filter is: " + filterCategory)
+
+        var resultsPerPagePosition = currentURL.search("resultsPerPage=");
+        var tempResultsPerPage = currentURL.charAt(resultsPerPagePosition + 15) + currentURL.charAt(resultsPerPagePosition + 16) + currentURL.charAt(resultsPerPagePosition + 17);
+        // alert(tempResultsPerPage);
+
+        var maxResults = parseInt(tempResultsPerPage);
+        // alert("Search: " + holdUsing + " Filter: " + filterCategory + " RPP: " + maxResults + " Page: " + pageNumber)
+        var totalResults = 0;
+        var sampleAmount = 500;
+        // alert("Showing results: " + firstResult + "-" + lastResult);
+        if (filterCategory == "shoes")
+        {
+          var shoes = Parse.Object.extend("shoe");
+          var query = new Parse.Query(shoes);
+          query.count({
+            success: function(number) //Make sure there are enough objects
+            {
+              // alert("There are " + number + " instances of the class: shoes")
+              if (number < sampleAmount)
+              {
+                sampleAmount = number;
+              }
+              query.limit(sampleAmount);
+              // alert("Limited to " + sampleAmount)
+              query.find({
+                success: function(results)
+                {
+                  var continueFinding = true;
+                  var finalObj = ""; //Reset finalObj
+                  // alert("Found: " + results.length + " objects")
+                  for (var i = 0; i < results.length; i++)
+                  {
+                    var currentShoe = results[i].get("item").toUpperCase(); //Make all uppercase to make case insensitive
+                    var strPosition = currentShoe.search(holdUsing.toUpperCase()); //Find the location in the string of the phrase
+                    // alert("strPosition: " + strPosition)
+                    if (strPosition != -1 && continueFinding) //if there is a match and still haven't hit counter
+                    {
+                      // alert("Found a match")
+                      totalResults++; //Add to counter
+                      var pageCompensation = (pageNumber - 1) * maxResults;
+                      if (totalResults > maxResults + pageCompensation) //If there are enough results for the page
+                      {
+                        // alert("Found all objects for current page (" + totalResults +  ")")
+                        continueFinding = false;
+                        i = results.length; //Stop repeat
+                      }
+                      else //If there aren't enough results yet
+                      {
+                        if (totalResults > pageCompensation) //If it's past the first object on page
+                        {
+                          //This is where you put code to actually do something with the object
+                          var picture = "<div>" + "<img src=" + results[i].get("image") + " class='shoeSearchPicture'></div>";
+                          finalObj += picture;
+                          var link = "<a href=buy.html?item=" + results[i].get("objectid") + ">";
+                          finalObj += "<div><h4>" + link + results[i].get("item") + "</h4></div>";
+                        }
+                        // else
+                        // {
+                        //   alert("Max results per page: " + maxResults)
+                        //   alert("Found object, but not within the range: " + totalResults)
+                        //   alert("Needed to be greater than: " + pageCompensation)
+                        // }
+                      }
+                    }
+                  }
+                  document.getElementById("results").innerHTML = finalObj;
+                  pagination(continueFinding); //Add the page buttons
+                },
+                error: function(error)
+                {
+                  alert("Error: " + error.code + " " + error.message);
+                }
+              });
+            },
+            error: function(error)
+            {
+              alert("Error: " + error.code + " " + error.message);
+            }
+          });
+        }
+        else if (filterCategory == "users")
+        {
+          var users = Parse.Object.extend("User");
+          var query = new Parse.Query(users);
+          query.count({
+            success: function(number) //Make sure there are enough objects
+            {
+              // alert("There are " + number + " instances of the class: shoes")
+              if (number < sampleAmount)
+              {
+                sampleAmount = number;
+              }
+              query.limit(sampleAmount);
+              // alert("Limited to " + sampleAmount)
+              query.find({
+                success: function(results)
+                {
+                  var continueFinding = true;
+                  var finalObj = ""; //Reset finalObj
+                  // alert("Found: " + results.length + " objects")
+                  for (var i = 0; i < results.length; i++)
+                  {
+                    var currentUser = results[i].get("username").toUpperCase(); //Make all uppercase to make case insensitive
+                    var strPosition = currentUser.search(holdUsing.toUpperCase()); //Find the location in the string of the phrase
+                    // alert("strPosition: " + strPosition)
+                    if (strPosition != -1 && continueFinding) //if there is a match and still haven't hit counter
+                    {
+                      // alert("Found a match")
+                      totalResults++; //Add to counter
+                      var pageCompensation = (pageNumber - 1) * maxResults;
+                      if (totalResults > maxResults + pageCompensation) //If there are enough results for the page
+                      {
+                        // alert("Found all objects for current page (" + totalResults +  ")")
+                        continueFinding = false;
+                        i = results.length; //Stop repeat
+                      }
+                      else //If there aren't enough results yet
+                      {
+                        if (totalResults > pageCompensation) //If it's past the first object on page
+                        {
+                          //This is where you put code to actually do something with the object
+                          finalObj += "<div><h4>" + results[i].get("username") + "</h4></div>";
+                        }
+                      }
+                    }
+                  }
+                  document.getElementById("results").innerHTML = finalObj;
+                  pagination(continueFinding); //Add the page buttons
+                },
+                error: function(error)
+                {
+                  alert("Error: " + error.code + " " + error.message);
+                }
+              });
+            },
+            error: function(error)
+            {
+              alert("Error: " + error.code + " " + error.message);
+            }
+          });
+        }
+        else if (filterCategory == "help")
+        {
+          var threads = Parse.Object.extend("contact");
+          var query = new Parse.Query(threads);
+          query.count({
+            success: function(number) //Make sure there are enough objects
+            {
+              // alert("There are " + number + " instances of the class: shoes")
+              if (number < sampleAmount)
+              {
+                sampleAmount = number;
+              }
+              query.limit(sampleAmount);
+              // alert("Limited to " + sampleAmount)
+              query.find({
+                success: function(results)
+                {
+                  var continueFinding = true;
+                  var finalObj = ""; //Reset finalObj
+                  // alert("Found: " + results.length + " objects")
+                  for (var i = 0; i < results.length; i++)
+                  {
+                    var currentThread = results[i].get("details").toUpperCase(); //Make all uppercase to make case insensitive
+                    var strPosition = currentThread.search(holdUsing.toUpperCase()); //Find the location in the string of the phrase
+                    // alert("strPosition: " + strPosition)
+                    if (strPosition != -1 && continueFinding) //if there is a match and still haven't hit counter
+                    {
+                      // alert("Found a match")
+                      totalResults++; //Add to counter
+                      var pageCompensation = (pageNumber - 1) * maxResults;
+                      if (totalResults > maxResults + pageCompensation) //If there are enough results for the page
+                      {
+                        // alert("Found all objects for current page (" + totalResults +  ")")
+                        continueFinding = false;
+                        i = results.length; //Stop repeat
+                      }
+                      else //If there aren't enough results yet
+                      {
+                        if (totalResults > pageCompensation) //If it's past the first object on page
+                        {
+                          //This is where you put code to actually do something with the object
+                          var link = "<a href=query.html?question=" + results[i].id + ">"
+                          finalObj += "<div><h3>" + link + results[i].get("subject") + "</h4></div>";
+                        }
+                      }
+                    }
+                  }
+                  document.getElementById("results").innerHTML = finalObj;
+                  pagination(continueFinding); //Add the page buttons
+                },
+                error: function(error)
+                {
+                  alert("Error: " + error.code + " " + error.message);
+                }
+              });
+            },
+            error: function(error)
+            {
+              alert("Error: " + error.code + " " + error.message);
+            }
+          });
+        }
+
+        //Page selection
+        var pagination = function(conditional){
+          finalObj = ""; //Reset final object
+          finalObj+= "<nav><ul class='pager'>"
+          // alert("On page: " + pageNumber)
+          if (pageNumber != 1) //If not on page 1 add previous page button
+          {
+            var num = parseInt(pageNumber) - 1;
+            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
+            finalObj += "<li><a href=search.html?search=" + holdUsing + RPP + "#filter=" + filterCategory + "#page=" + num + ">";
+            finalObj += "Previous Page</a></li>"
+          }
+          if (!conditional) //Next page button (if the search was stopped before the last object was searched)
+          {
+            // alert(pageNumber); //Debugging
+            var num = parseInt(pageNumber) + 1;
+            // alert("Variable num = " + num) //Debugging
+            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
+            finalObj += "<li><a href=search.html?search=" + holdUsing + RPP + "#filter=" + filterCategory + "#page=" + num + ">";
+            finalObj += "Next Page</a></li>"
+          }
+          finalObj += "</ul></nav>"
+          // alert("There were: " + totalResults + " results found (" + totalPages + ")"); //Debugging
+          document.getElementById("pageSelection").innerHTML = finalObj;
         }
 
       </script>
