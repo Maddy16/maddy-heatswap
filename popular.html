@@ -642,10 +642,10 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
           var mailbox = new Parse.Query(shoe);
 
           mailbox.exists("item");
-          if (querySize !== undefined) mailbox.equalTo("size", querySize);
-          if (queryGender !== undefined) mailbox.equalTo("gender", queryGender);
-          if (queryCondition !== undefined) mailbox.equalTo("condition", queryCondition);
-          if (queryBrand !== undefined) mailbox.equalTo("brand", queryBrand);
+          if (querySize !== undefined) mailbox.equalTo("size", querySize), document.getElementById("size").value=querySize;
+          if (queryGender !== undefined) mailbox.equalTo("gender", queryGender), document.getElementById("gender").value=queryGender;
+          if (queryCondition !== undefined) mailbox.equalTo("condition", queryCondition), document.getElementById("condition").value=queryCondition;
+          if (queryBrand !== undefined) mailbox.equalTo("brand", queryBrand), document.getElementById("brand").value=queryBrand;
           mailbox.limit(16);
           limitStuff = (first-1) * 16
           mailbox.skip(limitStuff);
