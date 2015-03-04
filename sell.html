@@ -439,7 +439,7 @@
         <div class="well text-center" id="spread-heat-well">
           <h2 class="blue">spread some heat</h2>
 		      <p id="openStore">
-		        <a class="btn btn-primary btn-lg" href="sellItem.html">open your store</a>
+		        <a href="#paypalModal" class="btn btn-primary btn-lg" role="button" data-toggle="modal">open your store</a>
 		      </p>
           <video width="900" height="400" controls>
             <source src="files/howToSell.mp4" type="video/mp4">
@@ -448,6 +448,39 @@
           <h3>want to sell some shoes? check this out first</h3>
         </div><!-- /well -->
 
+        <div class="modal fade" id="paypalModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Account Set Up</h4>
+              </div>
+              <div class="modal-body">
+                <p>Paypal Email</p>
+                <input type="email" id="paypalEmail"></input>
+                <p>Confirm Email</p>
+                <input type="email" id="paypalEmailConfirm"></input>
+                <p>Don't have a Paypal account? Click <a href="https://www.paypal.com/signup/account">here</a> to make one now</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onClick="submitPaypal()">Save changes</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <script>
+          var submitPaypal=function(){
+            //check if user is signed in, if not, modal. Then add redirect
+            if(document.getElementById("paypalEmail").value!=""&&document.getElementById("paypalEmailConfirm").value!=""&&document.getElementById("paypalEmail").value==document.getElementById("paypalEmailConfirm").value){
+              alert("hello")
+            }else{
+              alert("Your emails do not match")
+            }
+          }
+        </script>
+
         <script>
          Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
 
@@ -455,7 +488,7 @@
           var currentUser=Parse.User.current();
           if(currentUser.get("storeId")==null||currentUser.get("storeId")==""){
             //alert(currentUser.get("storeId"))
-            finalObj+=" <a class='btn btn-primary btn-lg' href='storePreview.html'>open your store</a>"
+            finalObj+=" <a class='btn btn-primary btn-lg' href='#paypalModal' role='button' data-toggle='modal'>open your store</a>"
           }else{
             finalObj+=" <a class='btn btn-primary btn-lg' href='sellItem.html'>sell a shoe</a>"
           }

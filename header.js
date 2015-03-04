@@ -1,7 +1,7 @@
-var Parse = document.createElement('script');
-Parse.src = 'http://www.parsecdn.com/js/parse-1.2.18.min.js';
-Parse.type = 'text/javascript';
-document.getElementsByTagName('head')[0].appendChild(Parse);
+// var Parse = document.createElement('script');
+// Parse.src = 'http://www.parsecdn.com/js/parse-1.2.18.min.js';
+// Parse.type = 'text/javascript';
+// document.getElementsByTagName('head')[0].appendChild(Parse);
 
 
 var menuSetup = function () {
@@ -66,5 +66,39 @@ var menuSetup = function () {
         Parse.User.logOut();
       var currentUser = Parse.User.current();
     location.reload();
+  }
+}
+
+var submitSearch = function(){
+  var searchQuery = document.getElementById("tempSearch").value;
+  if (searchQuery != "" & searchQuery != " ") //If there is a search
+  {
+    //alert("made it")
+    var RPP="";
+    if(document.getElementById("resultsPerPage")!=null){
+    RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value;
+    }else{
+      RPP = "#resultsPerPage=3"
+    }
+    var linkTo = "search.html?search=" + searchQuery + RPP + "#filter=shoes#page=1";
+    //alert("Redirecting to..." + linkTo);
+    var url = linkTo;    
+    alert(url)
+    window.location.href = url;
+
+    //$(location).attr('href',url);
+    // window.location.replace("google.com")
+    //window.location.assign("index.html")
+    //alert(window.location.href)
+    //location.reload();
+    ///window.location.href = "search.html?search=" + searchQuery + "#filter=shoes#page=1"; //Redirect
+    //alert("Got past the link");
+    // window.location.href = 'http://www.google.com'; //For debugging
+    // location.reload(); //Reload window
+    return false;
+  }
+  else
+  {
+    alert("Please enter a search query")
   }
 }

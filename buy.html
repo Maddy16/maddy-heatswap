@@ -54,6 +54,7 @@
             Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
             var currentUser = Parse.User.current();
             var currentName="";
+            var pageId="";
 
             if(currentUser!=null) currentName=currentUser.get("username");
               if(currentName!=null&&currentName!=""){
@@ -115,7 +116,6 @@
           </script>    
         </div><!-- /login-menu -->
 
-<!--
 <div id="buyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -478,7 +478,6 @@
             </div>
           </div>
          </div>
-       -->
 
 
         <!-- Modal -->
@@ -1082,9 +1081,35 @@
                           }
                         });
                       }
+
+                      var setForm=function(){
+                        Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+                        var shoe = Parse.Object.extend("shoe");
+                        var query = new Parse.Query(shoe);
+                        query.equalTo("objectId", pageId);
+                        query.find({
+                          success: function(results) {
+                            selling=results[0];
+                            document.getElementById("paypalPrice").value=selling.get("price")
+                            document.forms['paypalForm'].submit();
+                          },
+                          error: function(error) {
+                            alert("Error: " + error.code + " " + error.message);
+                          }
+                        });
+                      }
                     </script>
-                    <!--<form method="post" id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top"><div class="hide" id="errorBox"></div><input type="hidden" name="button" value="buynow"><input id="paypalName" type="hidden" name="item_name" value="Product via QR code"><input id="paypalPrice" type="hidden" name="amount" value="10"><input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="business" value="austenkeene@gmail.com"><input type="hidden" name="bn" value="JavaScriptButton_buynow"><input type="hidden" name="env" value="www"></form>-->
-                    <button id="paypalBtn" class="btn btn-primary" style="width:100%;" onclick="modalTrigger()"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="center" style="margin-right:7px;"></button>
+                    <!--<form method="post" id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top">-->
+                      <form id="paypalForm" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" class="paypal-button" target="_top">
+                      <div class="hide" id="errorBox"></div>
+                      <input type="hidden" name="button" value="buynow">
+                      <input id="paypalName" type="hidden" name="item_name" value="Product via QR code">
+                      <input id="paypalPrice" type="hidden" name="amount" value="10">
+                      <input type="hidden" name="cmd" value="_xclick">
+                      <input type="hidden" name="business" value="maddynakada-facilitator@gmail.com">
+                      <input type="hidden" name="bn" value="JavaScriptButton_buynow"><input type="hidden" name="env" value="www"></form>
+
+                    <button id="paypalBtn" class="btn btn-primary" style="width:100%;" onclick="setForm()"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="center" style="margin-right:7px;"></button>
 
                     <script>
                       var modalTrigger = function () {
@@ -1095,6 +1120,7 @@
                         } else {
                           $('#buyModal').modal({ show: false})
                           $('#buyModal').modal('show');   
+                          //alert("hello")
                         };
                       }
                     </script>
@@ -1170,6 +1196,7 @@ return queryItem
      Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");  
         var shoe = Parse.Object.extend("shoe");
         var mailbox = new Parse.Query(shoe);
+        pageId=queryItem;
 
         mailbox.get(queryItem, {
           success: function(woot) {

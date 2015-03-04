@@ -499,6 +499,7 @@
                         document.getElementById("title").innerHTML=currentStore.get("coolName");
                         document.getElementById("storeOwner").innerHTML=currentStore.get("userNameStuff");
                         document.getElementById("openDate").innerHTML="opened: <span class='text-muted'>"+currentStore.get("iListedDate")+"</span>";
+                        getShoes(currentStore.id);
                         if(currentStore.get("storeMain")!=null){
                           document.getElementById("mainImg").src=currentStore.get("storeMain")
                         }
@@ -513,68 +514,37 @@
                       }
                     });
 
+                    var getShoes=function(storeId){
+                      var shoe = Parse.Object.extend("shoe");
+                      var query = new Parse.Query(shoe);
+                      query.equalTo("storeId", storeId);
+                      query.find({
+                        success: function(results) {
+                          alert("Successfully retrieved " + results.length + " scores.");
+                          // Do something with the returned Parse.Object values
+                          var finalObj="";
+                          for (var i = 0; i < results.length; i++) { 
+                            finalObj+='<div class="col-sm-4">'
+                            finalObj+='<div class="thumbnail">'
+                            finalObj+='<a href="#"><img src="http://placehold.it/300x200" class="img-responsive" alt="..."></a>'
+                            finalObj+='<div class="caption">'
+                            finalObj+='<h4 class="pull-right">$100</h4>'
+                            finalObj+='<h4><a href="#">'+i+'</a></h4>'
+                            finalObj+='<p class="text-muted">Released on 12/20/14</p>'
+                            finalObj+='</div>'
+                            finalObj+='</div>'
+                            finalObj+='</div>'
+                          }
+                          document.getElementById("shoeHolder").innerHTML=finalObj
+                        },
+                        error: function(error) {
+                          alert("Error: " + error.code + " " + error.message);
+                        }
+                      });
+                    }
+
             </script>
-            <div class="row store-page-seemore">
-              <div class="col-sm-4">
-                <div class="thumbnail">
-                  <a href="#"><img src="http://placehold.it/300x200" class="img-responsive" alt="..."></a>
-                  <div class="caption">
-                    <h4 class="pull-right">$100</h4>
-                    <h4><a href="#">Name of Brand</a></h4>
-                    <p class="text-muted">Released on 12/20/14</p>
-                  </div><!-- /caption -->
-                </div><!-- /thumbnail -->
-              </div><!-- /col-sm-4 -->
-              <div class="col-sm-4">
-                <div class="thumbnail">
-                  <a href="#"><img src="http://placehold.it/300x200" class="img-responsive" alt="..."></a>
-                  <div class="caption">
-                    <h4 class="pull-right">$100</h4>
-                    <h4><a href="#">Name of Brand</a></h4>
-                    <p class="text-muted">Released on 12/20/14</p>
-                  </div><!-- /caption -->
-                </div><!-- /thumbnail -->
-              </div><!-- /col-sm-4 -->
-              <div class="col-sm-4">
-                <div class="thumbnail">
-                  <a href="#"><img src="http://placehold.it/300x200" class="img-responsive" alt="..."></a>
-                  <div class="caption">
-                    <h4 class="pull-right">$100</h4>
-                    <h4><a href="#">Name of Brand</a></h4>
-                    <p class="text-muted">Released on 12/20/14</p>
-                  </div><!-- /caption -->
-                </div><!-- /thumbnail -->
-              </div><!-- /col-sm-4 -->
-              <div class="col-sm-4">
-                <div class="thumbnail">
-                  <a href="#"><img src="http://placehold.it/300x200" class="img-responsive" alt="..."></a>
-                  <div class="caption">
-                    <h4 class="pull-right">$100</h4>
-                    <h4><a href="#">Name of Brand</a></h4>
-                    <p class="text-muted">Released on 12/20/14</p>
-                  </div><!-- /caption -->
-                </div><!-- /thumbnail -->
-              </div><!-- /col-sm-4 -->
-              <div class="col-sm-4">
-                <div class="thumbnail">
-                  <a href="#"><img src="http://placehold.it/300x200" class="img-responsive" alt="..."></a>
-                  <div class="caption">
-                    <h4 class="pull-right">$100</h4>
-                    <h4><a href="#">Name of Brand</a></h4>
-                    <p class="text-muted">Released on 12/20/14</p>
-                  </div><!-- /caption -->
-                </div><!-- /thumbnail -->
-              </div><!-- /col-sm-4 -->
-              <div class="col-sm-4">
-                <div class="thumbnail">
-                  <a href="#"><img src="http://placehold.it/300x200" class="img-responsive" alt="..."></a>
-                  <div class="caption">
-                    <h4 class="pull-right">$100</h4>
-                    <h4><a href="#">Name of Brand</a></h4>
-                    <p class="text-muted">Released on 12/20/14</p>
-                  </div><!-- /caption -->
-                </div><!-- /thumbnail -->
-              </div><!-- /col-sm-4 -->                
+            <div id="shoeHolder" class="row store-page-seemore">               
             </div><!-- /row store-page-seemore --> 
             
             <button type="button" class="btn btn-default pull-right" style="margin-top:20px">see all <span class="glyphicon glyphicon-chevron-down"></span></button>
