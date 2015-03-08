@@ -8,10 +8,11 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+      <script type="text/javascript" src="photoGeneration.js"></script>
 
-    <title id="pageTitle">Search</title>
+    <title>Popular</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -30,7 +31,7 @@
     
     <div class="container">
       
-      <div id="logo-navbar" class="row navbar">
+    <div id="logo-navbar" class="row navbar">
         
         <div class="col-xs-12 col-md-4" >
           <a href="index.html"><img alt="logo" class="img-responsive center-block" src="images/logo.png"></a>
@@ -369,7 +370,7 @@
       </div><!-- /logo row -->
       
       <!-- Static navbar -->
-      <div class="navbar navbar-default without-subnav" role="navigation">
+      <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -383,437 +384,435 @@
           
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="contactDashboard.html?filter=buying">buy</a></li>
-              <li><a href="contactDashboard.html?filter=selling">sell</a></li>
-              <li><a href="contactDashboard.html?filter=login">news</a>
-              <li><a href="contactDashboard.html?filter=user">our team</a></li>
-              <li><a href="contactDashboard.html?filter=user">a good story</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">buy <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="popular.html">popular</a></li>
+                  <!-- <li><a href="buy.html">buy page</a></li>
+         <li><a href="store.html">store</a></li> -->
+                  <li class="dropdown-submenu"><a href="#">brand</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="popular.html?brand=adidas">Adidas</a></li>
+                      <li><a href="popular.html?brand=airjordan">Air Jordan</a></li>
+                      <li><a href="popular.html?brand=asics">Asics</a></li>
+                      <li><a href="popular.html?brand=converse">Converse</a></li>
+                      <li><a href="popular.html?brand=newbalance">New Balance</a></li>
+                      <li><a href="popular.html?brand=nike">Nike</a></li>
+                      <li><a href="popular.html?brand=puma">Puma</a></li>
+                      <li><a href="popular.html?brand=reebok">Reebok</a></li>
+                      <li><a href="popular.html?brand=saucony">Saucony</a></li>
+                      <li><a href="popular.html?brand=vans">Vans</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="sell.html">sell</a></li>
+              <li><a target=_blank href="http://heatswap.com/news">news</a>
+       <li><a href="team.html">our team</a></li>
+              <li><a href="story.html">a good story</a></li>
+              <li><a href="media.html">media</a></li>
             </ul>
             
             <form class="navbar-form navbar-right" role="search">
               <div class="form-group">
-                <input id="tempSearch" type="text" class="form-control" placeholder="Search">
+                <input id="submitSearch" type="search" class="form-control" placeholder="Search">
               </div>
-              <button type="submit" class="btn btn-primary" onClick="submitSearch(); return false;"><span class="glyphicon glyphicon-search"></span></button>
+              <button type="submit" class="btn btn-primary" onclick="searchStuff()"><span class="glyphicon glyphicon-search"></span></button>
             </form>
 
             <script>
-            var submitSearch = function(){
-              var searchQuery = document.getElementById("tempSearch").value;
-              if (searchQuery != "" & searchQuery != " ") //If there is a search
+            var searchStuff = function () {
+              alert("Pressed the search button");
+              var condition = document.getElementById("condition").value;
+              var price = document.getElementById("price").value;
+              var size = document.getElementById("size").value;
+              var gender = document.getElementById("gender").value;
+              var searchQuery = document.getElementById("submitSearch").value;
+
+              var searchitem = "";
+
+              if (searchQuery != "" && searchQuery != " ")
               {
-                var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value;
-                var linkTo = "search.html?search=" + searchQuery + RPP + "#filter=shoes#page=1";
-                alert("Redirecting to..." + linkTo);
-                var url = linkTo;    
-                $(location).attr('href',url);
-                // window.location.replace("google.com")
-                //window.location.assign("index.html")
-                //alert(window.location.href)
-                //location.reload();
-                ///window.location.href = "search.html?search=" + searchQuery + "#filter=shoes#page=1"; //Redirect
-                //alert("Got past the link");
-                // window.location.href = 'http://www.google.com'; //For debugging
-                // location.reload(); //Reload window
-                return false;
+                if (condition !== "condition") {
+                  condition = "&&condition=" + condition;
+                  searchitem = searchitem + condition; 
+                } 
+                if (price !== "price") {
+                  if(price === "lowest to highest") {
+                    price = "&&price=low"; 
+                  } else {
+                    price = "&&price=high"; 
+                  }
+                  searchitem = searchitem + price; 
+                }
+                if (size !== "size") {
+                  size = "&&size="+size; 
+                  searchitem = searchitem + size;
+                }
+                if (gender !== "gender") {
+                  gender = "&&gender="+gender; 
+                  searchitem = searchitem + gender;
+                }
+
+                // alert(searchQuery)
+                var query = "&&search=" + searchQuery;
+
+                searchitem = "search.html?" + searchitem + query;
+                alert(searchitem)
+                var url = searchitem;
+                alert("test")
+                $(location).attr('href', url);
+                window.location.href = searchitem; //Links don't work
               }
               else
               {
-                alert("Please enter a search query")
+                alert("There is nothing typed in the search field")
               }
             }
             </script>
-
+            
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
 
       <div id="main-wrap"><!-- Main content wrapper -->
+        
+        <div id="subnav" class="hidden-xs">
+          <ul class="nav nav-justified">
+            <li><a href="popular.html?brand=adidas">Adidas</a></li>
+            <li><a href="popular.html?brand=airjordan">Air Jordan</a></li>
+            <li><a href="popular.html?brand=asics">Asics</a></li>
+            <li><a href="popular.html?brand=converse">Converse</a></li>
+            <li><a href="popular.html?brand=newbalance">New Balance</a></li>
+            <li><a href="popular.html?brand=nike">Nike</a></li>
+            <li><a href="popular.html?brand=puma">Puma</a></li>
+            <li><a href="popular.html?brand=reebok">Reebok</a></li>
+            <li><a href="popular.html?brand=saucony">Saucony</a></li>
+            <li><a href="popular.html?brand=vans">Vans</a></li>
+          </ul>
+        </div>
 
-        <button onclick="shoesFilter()">Shoes</button>
-        <button onclick="usersFilter()">User</button>
-        <button onClick="helpFilter()">Help</button>
+        <div class="pull-left">
+          <h1 style="margin-right:10px" class="red" id="popularTitle">popular</h1>
+        </div>
+  
+        <div class="clearfix">      
+          <ol class="breadcrumb pull-right breadcrumb-right">
+            <li><a href="index.html">home</a></li>
+            <li class="active">popular</li>
+          </ol>
+          <hr class="breadcrumb-hr">
+        </div>
+                
+      <!-- Dropdowns -->
+        <form id="popular-pg-dropdowns" class="form-inline">
+          <div class="form-group">
+          <label class="control-label" for="select01">sort by gender:</label>
+            <select id="gender" class="form-control" id="select01">
+              <option>gender</option>
+              <option>male</option>
+              <option>female</option>
+            </select>
+          </div>
 
-        <script>
-          var urlParams;
-          (window.onpopstate = function () {
-            var match,
-              pl     = /\+/g,  // Regex for replacing addition symbol with a space
-              search = /([^&=]+)=?([^&]*)/g,
-              decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-              query  = window.location.search.substring(1);
+          <div class="form-group">
+           <label class="control-label" for="select01">sort by size:</label>
+            <select id="size" class="form-control" id="select01">
+              <option>size</option>
+              <option>5</option>
+              <option>5.5</option>
+              <option>6</option>
+              <option>6.5</option>
+              <option>7</option>
+              <option>7.5</option>
+              <option>8</option>
+              <option>8.5</option>
+              <option>9</option>
+              <option>9.5</option>
+              <option>10</option>
+              <option>10.5</option>
+              <option>11</option>
+              <option>11.5</option>
+              <option>12</option>
+              <option>12.5</option>
+              <option>13</option>
+            </select>
+          </div><!-- /form-group -->
 
-            urlParams = {};
-            while (match = search.exec(query))
-              urlParams[decode(match[1])] = decode(match[2]);
-          })();
-          var holdUsing = urlParams["search"]; //Hold using is the search query
+          <div class="form-group">
+            <label class="control-label" for="select02">sort by price:</label>
+            <select id="price" class="form-control" id="select02">
+              <option>price</option>
+              <option>lowest to highest</option>
+              <option>highest to lowest</option>
+            </select>
+          </div><!-- /form-group -->
 
-          var shoesFilter = function(){
-            // alert("Changing filter to shoes")
-            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
-            window.location.href="search.html?search=" + holdUsing + RPP + "#filter=shoes#page=1";
-            location.reload();
-          }
+          <div class="form-group">
+            <label class="control-label" for="select03">sort by condition:</label>
+            <select id="condition" class="form-control">
+              <option>condition</option>
+              <option>new with box</option>
+              <option>new without box</option>
+              <option>preowned</option>
+            </select>
+          </div><!-- /form-group -->
 
-          var usersFilter = function(){
-            // alert("Changing filter to users")
-            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
-            window.location.href="search.html?search=" + holdUsing + RPP + "#filter=users#page=1";
-            location.reload();
-          }
+          <div class="form-group">
+            <button id="updateButton" class="btn btn-primary" style="width:100%;" onclick="updateStuff(); return false;"><span class="glyphicon glyphicon-search"></span></button>
+          </div>
 
-          var helpFilter = function(){
-            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
-            window.location.href="search.html?search=" + holdUsing + RPP + "#filter=help#page=1";
-            location.reload();
-          }
-        </script>
-
-
-        <!-- more options -->
-        <select id="resultsPerPage">
-          <option value=002>2</option>
-          <option value=010>10</option>
-          <option value=025>25</option>
-          <option value=100>100</option>
-        </select>
-        <button onClick="applyOptions()">Reload</button>
-
-        <script>
-          var urlParams;
-          (window.onpopstate = function () {
-            var match,
-              pl     = /\+/g,  // Regex for replacing addition symbol with a space
-              search = /([^&=]+)=?([^&]*)/g,
-              decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-              query  = window.location.search.substring(1);
-
-            urlParams = {};
-            while (match = search.exec(query))
-              urlParams[decode(match[1])] = decode(match[2]);
-          })();
-          var holdUsing = urlParams["search"]; //Hold using is the search query
-
-          var currentURL = document.URL;
-          var pagePosition = currentURL.search("page=");
-          var pageNumber = currentURL.charAt(pagePosition+5); //page number
-
-          var filterPosition = currentURL.search("filter=");
-          var filterCategory = "";
-          for (var i = filterPosition + 7; i < currentURL.length - 7; i++) //"filter=" is 7 characters
+          <script>
+          var updateStuff = function()
           {
-            if (currentURL.charAt(i) == "#") //If at the results per page variable
+            alert("Pressed the update button");
+            var urlParams;
+            (window.onpopstate = function () {
+              var match,
+                pl     = /\+/g,  // Regex for replacing addition symbol with a space
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                query  = window.location.search.substring(1);
+
+              urlParams = {};
+              while (match = search.exec(query))
+                urlParams[decode(match[1])] = decode(match[2]);
+            })();
+            var query = urlParams["search"]
+            var condition = document.getElementById("condition").value;
+            var price = document.getElementById("price").value;
+            var size = document.getElementById("size").value;
+            var gender = document.getElementById("gender").value;
+
+            var searchitem = "";
+
+            if (searchQuery != "" && searchQuery != " ")
             {
-              i = currentURL.length; //Terminate loop
+              if (condition !== "condition") {
+                condition = "&&condition=" + condition;
+                searchitem = searchitem + condition; 
+              } 
+              if (price !== "price") {
+                if(price === "lowest to highest") {
+                  price = "&&price=low"; 
+                } else {
+                  price = "&&price=high"; 
+                }
+                searchitem = searchitem + price; 
+              }
+              if (size !== "size") {
+                size = "&&size="+size; 
+                searchitem = searchitem + size;
+              }
+              if (gender !== "gender") {
+                gender = "&&gender="+gender; 
+                searchitem = searchitem + gender;
+              }
+
+              // alert(searchQuery)
+              var query = "&&search=" + searchQuery;
+
+              searchitem = "search.html?" + searchitem + query;
+              alert(searchitem)
+              var url = searchitem
+              //alert()
+              $(location).attr('href', url);
+
             }
             else
             {
-              filterCategory += currentURL.charAt(i);
+              alert("There is nothing typed in the search field")
             }
           }
-
-          var applyOptions = function(){
-            window.location.href="search.html?search=" + holdUsing + "#filter=" + filterCategory + "#resultsPerPage=" + document.getElementById("resultsPerPage").value + "#page=" + pageNumber;
-            location.reload();
-          }
-        </script>
-
-
-      </div>
-
-
-        <div>
-          <div id="searchInput">
-
-          </div>
-
-          <div id="results">
-
-          </div>
-
-          <div id="pageSelection">
-
-          </div>
+          </script>
+        </form>
+        
+        <!-- Pushes first shoe down where it belongs -->
+        <div class="clearfix hidden-sm"></div>
+        
+        <div class="row" id="row-popular-pg">
         </div>
 
+        
+        <div id="pagination-popular" class="clearfix">
+          <ul class="pagination pull-right">
+            <li id ="nextClass" class="disabled"><a href="#" onclick="nextPage(1);return false;">&laquo;</a></li>
+            <li class="active"><a href="#" id="firstLink">1<span class="sr-only">(current)</span></a></li>
+            <li><a href="#" id="secondLink">2</a></li>
+            <li><a href="#" id="thirdLink">3</a></li>
+            <li><a href="#" onclick="nextPage(2)";return false;>&raquo;</a></li>
+          </ul>
+        </div>
+        
+<script>       
 
-      </div><!-- /main -->
+  if(currentName!=null&&currentName!=""){
+      var finalObj=document.getElementById("account");
+      document.getElementById("myTabContent").innerHTML = finalObj.innerHTML;
+    }else{
+      var finalObj=""
+      finalObj += "<ul id='myTab' class='nav nav-tabs'>\n"
+      finalObj += "<li class='active'><a href='#signIn' data-toggle='tab'><span class='glyphicon glyphicon-lock'></span> sign in</a></li>\n"
+      finalObj += "<li class=''><a href='#signUp' data-toggle='tab'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
+      finalObj += "</ul>"
+      var insertNonsense=document.getElementById("modalTabs")
+      insertNonsense.innerHTML=finalObj
+    }
+
+var urlParams;
+(window.onpopstate = function () {
+  var match,
+    pl     = /\+/g,  // Regex for replacing addition symbol with a space
+    search = /([^&=]+)=?([^&]*)/g,
+    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+    query  = window.location.search.substring(1);
+
+  urlParams = {};
+  while (match = search.exec(query))
+    urlParams[decode(match[1])] = decode(match[2]);
+})();
+
+var queryPrice = urlParams["price"];
+var querySize = urlParams["size"];
+var queryGender = urlParams["gender"];
+var queryCondition = urlParams["condition"];
+var queryBrand = urlParams["brand"];
+var queryPage = urlParams["page"];
+var queryQuery = urlParams["search"]
+
+if(queryBrand=="adidas"){
+  popularTitle.innerHTML="Adidas";
+}else if(queryBrand=="airjordan"){
+  popularTitle.innerHTML="Air Jordan";
+}else if(queryBrand=="asics"){
+  popularTitle.innerHTML="Asics";
+}else if(queryBrand=="newbalance"){
+  popularTitle.innerHTML="New Balance";
+}else if(queryBrand=="nike"){
+  popularTitle.innerHTML="Nike";
+}else if(queryBrand=="puma"){
+  popularTitle.innerHTML="Puma";
+}else if(queryBrand=="reebok"){
+  popularTitle.innerHTML="Reebok";
+}else if(queryBrand=="Saucony"){
+  popularTitle.innerHTML="saucony";
+}else if(queryBrand=="vans"){
+  popularTitle.innerHTML="Vans";
+}
+
+if (queryPage === undefined) queryPage = 1;
+
+var first = parseInt(queryPage)
+var second = parseInt(queryPage) + 1
+var third = parseInt(queryPage) + 2
+
+document.getElementById("firstLink").innerHTML = first;
+document.getElementById("secondLink").innerHTML = second;
+document.getElementById("thirdLink").innerHTML = third;
+
+document.getElementById("firstLink").href = "popular.html?page=" + first;
+document.getElementById("secondLink").href = "popular.html?page=" + second;
+document.getElementById("thirdLink").href = "popular.html?page=" + third;
+
+if (first > 1) {
+  document.getElementById("nextClass").setAttribute("class", "cool");
+}
+
+Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+          var shoe = Parse.Object.extend("shoe");
+          var mailbox = new Parse.Query(shoe);
+
+          mailbox.exists("item");
+          if (querySize !== undefined) mailbox.equalTo("size", querySize), document.getElementById("size").value=querySize;
+          if (queryGender !== undefined) mailbox.equalTo("gender", queryGender), document.getElementById("gender").value=queryGender;
+          if (queryCondition !== undefined) mailbox.equalTo("condition", queryCondition), document.getElementById("condition").value=queryCondition;
+          if (queryBrand !== undefined) mailbox.equalTo("brand", queryBrand), document.getElementById("brand").value=queryBrand;
+          mailbox.limit(16);
+          limitStuff = (first-1) * 16
+          mailbox.skip(limitStuff);
+          if (queryPrice !== undefined) {
+            if (queryPrice === "low") {
+              mailbox.ascending("price");
+            } else {
+              mailbox.descending("price");
+            }
+          } else {
+            mailbox.descending("createdAt");
+          };
+          mailbox.find({
+            success: function(returnObj) {
+              var finalObj = ""
+              for (var i = 0; i < returnObj.length; i++) { 
+
+                var item = returnObj[i];
+                finalObj += "<div class='col-sm-4 col-md-3'>\n"
+                //<a href='#'' class='thumbnail'>\n";
+                finalObj += "<div class='thumbnail'>\n"
+                finalObj += "<a href='buy.html?item=" + item.id + "'>"
+                finalObj += "<div style='width:250; height:200px; overflow:hidden; text-align: center;'>\n"
+                finalObj += "<img src='" + lowResImageLandscape(item.get("image")) + "' style='position:relative; left:100%; margin-left:-200%;' height='200'>\n"                
+                finalObj += "</div>"
+                finalObj += "</a>\n"
+                finalObj += "<div class='caption'>"
+                finalObj += "<h4 class='pull-right'> $" + item.get("price") + "</h4>\n"
+
+                var shortName=(item.get("item"));
+
+                if(item.get("item").length>13){
+                  shortName="";
+                  for(var m=0; m<15; m++){
+                    shortName += item.get("item").charAt(m);
+                  }
+                  shortName += "..."
+                }
+
+                finalObj += "<h4><a href='buy.html?item="+ item.id + "'>"+shortName+"</a></h4>\n"
+                finalObj += "<p class='text-muted'>" + item.get("brand") + "</p>\n"
+                finalObj += "</div>"
+                finalObj += "</div>"
+                finalObj += "</div> \n"
+            }
+
+            var insertNonsense = document.getElementById("row-popular-pg");
+            insertNonsense.innerHTML = finalObj
+
+
+
+
+            },
+              error: function(error) {
+                  alert("Error: " + error.code + " " + error.message);
+             }
+        });
+
+var nextPage = function(ident) {
+  if (ident === 1) {
+    var next = first - 1;
+  } else {
+    var next = first + 1;
+  }
+  window.location.href = "popular.html?page=" + next;
+}
+</script>
+
+        <!--
+        <div class="well well-lg bottom-well">
+          <div class="row">
+            <div class="col-md-8">
+              <h2><span class="blue">young sneakerheads</span></h2>
+              <h4><span class="red">Generate some heat for kids.</span></h4>
+              <p>Every time you buy or sell sneakers on HeatSwap you're helping build a better future for kids who could use a break. We donate a percentage of every transaction to our partner organizations, which are creating educational and healthy play opportunities for children here and around the world. Please join us in showing how much good that Sneakerheads - and some heat-swapping - can do for the world.</p>
+              <p><a class="btn btn-lg btn-primary" href="story.html" role="button">read more &raquo;</a></p>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <img src="http://placehold.it/310x240" class="thumbnail img-responsive" alt="...">
+            </div>
+          </div>  
+        </div><
+        
+      </div>
+      -->
       
-      <script>
-        Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
-
-        var headerObj = "";
-        var urlParams;
-        (window.onpopstate = function () {
-          var match,
-            pl     = /\+/g,  // Regex for replacing addition symbol with a space
-            search = /([^&=]+)=?([^&]*)/g,
-            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-            query  = window.location.search.substring(1);
-
-          urlParams = {};
-          while (match = search.exec(query))
-            urlParams[decode(match[1])] = decode(match[2]);
-        })();
-        var holdUsing = urlParams["search"]; //Hold using is the search query
-        headerObj += "<h2>Search: '" + holdUsing + "'</h2>";
-        document.getElementById("pageTitle").innerHTML = "Heatswap Search: '" + holdUsing + "'"; //Rename the title of this page
-
-        var currentURL = document.URL;
-        var pagePosition = currentURL.search("page=");
-        var pageNumber = currentURL.charAt(pagePosition+5);
-        // alert(pageNumber);
-
-        var filterPosition = currentURL.search("filter=");
-        var filterCategory = "";
-        for (var i = filterPosition + 7; i < currentURL.length - 7; i++) //"filter=" is 7 characters
-        {
-          if (currentURL.charAt(i) == "#") //If at the results per page variable
-          {
-            i = currentURL.length; //Terminate loop
-          }
-          else
-          {
-            filterCategory += currentURL.charAt(i);
-          }
-        }
-        headerObj += "<h4>Filter: '" + filterCategory + "'</h4>";
-        document.getElementById("searchInput").innerHTML = headerObj;
-        // alert("The filter is: " + filterCategory)
-
-        var resultsPerPagePosition = currentURL.search("resultsPerPage=");
-        var tempResultsPerPage = currentURL.charAt(resultsPerPagePosition + 15) + currentURL.charAt(resultsPerPagePosition + 16) + currentURL.charAt(resultsPerPagePosition + 17);
-        // alert(tempResultsPerPage);
-
-        var maxResults = parseInt(tempResultsPerPage);
-        // alert("Search: " + holdUsing + " Filter: " + filterCategory + " RPP: " + maxResults + " Page: " + pageNumber)
-        var totalResults = 0;
-        var sampleAmount = 500;
-        // alert("Showing results: " + firstResult + "-" + lastResult);
-        if (filterCategory == "shoes")
-        {
-          var shoes = Parse.Object.extend("shoe");
-          var query = new Parse.Query(shoes);
-          query.count({
-            success: function(number) //Make sure there are enough objects
-            {
-              // alert("There are " + number + " instances of the class: shoes")
-              if (number < sampleAmount)
-              {
-                sampleAmount = number;
-              }
-              query.limit(sampleAmount);
-              // alert("Limited to " + sampleAmount)
-              query.find({
-                success: function(results)
-                {
-                  var continueFinding = true;
-                  var finalObj = ""; //Reset finalObj
-                  // alert("Found: " + results.length + " objects")
-                  for (var i = 0; i < results.length; i++)
-                  {
-                    var currentShoe = results[i].get("item").toUpperCase(); //Make all uppercase to make case insensitive
-                    var strPosition = currentShoe.search(holdUsing.toUpperCase()); //Find the location in the string of the phrase
-                    // alert("strPosition: " + strPosition)
-                    if (strPosition != -1 && continueFinding) //if there is a match and still haven't hit counter
-                    {
-                      // alert("Found a match")
-                      totalResults++; //Add to counter
-                      var pageCompensation = (pageNumber - 1) * maxResults;
-                      if (totalResults > maxResults + pageCompensation) //If there are enough results for the page
-                      {
-                        // alert("Found all objects for current page (" + totalResults +  ")")
-                        continueFinding = false;
-                        i = results.length; //Stop repeat
-                      }
-                      else //If there aren't enough results yet
-                      {
-                        if (totalResults > pageCompensation) //If it's past the first object on page
-                        {
-                          //This is where you put code to actually do something with the object
-                          var picture = "<div>" + "<img src=" + results[i].get("image") + " class='shoeSearchPicture'></div>";
-                          finalObj += picture;
-                          var link = "<a href=buy.html?item=" + results[i].get("objectid") + ">";
-                          finalObj += "<div><h4>" + link + results[i].get("item") + "</h4></div>";
-                        }
-                        // else
-                        // {
-                        //   alert("Max results per page: " + maxResults)
-                        //   alert("Found object, but not within the range: " + totalResults)
-                        //   alert("Needed to be greater than: " + pageCompensation)
-                        // }
-                      }
-                    }
-                  }
-                  document.getElementById("results").innerHTML = finalObj;
-                  pagination(continueFinding); //Add the page buttons
-                },
-                error: function(error)
-                {
-                  alert("Error: " + error.code + " " + error.message);
-                }
-              });
-            },
-            error: function(error)
-            {
-              alert("Error: " + error.code + " " + error.message);
-            }
-          });
-        }
-        else if (filterCategory == "users")
-        {
-          var users = Parse.Object.extend("User");
-          var query = new Parse.Query(users);
-          query.count({
-            success: function(number) //Make sure there are enough objects
-            {
-              // alert("There are " + number + " instances of the class: shoes")
-              if (number < sampleAmount)
-              {
-                sampleAmount = number;
-              }
-              query.limit(sampleAmount);
-              // alert("Limited to " + sampleAmount)
-              query.find({
-                success: function(results)
-                {
-                  var continueFinding = true;
-                  var finalObj = ""; //Reset finalObj
-                  // alert("Found: " + results.length + " objects")
-                  for (var i = 0; i < results.length; i++)
-                  {
-                    var currentUser = results[i].get("username").toUpperCase(); //Make all uppercase to make case insensitive
-                    var strPosition = currentUser.search(holdUsing.toUpperCase()); //Find the location in the string of the phrase
-                    // alert("strPosition: " + strPosition)
-                    if (strPosition != -1 && continueFinding) //if there is a match and still haven't hit counter
-                    {
-                      // alert("Found a match")
-                      totalResults++; //Add to counter
-                      var pageCompensation = (pageNumber - 1) * maxResults;
-                      if (totalResults > maxResults + pageCompensation) //If there are enough results for the page
-                      {
-                        // alert("Found all objects for current page (" + totalResults +  ")")
-                        continueFinding = false;
-                        i = results.length; //Stop repeat
-                      }
-                      else //If there aren't enough results yet
-                      {
-                        if (totalResults > pageCompensation) //If it's past the first object on page
-                        {
-                          //This is where you put code to actually do something with the object
-                          finalObj += "<div><h4>" + results[i].get("username") + "</h4></div>";
-                        }
-                      }
-                    }
-                  }
-                  document.getElementById("results").innerHTML = finalObj;
-                  pagination(continueFinding); //Add the page buttons
-                },
-                error: function(error)
-                {
-                  alert("Error: " + error.code + " " + error.message);
-                }
-              });
-            },
-            error: function(error)
-            {
-              alert("Error: " + error.code + " " + error.message);
-            }
-          });
-        }
-        else if (filterCategory == "help")
-        {
-          var threads = Parse.Object.extend("contact");
-          var query = new Parse.Query(threads);
-          query.count({
-            success: function(number) //Make sure there are enough objects
-            {
-              // alert("There are " + number + " instances of the class: shoes")
-              if (number < sampleAmount)
-              {
-                sampleAmount = number;
-              }
-              query.limit(sampleAmount);
-              // alert("Limited to " + sampleAmount)
-              query.find({
-                success: function(results)
-                {
-                  var continueFinding = true;
-                  var finalObj = ""; //Reset finalObj
-                  // alert("Found: " + results.length + " objects")
-                  for (var i = 0; i < results.length; i++)
-                  {
-                    var currentThread = results[i].get("details").toUpperCase(); //Make all uppercase to make case insensitive
-                    var strPosition = currentThread.search(holdUsing.toUpperCase()); //Find the location in the string of the phrase
-                    // alert("strPosition: " + strPosition)
-                    if (strPosition != -1 && continueFinding) //if there is a match and still haven't hit counter
-                    {
-                      // alert("Found a match")
-                      totalResults++; //Add to counter
-                      var pageCompensation = (pageNumber - 1) * maxResults;
-                      if (totalResults > maxResults + pageCompensation) //If there are enough results for the page
-                      {
-                        // alert("Found all objects for current page (" + totalResults +  ")")
-                        continueFinding = false;
-                        i = results.length; //Stop repeat
-                      }
-                      else //If there aren't enough results yet
-                      {
-                        if (totalResults > pageCompensation) //If it's past the first object on page
-                        {
-                          //This is where you put code to actually do something with the object
-                          var link = "<a href=query.html?question=" + results[i].id + ">"
-                          finalObj += "<div><h3>" + link + results[i].get("subject") + "</h4></div>";
-                        }
-                      }
-                    }
-                  }
-                  document.getElementById("results").innerHTML = finalObj;
-                  pagination(continueFinding); //Add the page buttons
-                },
-                error: function(error)
-                {
-                  alert("Error: " + error.code + " " + error.message);
-                }
-              });
-            },
-            error: function(error)
-            {
-              alert("Error: " + error.code + " " + error.message);
-            }
-          });
-        }
-
-        //Page selection
-        var pagination = function(conditional){
-          finalObj = ""; //Reset final object
-          finalObj+= "<nav><ul class='pager'>"
-          // alert("On page: " + pageNumber)
-          if (pageNumber != 1) //If not on page 1 add previous page button
-          {
-            var num = parseInt(pageNumber) - 1;
-            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
-            finalObj += "<li><a href=search.html?search=" + holdUsing + RPP + "#filter=" + filterCategory + "#page=" + num + ">";
-            finalObj += "Previous Page</a></li>"
-          }
-          if (!conditional) //Next page button (if the search was stopped before the last object was searched)
-          {
-            // alert(pageNumber); //Debugging
-            var num = parseInt(pageNumber) + 1;
-            // alert("Variable num = " + num) //Debugging
-            var RPP = "#resultsPerPage=" + document.getElementById("resultsPerPage").value
-            finalObj += "<li><a href=search.html?search=" + holdUsing + RPP + "#filter=" + filterCategory + "#page=" + num + ">";
-            finalObj += "Next Page</a></li>"
-          }
-          finalObj += "</ul></nav>"
-          // alert("There were: " + totalResults + " results found (" + totalPages + ")"); //Debugging
-          document.getElementById("pageSelection").innerHTML = finalObj;
-        }
-
-      </script>
-
-
       <footer>
         <div class="row">
           <div class="col-md-4">
@@ -821,7 +820,7 @@
               <li><a href="terms.html" class="footer-text" target="_blank">terms</a> &nbsp;/</li>
               <li><a href="privacy.html" class="footer-text" target="_blank">privacy</a> &nbsp;/</li>
               <li><a href="#" class="footer-text">help</a> &nbsp;/</li>
-              <li class="active">contact</li>
+              <li><a href="contact.html" class="footer-text" target="_blank">contact</a></li>
             </ul>
           </div>
           <div class="col-md-4">
@@ -838,30 +837,11 @@
       
     </div> <!-- /container -->
 
-      <script> //Added a strange and misplaced login bar
-    //   if(currentName!=null&&currentName!=""){
-    //     var finalObj=document.getElementById("account");
-    //     document.getElementById("myTabContent").innerHTML = finalObj.innerHTML;
-    //   }else{
-    //     var finalObj=""
-    //     finalObj += "<ul id='myTab' class='nav nav-tabs'>\n"
-    //     finalObj += "<li class='active'><a href='#signIn' data-toggle='tab'><span class='glyphicon glyphicon-lock'></span> sign in</a></li>\n"
-    //     finalObj += "<li class=''><a href='#signUp' data-toggle='tab'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
-    //     finalObj += "</ul>"
-    //     var insertNonsense=document.getElementById("modalTabs")
-    //     insertNonsense.innerHTML=finalObj
-    //   }
-     </script>
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('.carousel.slide').carousel();
-      });
-    </script>
+    
   </body>
 </html>
