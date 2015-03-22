@@ -727,9 +727,7 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
           if (queryGender !== undefined) mailbox.equalTo("gender", queryGender), document.getElementById("gender").value=queryGender;
           if (queryCondition !== undefined) mailbox.equalTo("condition", queryCondition), document.getElementById("condition").value=queryCondition;
           if (queryBrand !== undefined) mailbox.equalTo("brand", queryBrand), document.getElementById("brand").value=queryBrand;
-          mailbox.limit(16);
-          limitStuff = (first-1) * 16
-          mailbox.skip(limitStuff);
+          
           if (queryPrice !== undefined) {
             if (queryPrice === "low") {
               mailbox.ascending("price");
@@ -739,6 +737,14 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
           } else {
             mailbox.descending("createdAt");
           };
+
+          //Limiting to the search word
+          mailbox.limit(16);
+          limitStuff = (first-1) * 16
+          mailbox.skip(limitStuff);
+          mailbox.has(queryQuery, "item"); //Contains the search query
+
+
           mailbox.find({
             success: function(returnObj) {
               var finalObj = ""
