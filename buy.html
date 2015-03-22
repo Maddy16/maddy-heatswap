@@ -978,7 +978,7 @@
                     commentFinalObj += '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">'
                     commentFinalObj += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-flag"></span> report</a></li>'
                     if(Parse.User.current().get("username")==results[i].get("user")){
-                      commentFinalObj += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>'
+                      commentFinalObj += '<li role="presentation"><a role="menuitem" tabindex="-1" onClick="editPost()"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>'
                       commentFinalObj += '<li id="button'+i+'" role="presentation"><a role="menuitem" tabindex="-1" onClick="trashMessage("'+results[i].id+'")"><span class="glyphicon glyphicon-trash"></span> delete</a></li>'
                     }else{
                       //alert(Parse.)
@@ -1110,7 +1110,7 @@
                       }
                     </script>
                     <!--<form method="post" id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top">-->
-                      <form id="paypalForm" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" class="paypal-button" target="_top">
+                      <form id="paypalForm" action="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey=value" method="post" class="paypal-button" target="_top">
                       <div class="hide" id="errorBox"></div>
                       <input type="hidden" name="button" value="buynow">
                       <input id="paypalName" type="hidden" name="item_name" value="Product via QR code">

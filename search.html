@@ -461,13 +461,13 @@
                 alert(searchitem)
                 var url = searchitem;
                 alert("test")
-                $(location).attr('href', url);
-                window.location.href = searchitem; //Links don't work
+                //window.location.replace("http://stackoverflow.com");
               }
               else
               {
                 alert("There is nothing typed in the search field")
               }
+              alert("this is the final alert")
             }
             </script>
             
@@ -613,10 +613,11 @@
               var query = "&&search=" + searchQuery;
 
               searchitem = "search.html?" + searchitem + query;
+              //alert("HIIIIIIII")
               alert(searchitem)
               var url = searchitem
               //alert()
-              $(location).attr('href', url);
+              //$(location).attr('href', url);
 
             }
             else
@@ -742,7 +743,7 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
           mailbox.limit(16);
           limitStuff = (first-1) * 16
           mailbox.skip(limitStuff);
-          mailbox.has(queryQuery, "item"); //Contains the search query
+          //mailbox.has(queryQuery, "item"); //Contains the search query
 
 
           mailbox.find({
