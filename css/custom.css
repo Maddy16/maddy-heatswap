@@ -577,3 +577,10 @@ hr.team-page-thumbs {
    width: 100%;
    /*background-color: #b4caf7*/
 }
+
+.halfCol{
+  overflow: hidden;
+  float: left;
+  width: 48%;
+
+}

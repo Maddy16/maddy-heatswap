@@ -473,6 +473,19 @@
           </div>  <!-- End of Left Column -->
           
           <div class="col2">
+          
+            <!-- Search Bar -->
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for..." id="searchInput">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onClick="customerServiceSearch()">Go!</button>
+                  </span>
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+
             <!-- Contents of Right Column -->
             <h1 id="filterName" >filter</h1>
 
@@ -536,19 +549,41 @@
 
         if (holdUsing == "faq") //If on FAQ page
         {
+          document.getElementById("filterName").innerHTML = "How can we help?"; //Overriding filter name
           var faq = Parse.Object.extend("faqs");
           var query = new Parse.Query(faq);
           query.find({
             success: function(results) {
               var finalObj = ""; //Reset finalObj
-              finalObj += "<div class = 'queryInput'>"
+              finalObj +="<div class='colleft'><div class='halfCol'>";
+              finalObj += "<div class = 'queryInput'>";
+              finalObj += "<h2>FAQs</h2>";
               for (var i = 0; i < results.length; i++)
               {
                 finalObj += "<h4>" + results[i].get("question") + "</h4>";
                 finalObj += "<p>" + results[i].get("answer") + "</p>";
               }
               finalObj += "</div>"
-              document.getElementById("threads").innerHTML = finalObj;
+              finalObj +="</div><div class='halfCol'>";
+              finalObj +="<h2>Popular Threads</h2>";
+              var contact = Parse.Object.extend("contact");
+              var threadsQuery = new Parse.Query(contact);
+              threadsQuery.descending("numViews");
+              threadsQuery.limit(10);
+              threadsQuery.find({
+                success: function(threads) {
+                  for (var j = 0; j < threads.length; j++)
+                  {
+                    // alert(threads[j].get("subject")); //Debugging
+                    finalObj += "<h4><a href=query.html?question=" +threads[j].id + ">" + threads[j].get("subject") + "</h4>"; //Linked text
+                  }
+                  finalObj +="</div>" //Close outermost div
+                  document.getElementById("threads").innerHTML = finalObj;
+                },
+                error: function(error) {
+                  alert("Error: " + error.code + " " + error.message);
+                }
+              })
             },
             error: function(error) {
               alert("Error: " + error.code + " " + error.message);
@@ -570,6 +605,7 @@
           var contact = Parse.Object.extend("contact");
           var query = new Parse.Query(contact);
           query.equalTo("filter", holdUsing);
+          query.descending("numViews");
           query.find({
             success: function(results) {
               // Do something with the returned Parse.Object values
@@ -627,6 +663,12 @@
             alert(document.getElementById("tempSubject").value);
             alert("Please fill out all fields");
           }
+        }
+
+        var customerServiceSearch = function() //Searching within the customer service
+        {
+          var searchQuery = document.getElementById("searchInput").value;
+          alert("Searching for: " + searchQuery);
         }
       </script>
 
