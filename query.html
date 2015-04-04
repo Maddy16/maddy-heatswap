@@ -572,13 +572,18 @@
               finalObj += "<h4>Number of Views: " + numberOfViews + "</h4>"
               finalObj += "</div>";
 
+              finalObj += "<button type='button' class='btn btn-default' aria-label='Vote Helpful' onClick = 'voteHelpful()'>"; //Button open div
+              finalObj += "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>"; //Add icon (thumbs up)
+              finalObj += " I found this helpful (" + results[i].get("foundHelpful") + ")"; //Add text
+              finalObj += "</button>"; //Close button div
+
 
               // alert("Finding all the comments"); //For debugging
               var comment = Parse.Object.extend("comments");
               var commentQuery = new Parse.Query(comment);
               // alert(holdUsing)
               commentQuery.equalTo("threadID", holdUsing); //Find all that correspond with this thread
-              commentQuery.descending("createdAt");
+              commentQuery.descending("votes");
 
               commentQuery.find({
                 success: function(allComments) {
@@ -591,6 +596,15 @@
                     var dateCreated = new Date()
                     dateCreated = allComments[j].createdAt.toLocaleDateString() //Get the shortened time
                     timeCreated = allComments[j].createdAt.getHours() + ":" + allComments[j].createdAt.getMinutes() + ":" + allComments[j].createdAt.getSeconds() //Get the time created
+
+                    //Add buttons for voting up/down
+                    temporaryStr += "<button type='button' class='btn btn-default' aria-label='Vote Up' onClick = 'voteUp()'>"; //Button open div
+                    temporaryStr += "<span class='glyphicon glyphicon-chevron-up' aria-hidden='true'></span>"; //Add icon (up)
+                    temporaryStr += "</button>"; //Close button div
+
+                    temporaryStr += "<button type='button' class='btn btn-default' aria-label='Vote Down' onClick = 'voteDown()'>"; //Button open div
+                    temporaryStr += "<span class='glyphicon glyphicon-chevron-down' aria-hidden='true'></span>"; //Add icon (down)
+                    temporaryStr += "</button>"; //Close button div
 
                     var addCommentStr = "<p>" + dateCreated + " " + timeCreated + " " + allComments[j].get("comment") + "</p>"; //The HTML we want to add
                     // alert(addCommentStr); //For debugging
@@ -625,6 +639,7 @@
             comment.set("comment", document.getElementById("tempComment").value) //Set comment
             comment.set("threadID", holdUsing) //set the corresponding thread
             comment.set("threadSubject", document.getElementById("questionName").innerHTML) //Set subject for organizational purposes
+            comment.set("votes", 0); //Set votes
             
             comment.save(null,
             {
@@ -647,6 +662,90 @@
             alert(document.getElementById("tempSubject").value);
             alert("Please fill out all fields");
           }
+        }
+
+        var voteUp = function()
+        {
+          var comments = Parse.Object.extend("comments");
+          var query = new Parse.Query(comments);
+          query.equalTo("threadID", holdUsing);
+          query.find({
+            success: function(results) {
+              // alert("You voted this comment up");
+              var votes = results[0].get("votes");
+              votes += 1;
+              results[0].set("votes", votes) //Change the int value
+              results[0].save(null, //Save the object
+              {
+                success: function(results) {
+                // Execute any logic that should take place after the object is saved.
+                },
+                error: function(results, error) {
+                // Execute any logic that should take place if the save fails.
+                alert('Failed to save vote, with error code: ' + error.message);
+                }
+              });
+            },
+            error: function(contact, error) {
+              alert('Failed to vote up, with error code: ' + error.message);
+            }
+          });
+        }
+
+        var voteDown = function()
+        {
+          var comments = Parse.Object.extend("comments");
+          var query = new Parse.Query(comments);
+          query.equalTo("threadID", holdUsing);
+          query.find({
+            success: function(results) {
+              // alert("You voted this comment down");
+              var votes = results[0].get("votes");
+              votes += -1;
+              results[0].set("votes", votes) //Change the int value
+              results[0].save(null, //Save the object
+              {
+                success: function(results) {
+                // Execute any logic that should take place after the object is saved.
+                },
+                error: function(results, error) {
+                // Execute any logic that should take place if the save fails.
+                alert('Failed to save vote, with error code: ' + error.message);
+                }
+              });
+            },
+            error: function(contact, error) {
+              alert('Failed to vote down, with error code: ' + error.message);
+            }
+          });
+        }
+
+        var voteHelpful = function()
+        {
+          var contact = Parse.Object.extend("contact");
+          var query = new Parse.Query(contact);
+          query.equalTo("objectId", holdUsing);
+          query.find({
+            success: function(results) {
+              // alert("You voted this thread helpful");
+              var foundHelpful = results[0].get("foundHelpful");
+              foundHelpful += 1;
+              results[0].set("foundHelpful", foundHelpful) //Change the int value
+              results[0].save(null, //Save the object
+              {
+                success: function(results) {
+                // Execute any logic that should take place after the object is saved.
+                },
+                error: function(results, error) {
+                // Execute any logic that should take place if the save fails.
+                alert('Failed to save vote, with error code: ' + error.message);
+                }
+              });
+            },
+            error: function(contact, error) {
+              alert('Failed to vote helpful, with error code: ' + error.message);
+            }
+          });
         }
 
       </script>

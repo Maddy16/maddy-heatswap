@@ -473,23 +473,31 @@
           </div>  <!-- End of Left Column -->
           
           <div class="col2">
-          
-            <!-- Search Bar -->
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for..." id="searchInput">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" onClick="customerServiceSearch()">Go!</button>
-                  </span>
-                </div><!-- /input-group -->
-              </div><!-- /.col-lg-6 -->
-            </div><!-- /.row -->
 
             <!-- Contents of Right Column -->
-            <h1 id="filterName" >filter</h1>
+            <h1 id="filterName" >filter</h1> <!-- For headers/page names -->
+
+            <div id="searchBar">
+              <!-- Search Bar -->
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" placeholder="Search for..." id="searchInput">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" onClick="customerServiceSearch()">Go!</button>
+                    </span>
+                  </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+              </div><!-- /.row -->
+            </div>
+
+            <div id="notifications">
+              <!-- For notifications and alerts -->
+
+            </div>
 
             <div id="threads">
+              <!-- For content -->
 
             </div>
 
@@ -592,6 +600,7 @@
         }
         else if (holdUsing == "submit") //If submitting
         {
+          document.getElementById("searchBar").innerHTML = ""; // Turn off the search bar for this page
           var finalObj = "<div class='queryInput'><input type='text' id='tempName' placeholder='name'></div>"; //Name input field
           finalObj += "<div class='queryInput'><input type='text' id='tempSubject' placeholder='subject'></div>"; //Subject input field
           finalObj += "<div class='queryInput'><input type='text' id='tempEmail' placeholder='email'></div>"; //Subject input field
@@ -602,6 +611,7 @@
         }
         else //If in a specific category
         {
+          document.getElementById("searchBar").innerHTML = ""; // Turn off the search bar for this page
           var contact = Parse.Object.extend("contact");
           var query = new Parse.Query(contact);
           query.equalTo("filter", holdUsing);
@@ -639,6 +649,7 @@
             contact.set("subject", document.getElementById("tempSubject").value) //Set subject
             contact.set("email", document.getElementById("tempEmail").value) //Set email
             contact.set("numViews", 0) //Set number of views
+            contact.set("foundHelpful", 0) //Set number of views
             contact.set("resolved", false) //Set resolved to false
             contact.set("filter", document.getElementById("tempCatagory").value) //Set the filter
 
@@ -660,8 +671,9 @@
           }
           else
           {
-            alert(document.getElementById("tempSubject").value);
-            alert("Please fill out all fields");
+            // alert(document.getElementById("tempSubject").value);
+            var notificationObj = "<div class='alert alert-danger' role='alert'>Please Fill Out All Fields</div>";
+            document.getElementById("notifications").innerHTML = notificationObj;
           }
         }
 
