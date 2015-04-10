@@ -609,6 +609,44 @@
           finalObj += "<div class='queryInput'><button id='submitQuery' class='btn btn-primary' onClick='submitQuestion()'>submit</button></div>"; //Submit button
           document.getElementById("threads").innerHTML=finalObj;
         }
+        else if (holdUsing == "search") //If submitting
+        {
+          var urlParams;
+          (window.onpopstate = function () {
+            var match,
+              pl     = /\+/g,  // Regex for replacing addition symbol with a space
+              search = /([^&=]+)=?([^&]*)/g,
+              decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+              query  = window.location.search.substring(1);
+
+            urlParams = {};
+            while (match = search.exec(query))
+              urlParams[decode(match[1])] = decode(match[2]);
+          })();
+          var queryQuery = urlParams["search"]
+          
+          var contact = Parse.Object.extend("contact");
+          var mailbox = new Parse.Query(contact);
+          alert("Finding " + queryQuery.toUpperCase() + " in uppercaseSubject")
+          mailbox.contains("upppercaseSubject", queryQuery.toUpperCase());
+          mailbox.descending("numViews");
+          mailbox.find({
+            success: function(results)
+            {
+              var finalObj = "<h3>Search results for: " + queryQuery + "</h3>";
+              finalObj += "<h4>Found " + results.length + " hits</h4>";
+              for (var i = 0; i < results.length; i++)
+              {
+                finalObj += "<h4><a href=query.html?question=" +results[i].id + ">" + results[i].get("subject") + "</h4>"; //Linked text
+              }
+              document.getElementById("threads").innerHTML=finalObj;
+            },
+            error: function(error)
+            {
+              alert(error.code);
+            }
+          });
+        }
         else //If in a specific category
         {
           document.getElementById("searchBar").innerHTML = ""; // Turn off the search bar for this page
@@ -680,7 +718,9 @@
         var customerServiceSearch = function() //Searching within the customer service
         {
           var searchQuery = document.getElementById("searchInput").value;
-          alert("Searching for: " + searchQuery);
+          // alert("Searching for: " + searchQuery);
+          var temporaryURL = "contactDashboard.html?filter=search&&search=" + searchQuery;
+          window.location.replace(temporaryURL);
         }
       </script>
 

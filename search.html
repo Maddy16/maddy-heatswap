@@ -12,7 +12,7 @@
       <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
       <script type="text/javascript" src="photoGeneration.js"></script>
 
-    <title>Popular</title>
+    <title>Search</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -458,21 +458,21 @@
                 var query = "&&search=" + searchQuery;
 
                 searchitem = "search.html?" + searchitem + query;
-                alert(searchitem)
+                // alert(searchitem)
                 var url = searchitem;
-                alert("test " + url);
-                alert("location is " + window.location)
+                // alert("test " + url);
+                // alert("location is " + window.location)
                 window.location.replace(url);
                 //window.location.reload();
                 //window.location.href = 'http://www.google.com';
-                alert("did location change?")
+                // alert("did location change?")
                 //window.location.replace("http://stackoverflow.com");
               }
               else
               {
                 alert("There is nothing typed in the search field")
               }
-              alert("this is the final alert")
+              // alert("this is the final alert")
               return true;
             }
             </script>
@@ -591,12 +591,14 @@
             var gender = document.getElementById("gender").value;
 
             var searchitem = "";
+            alert("Condition: " + condition)
 
-            if (searchQuery != "" && searchQuery != " ")
-            {
+            // if (searchQuery != "" && searchQuery != " ")
+            // {
               if (condition !== "condition") {
                 condition = "&&condition=" + condition;
                 searchitem = searchitem + condition; 
+                alert(searchitem)
               } 
               if (price !== "price") {
                 if(price === "lowest to highest") {
@@ -615,21 +617,25 @@
                 searchitem = searchitem + gender;
               }
 
-              // alert(searchQuery)
-              var query = "&&search=" + searchQuery;
-
-              searchitem = "search.html?" + searchitem + query;
+              alert("Passed all if statements")
+              if (searchQuery != "")
+              {
+                alert("searchQuery is filled")
+                var query = "&&search=" + searchQuery;
+                searchitem = "search.html?" + searchitem + query;
+              }
               //alert("HIIIIIIII")
               alert(searchitem)
               var url = searchitem
+              window.location.replace(url);
               //alert()
               //$(location).attr('href', url);
 
-            }
-            else
-            {
-              alert("There is nothing typed in the search field")
-            }
+            // }
+            // else
+            // {
+            //   alert("There is nothing typed in the search field")
+            // }
           }
           </script>
         </form>
@@ -749,9 +755,8 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
           mailbox.limit(16);
           limitStuff = (first-1) * 16
           mailbox.skip(limitStuff);
-          //mailbox.has(queryQuery, "item"); //Contains the search query
-
-
+          // alert("queryQuery: " + queryQuery);
+          mailbox.contains("uppercaseItem", queryQuery.toUpperCase()); //Contains the search query
           mailbox.find({
             success: function(returnObj) {
               var finalObj = ""

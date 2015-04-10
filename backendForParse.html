@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <title>Customer Service</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+	<body>
+		<div>
+			<button onClick="random()">Click me</button>
+		</div>
+	</body>
+
+	<script>
+		var random = function()
+		{
+			Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+			//This chunk is for setting variables in Parse
+	          var shoe = Parse.Object.extend("contact");
+	          var mailbox = new Parse.Query(shoe);
+	          mailbox.find({
+	            success: function(results)
+	            {
+	              for (var i = 0; i < results.length; i++)
+	              {
+	                var item = results[i].get("subject");
+	                results[i].set("uppercaseSubject", item.toUpperCase())
+	                results[i].save(null, //Save the object
+	                {
+	                  success: function(results) {
+	                  // Execute any logic that should take place after the object is saved.
+	                  alert("Saved")
+	                  },
+	                  error: function(results, error) {
+	                  // Execute any logic that should take place if the save fails.
+	                  alert('Failed to save vote, with error code: ' + error.message);
+	                  }
+	                });
+	              }
+	            },
+	            error: function(error)
+	            {
+	              alert(error.code);
+	            }
+	          });
+	          //End
+	  	}
+	</script>
+</html>
