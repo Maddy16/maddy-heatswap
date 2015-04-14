@@ -80,10 +80,10 @@ var submitSearch = function(){
     }else{
       RPP = "#resultsPerPage=3"
     }
-    var linkTo = "search.html?search=" + searchQuery + RPP + "#filter=shoes#page=1";
+    var linkTo = "search.html?search=" + searchQuery;
     //alert("Redirecting to..." + linkTo);
     var url = linkTo;    
-    alert(url)
+    // alert(url)
     window.location.href = url;
 
     //$(location).attr('href',url);
