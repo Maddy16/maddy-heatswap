@@ -459,8 +459,8 @@
           <!-- Contents of Left Column -->
 
             <div id="sidebar">
-              <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="contactDashboard.html?filter=faq">faq</a></li>
+              <ul class="nav nav-pills nav-stacked" id="sideMenu">
+                <li role="presentation"><a href="contactDashboard.html?filter=faq">faq</a></li>
                 <li role="presentation"><a href="contactDashboard.html?filter=submit">submit</a></li>
                 <li role="presentation"><a href="contactDashboard.html?filter=buying">buying</a></li>
                 <li role="presentation"><a href="contactDashboard.html?filter=selling">selling</a></li>
@@ -553,6 +553,22 @@
         var holdUsing = urlParams["filter"];
         // alert(holdUsing)
         document.getElementById("filterName").innerHTML=holdUsing;
+
+        if(holdUsing=="faq"){
+          $( "#sideMenu li:nth-child(1)" ).addClass( "active" );
+        }else if(holdUsing=="submit"){
+          $( "#sideMenu li:nth-child(2)" ).addClass( "active" );
+        }else if(holdUsing=="buying"){
+          $( "#sideMenu li:nth-child(3)" ).addClass( "active" );
+        }else if(holdUsing=="selling"){
+          $( "#sideMenu li:nth-child(4)" ).addClass( "active" );
+        }else if(holdUsing=="login"){
+          $( "#sideMenu li:nth-child(5)" ).addClass( "active" );
+        }else if(holdUsing=="user"){
+          $( "#sideMenu li:nth-child(6)" ).addClass( "active" );
+        }else if(holdUsing=="other"){
+          $( "#sideMenu li:nth-child(7)" ).addClass( "active" );
+        }
         
 
         if (holdUsing == "faq") //If on FAQ page
@@ -597,9 +613,11 @@
               alert("Error: " + error.code + " " + error.message);
             }
           })
+
         }
         else if (holdUsing == "submit") //If submitting
         {
+          //$( "ul li:nth-child(2)" ).addClass( "active" );
           document.getElementById("searchBar").innerHTML = ""; // Turn off the search bar for this page
           var finalObj = "<div class='queryInput'><input type='text' id='tempName' placeholder='name'></div>"; //Name input field
           finalObj += "<div class='queryInput'><input type='text' id='tempSubject' placeholder='subject'></div>"; //Subject input field
