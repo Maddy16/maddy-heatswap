@@ -641,16 +641,13 @@
         <div class="clearfix hidden-sm"></div>
         
         <div class="row" id="row-popular-pg">
+
         </div>
 
         
         <div id="pagination-popular" class="clearfix">
-          <ul class="pagination pull-right">
-            <li id ="nextClass" class="disabled"><a href="#" onclick="nextPage(1);return false;">&laquo;</a></li>
-            <li class="active"><a href="#" id="firstLink">1<span class="sr-only">(current)</span></a></li>
-            <li><a href="#" id="secondLink">2</a></li>
-            <li><a href="#" id="thirdLink">3</a></li>
-            <li><a href="#" onclick="nextPage(2)";return false;>&raquo;</a></li>
+          <ul class="pagination pull-right" id="pageSelection">
+            
           </ul>
         </div>
         
@@ -710,23 +707,23 @@ if(queryBrand=="adidas"){
   popularTitle.innerHTML="Vans";
 }
 
-if (queryPage === undefined) queryPage = 1;
+// if (queryPage === undefined) queryPage = 1;
 
-var first = parseInt(queryPage)
-var second = parseInt(queryPage) + 1
-var third = parseInt(queryPage) + 2
+// var first = parseInt(queryPage)
+// var second = parseInt(queryPage) + 1
+// var third = parseInt(queryPage) + 2
 
-document.getElementById("firstLink").innerHTML = first;
-document.getElementById("secondLink").innerHTML = second;
-document.getElementById("thirdLink").innerHTML = third;
+// document.getElementById("firstLink").innerHTML = first;
+// document.getElementById("secondLink").innerHTML = second;
+// document.getElementById("thirdLink").innerHTML = third;
 
-document.getElementById("firstLink").href = "popular.html?page=" + first;
-document.getElementById("secondLink").href = "popular.html?page=" + second;
-document.getElementById("thirdLink").href = "popular.html?page=" + third;
+// document.getElementById("firstLink").href = "popular.html?page=" + first;
+// document.getElementById("secondLink").href = "popular.html?page=" + second;
+// document.getElementById("thirdLink").href = "popular.html?page=" + third;
 
-if (first > 1) {
-  document.getElementById("nextClass").setAttribute("class", "cool");
-}
+// if (first > 1) {
+//   document.getElementById("nextClass").setAttribute("class", "cool");
+// }
 
 Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
           var shoe = Parse.Object.extend("shoe");
@@ -749,9 +746,9 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
           };
 
           //Limiting to the search word
-          mailbox.limit(16);
-          limitStuff = (first-1) * 16
-          mailbox.skip(limitStuff);
+          // mailbox.limit(16);
+          // limitStuff = (first-1) * 16
+          // mailbox.skip(limitStuff);
           // alert("queryQuery: " + queryQuery);
           mailbox.contains("uppercaseItem", queryQuery.toUpperCase()); //Contains the search query
           mailbox.find({
@@ -790,9 +787,31 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
 
             var insertNonsense = document.getElementById("row-popular-pg");
             insertNonsense.innerHTML = finalObj
+            
 
-
-
+            var resultsPerPage = 5;
+            var totalResults = returnObj.length;
+            var numPages = Math.ceil(totalResults/resultsPerPage);
+            var currentURL = document.URL;
+            
+            finalObj = ""; //Reset
+            for (var i = 0; i < numPages; i++)
+            {
+              var urlLink;
+              var pageNumber = i + 1;
+              if (currentURL.indexOf("&&page=") == -1) //Doesn't exist
+              {
+                urlLink = currentURL + "&&page=" + pageNumber
+              }
+              else
+              {
+                urlLink = currentURL.substring(0, currentURL.indexOf("&&page=")) + "&&page=" + pageNumber;
+              }
+              
+              finalObj += "<li><a href='" + urlLink + "'>" + pageNumber + "</a></li>";
+            }
+            document.getElementById("pageSelection").innerHTML = finalObj;
+            
 
             },
               error: function(error) {
