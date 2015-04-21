@@ -281,7 +281,7 @@
                               woahThere.innerHTML = "Your passwords do not match";
                             }
                           }
-                        </script>                        
+                        </script>
                   </div><!-- /signUp -->
                   
 
@@ -437,7 +437,7 @@
                 if (condition !== "condition") {
                   condition = "&&condition=" + condition;
                   searchitem = searchitem + condition; 
-                } 
+                }
                 if (price !== "price") {
                   if(price === "lowest to highest") {
                     price = "&&price=low"; 
@@ -471,7 +471,7 @@
               }
               else
               {
-                alert("There is nothing typed in the search field")
+                alert("There is nothing typed in the search field");
               }
               // alert("this is the final alert")
               return true;
@@ -484,29 +484,14 @@
 
       <div id="main-wrap"><!-- Main content wrapper -->
         
-        <div id="subnav" class="hidden-xs">
-          <ul class="nav nav-justified">
-            <li><a href="popular.html?brand=adidas">Adidas</a></li>
-            <li><a href="popular.html?brand=airjordan">Air Jordan</a></li>
-            <li><a href="popular.html?brand=asics">Asics</a></li>
-            <li><a href="popular.html?brand=converse">Converse</a></li>
-            <li><a href="popular.html?brand=newbalance">New Balance</a></li>
-            <li><a href="popular.html?brand=nike">Nike</a></li>
-            <li><a href="popular.html?brand=puma">Puma</a></li>
-            <li><a href="popular.html?brand=reebok">Reebok</a></li>
-            <li><a href="popular.html?brand=saucony">Saucony</a></li>
-            <li><a href="popular.html?brand=vans">Vans</a></li>
-          </ul>
-        </div>
-
         <div class="pull-left">
-          <h1 style="margin-right:10px" class="red" id="popularTitle">popular</h1>
+          <h1 style="margin-right:10px" class="red" id="searchTitle">search</h1>
         </div>
   
         <div class="clearfix">      
           <ol class="breadcrumb pull-right breadcrumb-right">
             <li><a href="index.html">home</a></li>
-            <li class="active">popular</li>
+            <li class="active">search</li>
           </ol>
           <hr class="breadcrumb-hr">
         </div>
@@ -572,7 +557,7 @@
           <script>
           var updateStuff = function()
           {
-            alert("Pressed the update button");
+            // alert("Pressed the update button");
             var urlParams;
             (window.onpopstate = function () {
               var match,
@@ -592,13 +577,13 @@
             var gender = document.getElementById("gender").value;
 
             var searchitem = "";
-            alert("Condition: " + condition + ", price: " + price + ", size: " + size + ", gender: " + gender + ", query: " + query)
+            // alert("Condition: " + condition + ", price: " + price + ", size: " + size + ", gender: " + gender + ", query: " + query)
 
             // {
               if (condition !== "condition") {
                 condition = "&&condition=" + condition;
                 searchitem = searchitem + condition; 
-                alert(searchitem)
+                // alert(searchitem)
               } 
               if (price !== "price") {
                 if(price === "lowest to highest") {
@@ -622,7 +607,7 @@
                 searchitem = "search.html?" + searchitem + "&&search=" + query;
               }
               
-              alert(searchitem);
+              // alert(searchitem);
               var url = searchitem
               window.location.replace(url);
               //alert()
@@ -687,6 +672,9 @@ var queryBrand = urlParams["brand"];
 var queryPage = urlParams["page"];
 var queryQuery = urlParams["search"]
 
+//Update search title
+document.getElementById("searchTitle").innerHTML = "search results for '" + queryQuery + "'";
+
 if(queryBrand=="adidas"){
   popularTitle.innerHTML="Adidas";
 }else if(queryBrand=="airjordan"){
@@ -745,70 +733,91 @@ Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP
             mailbox.descending("createdAt");
           };
 
-          //Limiting to the search word
-          // mailbox.limit(16);
-          // limitStuff = (first-1) * 16
-          // mailbox.skip(limitStuff);
-          // alert("queryQuery: " + queryQuery);
+          var resultsPerPage = 24;
+          var page;
+          if (queryPage == undefined || queryPage == 1) //If on page one
+          {
+            page = 1;
+          }
+          else //If any other page
+          {
+            page = queryPage;
+          }
+          var firstResult = (page - 1) * resultsPerPage;
+          var lastResult = page * resultsPerPage;
+
           mailbox.contains("uppercaseItem", queryQuery.toUpperCase()); //Contains the search query
           mailbox.find({
             success: function(returnObj) {
-              var finalObj = ""
-              for (var i = 0; i < returnObj.length; i++) { 
-
-                var item = returnObj[i];
-                finalObj += "<div class='col-sm-4 col-md-3'>\n"
-                //<a href='#'' class='thumbnail'>\n";
-                finalObj += "<div class='thumbnail'>\n"
-                finalObj += "<a href='buy.html?item=" + item.id + "'>"
-                finalObj += "<div style='width:250; height:200px; overflow:hidden; text-align: center;'>\n"
-                finalObj += "<img src='" + lowResImageLandscape(item.get("image")) + "' style='position:relative; left:100%; margin-left:-200%;' height='200'>\n"                
-                finalObj += "</div>"
-                finalObj += "</a>\n"
-                finalObj += "<div class='caption'>"
-                finalObj += "<h4 class='pull-right'> $" + item.get("price") + "</h4>\n"
-
-                var shortName=(item.get("item"));
-
-                if(item.get("item").length>13){
-                  shortName="";
-                  for(var m=0; m<15; m++){
-                    shortName += item.get("item").charAt(m);
-                  }
-                  shortName += "..."
+              var finalObj = "";
+              if (returnObj.length == 0) //If no search results
+              {
+                finalObj = "<h4>Sorry, your search query did not return any results</h4>";
+              }
+              else
+              {
+                if (returnObj.length < lastResult) //If page extends past number of objects
+                {
+                  lastResult = returnObj.length;
                 }
+                for (var i = firstResult; i < lastResult; i++) { 
 
-                finalObj += "<h4><a href='buy.html?item="+ item.id + "'>"+shortName+"</a></h4>\n"
-                finalObj += "<p class='text-muted'>" + item.get("brand") + "</p>\n"
-                finalObj += "</div>"
-                finalObj += "</div>"
-                finalObj += "</div> \n"
+                  var item = returnObj[i];
+                  finalObj += "<div class='col-sm-4 col-md-3'>\n"
+                  //<a href='#'' class='thumbnail'>\n";
+                  finalObj += "<div class='thumbnail'>\n"
+                  finalObj += "<a href='buy.html?item=" + item.id + "'>"
+                  finalObj += "<div style='width:250; height:200px; overflow:hidden; text-align: center;'>\n"
+                  finalObj += "<img src='" + lowResImageLandscape(item.get("image")) + "' style='position:relative; left:100%; margin-left:-200%;' height='200'>\n"                
+                  finalObj += "</div>"
+                  finalObj += "</a>\n"
+                  finalObj += "<div class='caption'>"
+                  finalObj += "<h4 class='pull-right'> $" + item.get("price") + "</h4>\n"
+
+                  var shortName=(item.get("item"));
+
+                  if(item.get("item").length>13){
+                    shortName="";
+                    for(var m=0; m<15; m++){
+                      shortName += item.get("item").charAt(m);
+                    }
+                    shortName += "..."
+                  }
+
+                  finalObj += "<h4><a href='buy.html?item="+ item.id + "'>"+shortName+"</a></h4>\n"
+                  finalObj += "<p class='text-muted'>" + item.get("brand") + "</p>\n"
+                  finalObj += "</div>"
+                  finalObj += "</div>"
+                  finalObj += "</div> \n"
+                }
             }
 
             var insertNonsense = document.getElementById("row-popular-pg");
             insertNonsense.innerHTML = finalObj
             
 
-            var resultsPerPage = 5;
             var totalResults = returnObj.length;
             var numPages = Math.ceil(totalResults/resultsPerPage);
             var currentURL = document.URL;
             
             finalObj = ""; //Reset
-            for (var i = 0; i < numPages; i++)
+            if (numPages != 1) //If there is more than one page
             {
-              var urlLink;
-              var pageNumber = i + 1;
-              if (currentURL.indexOf("&&page=") == -1) //Doesn't exist
+            for (var i = 0; i < numPages; i++)
               {
-                urlLink = currentURL + "&&page=" + pageNumber
+                var urlLink;
+                var pageNumber = i + 1;
+                if (currentURL.indexOf("&&page=") == -1) //Doesn't exist
+                {
+                  urlLink = currentURL + "&&page=" + pageNumber
+                }
+                else
+                {
+                  urlLink = currentURL.substring(0, currentURL.indexOf("&&page=")) + "&&page=" + pageNumber;
+                }
+                
+                finalObj += "<li><a href='" + urlLink + "'>" + pageNumber + "</a></li>";
               }
-              else
-              {
-                urlLink = currentURL.substring(0, currentURL.indexOf("&&page=")) + "&&page=" + pageNumber;
-              }
-              
-              finalObj += "<li><a href='" + urlLink + "'>" + pageNumber + "</a></li>";
             }
             document.getElementById("pageSelection").innerHTML = finalObj;
             

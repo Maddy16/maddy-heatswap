@@ -102,3 +102,9 @@ var submitSearch = function(){
     alert("Please enter a search query")
   }
 }
+
+var findTimezone = function(){
+  var date = new Date();
+  var offset = date.getTimezoneOffset();
+  
+}
