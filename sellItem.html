@@ -643,18 +643,15 @@
                 }
 
                 var openCropModal=function(){
+                  //alert("test")
                   if(currentlyEditing!=undefined){
-                    //alert("test")
                     tempClicked=currentlyEditing;
-                    //alert(currentlyEditing.src)
                     var imageId="image"+ currentlyEditing.slice(-1)
                     var tempvar=document.getElementById(imageId)
-                    //alert(tempvar.src)
                     $('#cropModal').modal('show');
-                    document.getElementById("workingImage").src=tempvar.src
+                    document.getElementById("workingImage").src=tempvar.src;
                     cropModalScript();
                   }else{
-                    //alert("undefined")
                   }
                 }
               </script>
@@ -671,12 +668,23 @@
                       <img id="workingImage" src="" style="width: 858px; height: auto; border: 1px solid black"></img>
                     </div>
                     <script>
+                    var modalContent="";
+                    modalContent += "<div class='modal-header'>";
+                    modalContent += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+                     modalContent += "<h4 class='modal-title' id='myModelLabel'>Crop Image</h4>";
+                    modalContent += "</div>";
+                    modalContent += "<div class='modal-body'>";
+                    modalContent += "<img id='workingImage' src='' style='width: 858px; height: auto; border: 1px solid black'></img>";
+                    modalContent += "</div>";
+                    $("#cropModal").on("hidden.bs.modal", function(){
+                        $(".modal-content").html(modalContent);
+                    });
+
                     var cropModalScript = function(){
                       jQuery(function($) {
                       
                       var jcrop_api;
-
-
+                      
                       $('#workingImage').Jcrop({
                         onChange:   showCoords,
                         onSelect:   showCoords,
@@ -690,7 +698,6 @@
                             x2 = $('#x2').val(),
                             y1 = $('#y1').val(),
                             y2 = $('#y2').val();
-                            //alert(x1)
                         jcrop_api.setSelect([x1,y1,x2,y2]);
                       });
                       });
@@ -712,6 +719,7 @@
                       $('#y2').val(c.y2);
                       $('#w').val(c.w);
                       $('#h').val(c.h);
+                      //alert("test")
                     };
 
                     function clearCoords()

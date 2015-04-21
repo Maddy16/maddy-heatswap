@@ -440,7 +440,7 @@
         <div class="well text-center" id="spread-heat-well">
           <h2 class="blue">spread some heat</h2>
 		      <p id="openStore">
-		        <a href="#paypalModal" class="btn btn-primary btn-lg" role="button" data-toggle="modal">open your store</a>
+		        <a href='sellItem.html' class="btn btn-primary btn-lg" role="button" data-toggle="modal">sell a shoe</a>
 		      </p>
           <video width="900" height="400" controls>
             <source src="files/howToSell.mp4" type="video/mp4">
@@ -480,21 +480,6 @@
               alert("Your emails do not match")
             }
           }
-        </script>
-
-        <script>
-         Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
-
-          var finalObj="";
-          var currentUser=Parse.User.current();
-          if(currentUser.get("storeId")==null||currentUser.get("storeId")==""){
-            //alert(currentUser.get("storeId"))
-            finalObj+=" <a class='btn btn-primary btn-lg' href='#paypalModal' role='button' data-toggle='modal'>open your store</a>"
-          }else{
-            finalObj+=" <a class='btn btn-primary btn-lg' href='sellItem.html'>sell a shoe</a>"
-          }
-          var insertNonsense=document.getElementById("openStore")
-          insertNonsense.innerHTML=finalObj
         </script>
         
 
