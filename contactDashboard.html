@@ -230,7 +230,7 @@
                       </div>
                       
                       <div>
-                        <a href="terms.html">
+                        <a href="terms.html" target="_blank">
                           <p>Click here to read terms and conditions</p>
                         </a>
                       </div>
@@ -241,6 +241,7 @@
                             <input type="checkbox" name="terms" id="terms" value="accept" required>I have read and accept the terms and conditions
                           </label>
                         </div>
+                        <p id="woahThereTerms" class="errorAlert"></p>
                       </div>
 
                       <!-- Button -->
@@ -258,35 +259,62 @@
                             var lastStuff = document.getElementById("lNameInput").value;
                             var usernameLimit = 10;
 
+                            var passwordCondition = false;
+                            var termsCondition = false;
+                            var usernameCondition = false;
+
+                            //Password check
                             if (passStuff2 === passStuff) {
-
-                              if (nameStuff.length <= usernameLimit)
-                              {
-                                var user = new Parse.User();
-                                user.set("username", nameStuff);
-                                user.set("password", passStuff);
-                                user.set("email", emailStuff);
-                                user.set("firstName", firstStuff);
-                                user.set("lastName", lastStuff);
-                                user.set("storeId", "")
-
-
-                                user.signUp(null, {
-                                  success: function(user) {
-                                    alert("Congrats "+nameStuff+", please verify your email");
-                                    location.reload();
-                                  },
-                                  error: function(user, error) {
-                                    alert("Error: " + error.code + " " + error.message);
-                                  }
-                                });
-                              }
-                              else{
-                                woahThereUser.innerHTML = "Usernames cannot be longer than ten characters";
-                              }
+                              document.getElementById("woahThere").innerHTML = ""; //Reset error message if neccessary
+                              passwordCondition = true;
                             }
                             else {
                               woahThere.innerHTML = "Your passwords do not match";
+                              passwordCondition = false;
+                            }
+
+                            //Terms check
+                            if (document.getElementById("terms").checked == true)
+                            {
+                              document.getElementById("woahThereTerms").innerHTML = ""; //Reset error message if neccessary
+                              termsCondition = true;
+                            }
+                            else {
+                              woahThereTerms.innerHTML = "Please agree with the terms of service";
+                              termsCondition = false;
+                            }
+
+                            //Username check
+                            if (nameStuff.length <= usernameLimit)
+                            {
+                              document.getElementById("woahThereUser").innerHTML = ""; //Reset error message if neccessary
+                              usernameCondition = true;
+                            }
+                            else {
+                              woahThereUser.innerHTML = "Usernames cannot be longer than ten characters";
+                              usernameCondition = false;
+                            }
+
+                            if (passwordCondition == true & termsCondition == true & usernameCondition == true)
+                            {
+                              var user = new Parse.User();
+                              user.set("username", nameStuff);
+                              user.set("password", passStuff);
+                              user.set("email", emailStuff);
+                              user.set("firstName", firstStuff);
+                              user.set("lastName", lastStuff);
+                              user.set("storeId", "")
+
+
+                              user.signUp(null, {
+                                success: function(user) {
+                                  alert("Congrats "+nameStuff+", please verify your email");
+                                  location.reload();
+                                },
+                                error: function(user, error) {
+                                  alert("Error: " + error.code + " " + error.message);
+                                }
+                              });
                             }
                           }
                         </script>                        

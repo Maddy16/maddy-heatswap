@@ -11,7 +11,7 @@
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
-    <title>Customer Service</title>
+    <title>Parse Backend</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -28,7 +28,7 @@
 
 	<body>
 		<div>
-			<button onClick="random()">Click me</button>
+			<button onClick="random()">Click me to apply changes</button>
 		</div>
 	</body>
 
@@ -37,15 +37,15 @@
 		{
 			Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
 			//This chunk is for setting variables in Parse
-	          var shoe = Parse.Object.extend("contact");
+	          var shoe = Parse.Object.extend("comments");
 	          var mailbox = new Parse.Query(shoe);
 	          mailbox.find({
 	            success: function(results)
 	            {
 	              for (var i = 0; i < results.length; i++)
 	              {
-	                var item = results[i].get("subject");
-	                results[i].set("uppercaseSubject", item.toUpperCase())
+	                // var item = results[i].get("foundHelpful");
+	                results[i].set("username", "kevin")
 	                results[i].save(null, //Save the object
 	                {
 	                  success: function(results) {

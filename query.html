@@ -57,7 +57,7 @@
                 var finalObj=""
                 finalObj += "<ul class='nav navbar-nav navbar-right'>\n"
 
-                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'>What's up <b>"+currentName+"</b>?</a>\n"
+                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'>What's up <b id=currentUsername>"+currentName+"</b>?</a>\n"
                 finalObj += "<ul class='dropdown-menu'>\n"
                 finalObj += "<li><a href='storePreview.html'>View Store</a></li>\n"
                 if(currentUser.get("storeId")!="")
@@ -614,8 +614,18 @@
 
                     var commentID = allComments[j].id;
                     temporaryStr += "<button type='button' class='btn btn-default' id= aria-label='Flag as Inappropriate' onClick = 'flagComment('" + commentID + "')'>"; //Button open div
-                    temporaryStr += "<span class='glyphicon glyphicon-flag' aria-hidden='true'></span>"; //Add icon (down)
+                    temporaryStr += "<span class='glyphicon glyphicon-flag' aria-hidden='true'></span>"; //Add icon (flag)
                     temporaryStr += "</button>"; //Close button div
+
+                    //Edit and Delete Comments
+                    if (currentUser!= null) //If user signed in
+                    {
+                      var currentUsername = document.getElementById("currentUsername").innerHTML;
+                      if (allComments[j].get("username") == currentUsername)
+                      {
+                        temporaryStr += "<p>This comment was written by you</p>";
+                      }
+                    }
 
                   }
                   temporaryStr += "</div>" //Close div
