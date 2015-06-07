@@ -201,6 +201,7 @@
                       <div class="form-group">
                         <input required="" id="SUusernameInput" name="usernameInput" type="text" class="form-control input-lg" placeholder="username">
                         <p class="help-block"><em>this is the name that will appear next to your comments, etc.</em></p>
+                        <p id="woahThereUser" class="errorAlert"></p>
                       </div>
 
                       <!-- Email input-->
@@ -255,26 +256,34 @@
                             var emailStuff = document.getElementById("SUemailInput").value;
                             var firstStuff = document.getElementById("fNameInput").value;
                             var lastStuff = document.getElementById("lNameInput").value;
+                            var usernameLimit = 10;
+
                             if (passStuff2 === passStuff) {
 
-                              var user = new Parse.User();
-                              user.set("username", nameStuff);
-                              user.set("password", passStuff);
-                              user.set("email", emailStuff);
-                              user.set("firstName", firstStuff);
-                              user.set("lastName", lastStuff);
-                              user.set("storeId", "")
+                              if (nameStuff.length <= usernameLimit)
+                              {
+                                var user = new Parse.User();
+                                user.set("username", nameStuff);
+                                user.set("password", passStuff);
+                                user.set("email", emailStuff);
+                                user.set("firstName", firstStuff);
+                                user.set("lastName", lastStuff);
+                                user.set("storeId", "")
 
 
-                              user.signUp(null, {
-                                success: function(user) {
-                                  alert("Congrats "+nameStuff+", please verify your email");
-                                  location.reload();
-                                },
-                                error: function(user, error) {
-                                  alert("Error: " + error.code + " " + error.message);
-                                }
-                              });
+                                user.signUp(null, {
+                                  success: function(user) {
+                                    alert("Congrats "+nameStuff+", please verify your email");
+                                    location.reload();
+                                  },
+                                  error: function(user, error) {
+                                    alert("Error: " + error.code + " " + error.message);
+                                  }
+                                });
+                              }
+                              else{
+                                woahThereUser.innerHTML = "Usernames cannot be longer than ten characters";
+                              }
                             }
                             else {
                               woahThere.innerHTML = "Your passwords do not match";
@@ -518,7 +527,7 @@
                 <li><a href="terms.html" class="footer-text" target="_blank">terms</a> &nbsp;/</li>
                 <li><a href="privacy.html" class="footer-text" target="_blank">privacy</a> &nbsp;/</li>
                 <li><a href="contactDashboard.html?filter=faq" class="footer-text">help</a> &nbsp;/</li>
-                <li class="active">contact</li>
+                <li><a href="contactDashboard.html?filter=submit" class="footer-text">contact</a></li>
               </ul>
             </div>
             <div class="col-md-4">
