@@ -1,3 +1,5 @@
+//JS for login and stuff
+
 var script = document.createElement('script');
 script.src = 'http://www.parsecdn.com/js/parse-1.2.18.min.js';
 script.type = 'text/javascript';
