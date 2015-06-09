@@ -13,7 +13,7 @@
       <script src="js/header.js"></script>
       <script type="text/javascript" src="js/photoGeneration.js"></script>
 
-    <title>Cart</title>
+    <title id="pageTitle">Cart</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -454,7 +454,6 @@
         if (currentUser != null) //If user signed in
         {
           var currentUsername = document.getElementById("currentUsername").innerHTML;
-          document.getElementById("cartHeader").innerHTML = "<h2>Hello, " + currentUsername + "</h2>";
 
           Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
           var Cart = Parse.Object.extend("cart");
@@ -465,6 +464,24 @@
           finalObj += "<tr><td>Item</td><td>Brand</td><td>Price</td><td>Size</td></tr>"
           mailbox.find({
             success: function(items) {
+
+              //Username data
+              var Users = Parse.Object.extend("User");
+              var user = new Parse.Query(Users);
+              user.contains("username", currentUsername); //Find current user's object
+              user.find({
+                success: function(user) {
+                  userFirstName = user[0].get("firstName");
+                  userLastName = user[0].get("lastName");
+                  document.getElementById("pageTitle").innerHTML = userFirstName + " " + userLastName + "'s Cart (" + items.length + ")";
+                  document.getElementById("cartHeader").innerHTML = "<h2>Hello, " + userFirstName + "</h2>";
+                },
+                error: function(error) {
+                  alert("Could not find current user, with error code: " + error.message);
+                }
+              })
+
+              //Cart data
               for (var i = 0; i < items.length; i++)
               {
                 var Shoe = Parse.Object.extend("shoe");
