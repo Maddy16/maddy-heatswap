@@ -460,9 +460,11 @@
           var Cart = Parse.Object.extend("cart");
           var mailbox = new Parse.Query(Cart);
           var finalObj = "";
+          var count = 0;
+          finalObj += "<table border='1' style = 'width:100%'>"
+          finalObj += "<tr><td>Item</td><td>Brand</td><td>Price</td><td>Size</td></tr>"
           mailbox.find({
             success: function(items) {
-              finalObj += "<table style = 'width:100%'>"
               for (var i = 0; i < items.length; i++)
               {
                 var Shoe = Parse.Object.extend("shoe");
@@ -476,15 +478,19 @@
                     finalObj += "<td>" + shoes[0].get("price") + "</td>"; //Price
                     finalObj += "<td>" + shoes[0].get("size") + "</td>"; //Size
                     finalObj += "</tr>";
+                    count++; //Add to counter
+                    if (i >= items.length & count >= items.length) //If done
+                    {
+                      alert(finalObj)
+                      finalObj += "</table>";
+                      document.getElementById("cartTable").innerHTML = finalObj;
+                    }
                   },
                   error: function(error) {
                     alert("Could not find shoe, with error code: " + error.message);
                   }
                 })
               }
-              finalObj += "</table>";
-              alert(finalObj)
-              document.getElementById("cartTable").innerHTML = finalObj;
             },
             error: function(error) {
               alert('Failed to find items in cart, with error code: ' + error.message);
