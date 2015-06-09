@@ -13,7 +13,7 @@
       <script src="js/header.js"></script>
       <script type="text/javascript" src="js/photoGeneration.js"></script>
 
-    <title>Popular</title>
+    <title>Cart</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -59,7 +59,7 @@
                 var finalObj=""
                 finalObj += "<ul class='nav navbar-nav navbar-right'>\n"
 
-                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'>What's up <b>"+currentName+"</b>?</a>\n"
+                finalObj += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' id='usernameDisplay'>What's up <b id='currentUsername'>"+currentName+"</b>?</a>\n"
                 finalObj += "<ul class='dropdown-menu'>\n"
                 finalObj += "<li><a href='storePreview.html'>View Store</a></li>\n"
                 if(currentUser.get("storeId")!="")
@@ -427,342 +427,75 @@
       </div>
 
       <div id="main-wrap"><!-- Main content wrapper -->
-        
-        <div id="subnav" class="hidden-xs">
-          <ul class="nav nav-justified">
-            <li><a href="popular.html?brand=adidas">Adidas</a></li>
-            <li><a href="popular.html?brand=airjordan">Air Jordan</a></li>
-            <li><a href="popular.html?brand=asics">Asics</a></li>
-            <li><a href="popular.html?brand=converse">Converse</a></li>
-            <li><a href="popular.html?brand=newbalance">New Balance</a></li>
-            <li><a href="popular.html?brand=nike">Nike</a></li>
-            <li><a href="popular.html?brand=puma">Puma</a></li>
-            <li><a href="popular.html?brand=reebok">Reebok</a></li>
-            <li><a href="popular.html?brand=saucony">Saucony</a></li>
-            <li><a href="popular.html?brand=vans">Vans</a></li>
-          </ul>
-        </div>
+       <div class="container">
+          <div id="cartHeader">
 
-        <div class="pull-left">
-          <h1 style="margin-right:10px" class="red" id="popularTitle">popular</h1>
-        </div>
-  
-        <div class="clearfix">      
-          <ol class="breadcrumb pull-right breadcrumb-right">
-            <li><a href="index.html">home</a></li>
-            <li class="active">popular</li>
-          </ol>
-          <hr class="breadcrumb-hr">
-        </div>
-                
-      <!-- Dropdowns -->
-        <form id="popular-pg-dropdowns" class="form-inline">
-          <div class="form-group">
-          <label class="control-label" for="select01">sort by gender:</label>
-            <select id="gender" class="form-control" id="select01">
-              <option>gender</option>
-              <option>male</option>
-              <option>female</option>
-            </select>
           </div>
 
-          <div class="form-group">
-           <label class="control-label" for="select01">sort by size:</label>
-            <select id="size" class="form-control" id="select01">
-              <option>size</option>
-              <option>5</option>
-              <option>5.5</option>
-              <option>6</option>
-              <option>6.5</option>
-              <option>7</option>
-              <option>7.5</option>
-              <option>8</option>
-              <option>8.5</option>
-              <option>9</option>
-              <option>9.5</option>
-              <option>10</option>
-              <option>10.5</option>
-              <option>11</option>
-              <option>11.5</option>
-              <option>12</option>
-              <option>12.5</option>
-              <option>13</option>
-            </select>
-          </div><!-- /form-group -->
-
-          <div class="form-group">
-            <label class="control-label" for="select02">sort by price:</label>
-            <select id="price" class="form-control" id="select02">
-              <option>price</option>
-              <option>lowest to highest</option>
-              <option>highest to lowest</option>
-            </select>
-          </div><!-- /form-group -->
-
-          <div class="form-group">
-            <label class="control-label" for="select03">sort by condition:</label>
-            <select id="condition" class="form-control">
-              <option>condition</option>
-              <option>new with box</option>
-              <option>new without box</option>
-              <option>preowned</option>
-            </select>
-          </div><!-- /form-group -->
-
-          <div class="form-group">
-            <button class="btn btn-primary" style="width:100%;" onclick="searchStuff(); return false;"><span class="glyphicon glyphicon-search"></span></button>
+          <div class="column-center-cart"> <!-- Middle Column -->
+            Items in Cart
+            <div id="cartTable">
+              Cart Table
+            </div>
           </div>
 
-          <script>
-            var searchStuff = function () {
-              var condition = document.getElementById("condition").value;
-              var price = document.getElementById("price").value;
-              var size = document.getElementById("size").value;
-              var gender = document.getElementById("gender").value;
-              
-              var searchitem = "";
+          <div class="column-left-cart"> <!-- Left Column -->
+            Recently Viewed
+          </div>
 
-              if (condition !== "condition") {
-              	condition = "&&condition="+condition;
-                searchitem = searchitem + condition; 
-              } 
-              if (price !== "price") {
-              	if(price === "lowest to highest") {
-                	price = "&&price=low"; 
-                } else {
-                	price = "&&price=high"; 
-                }
-                searchitem = searchitem + price; 
-              }
-              if (size !== "size") {
-                size = "&&size="+size; 
-                searchitem = searchitem + size;
-              }
-              if (gender !== "gender") {
-                gender = "&&gender="+gender; 
-                searchitem = searchitem + gender;
-              }
-              if(document.getElementById("popularTitle").innerHTML!="popular"){
-                var brand = "&&brand=" + holdBrand;
-                searchitem = searchitem + brand
-              }
+          <div class="column-right-cart"> <!-- Right Column -->
+            Checkout
+          </div>
 
-              searchitem = "popular.html?" + searchitem;
-              window.location.href = searchitem;
-            }
-          </script>
-        </form>
-        
-        <!-- Pushes first shoe down where it belongs -->
-        <div class="clearfix hidden-sm"></div>
-        
-        <div class="row" id="row-popular-pg">
         </div>
-
-        
-        <div id="pagination-popular" class="clearfix">
-          <ul class="pagination pull-right">
-            <li id ="nextClass" class="disabled"><a href="#" onclick="nextPage(1);return false;">&laquo;</a></li>
-            <li class="active"><a href="#" id="firstLink">1<span class="sr-only">(current)</span></a></li>
-            <li><a href="#" id="secondLink">2</a></li>
-            <li><a href="#" id="thirdLink">3</a></li>
-            <li><a href="#" onclick="nextPage(2)";return false;>&raquo;</a></li>
-          </ul>
-        </div>
-        
-<script>       
-
-if(currentName!=null&&currentName!=""){
-                    var finalObj=document.getElementById("account");
-                    document.getElementById("myTabContent").innerHTML = finalObj.innerHTML;
-                  }else{
-                    var finalObj=""
-                    finalObj += "<ul id='myTab' class='nav nav-tabs'>\n"
-                    finalObj += "<li class='active'><a href='#signIn' data-toggle='tab'><span class='glyphicon glyphicon-lock'></span> sign in</a></li>\n"
-                    finalObj += "<li class=''><a href='#signUp' data-toggle='tab'><span class='glyphicon glyphicon-user'></span> sign up</a></li>\n"
-                    finalObj += "</ul>"
-                    var insertNonsense=document.getElementById("modalTabs")
-                    insertNonsense.innerHTML=finalObj
-                  }
-
-var urlParams;
-(window.onpopstate = function () {
-  var match,
-    pl     = /\+/g,  // Regex for replacing addition symbol with a space
-    search = /([^&=]+)=?([^&]*)/g,
-    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-    query  = window.location.search.substring(1);
-
-  urlParams = {};
-  while (match = search.exec(query))
-    urlParams[decode(match[1])] = decode(match[2]);
-})();
-
-var queryPrice = urlParams["price"];
-var querySize = urlParams["size"];
-var queryGender = urlParams["gender"];
-var queryCondition = urlParams["condition"];
-var queryBrand = urlParams["brand"];
-var queryPage = urlParams["page"];
-
-holdBrand=queryBrand;
-
-if(queryBrand=="adidas"){
-  popularTitle.innerHTML="Adidas";
-}else if(queryBrand=="airjordan"){
-  popularTitle.innerHTML="Air Jordan";
-}else if(queryBrand=="asics"){
-  popularTitle.innerHTML="Asics";
-}else if(queryBrand=="newbalance"){
-  popularTitle.innerHTML="New Balance";
-}else if(queryBrand=="nike"){
-  popularTitle.innerHTML="Nike";
-}else if(queryBrand=="puma"){
-  popularTitle.innerHTML="Puma";
-}else if(queryBrand=="reebok"){
-  popularTitle.innerHTML="Reebok";
-}else if(queryBrand=="Saucony"){
-  popularTitle.innerHTML="saucony";
-}else if(queryBrand=="vans"){
-  popularTitle.innerHTML="Vans";
-}
-
-if (queryPage === undefined) queryPage = 1;
-
-var first = parseInt(queryPage)
-var second = parseInt(queryPage) + 1
-var third = parseInt(queryPage) + 2
-
-document.getElementById("firstLink").innerHTML = first;
-document.getElementById("secondLink").innerHTML = second;
-document.getElementById("thirdLink").innerHTML = third;
-
-document.getElementById("firstLink").href = "popular.html?page=" + first;
-document.getElementById("secondLink").href = "popular.html?page=" + second;
-document.getElementById("thirdLink").href = "popular.html?page=" + third;
-
-if (first > 1) {
-  document.getElementById("nextClass").setAttribute("class", "cool");
-}
-
-Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
-          var shoe = Parse.Object.extend("shoe");
-          var mailbox = new Parse.Query(shoe);
-
-          mailbox.exists("item");
-          if (querySize !== undefined) mailbox.equalTo("size", querySize), document.getElementById("size").value=querySize;
-          if (queryGender !== undefined) mailbox.equalTo("gender", queryGender), document.getElementById("gender").value=queryGender;
-          if (queryCondition !== undefined) mailbox.equalTo("condition", queryCondition), document.getElementById("condition").value=queryCondition;
-          if (queryBrand !== undefined) mailbox.equalTo("brand", queryBrand);
-          mailbox.limit(16);
-          limitStuff = (first-1) * 16
-          mailbox.skip(limitStuff);
-          if (queryPrice !== undefined) {
-          	if (queryPrice === "low") {
-          		mailbox.ascending("price");
-          	} else {
-          		mailbox.descending("price");
-          	}
-          } else {
-          	mailbox.descending("createdAt");
-          };
-          mailbox.find({
-            success: function(returnObj) {
-              var finalObj = ""
-              for (var i = 0; i < returnObj.length; i++) { 
-
-                var item = returnObj[i];
-                finalObj += "<div class='col-sm-4 col-md-3'>\n"
-                //<a href='#'' class='thumbnail'>\n";
-                finalObj += "<div class='thumbnail'>\n"
-                finalObj += "<a href='buy.html?item=" + item.id + "'>"
-                finalObj += "<div style='width:250; height:200px; overflow:hidden; text-align: center;'>\n"
-                finalObj += "<img src='" + lowResImageLandscape(item.get("image")) + "' style='position:relative; left:100%; margin-left:-200%;' height='200'>\n"                
-                finalObj += "</div>"
-                finalObj += "</a>\n"
-                finalObj += "<div class='caption'>"
-                finalObj += "<h4 class='pull-right'> $" + item.get("price") + "</h4>\n"
-
-                var shortName=(item.get("item"));
-
-                if(item.get("item").length>13){
-                  shortName="";
-                  for(var m=0; m<15; m++){
-                    shortName += item.get("item").charAt(m);
-                  }
-                  shortName += "..."
-                }
-
-                finalObj += "<h4><a href='buy.html?item="+ item.id + "'>"+shortName+"</a></h4>\n"
-                finalObj += "<p class='text-muted'>" + item.get("brand") + "</p>\n"
-                finalObj += "</div>"
-                finalObj += "</div>"
-                finalObj += "</div> \n"
-            }
-
-            var insertNonsense = document.getElementById("row-popular-pg");
-            insertNonsense.innerHTML = finalObj
-
-
-
-
-            },
-              error: function(error) {
-                  alert("Error: " + error.code + " " + error.message);
-             }
-        });
-
-var nextPage = function(ident) {
-  if (ident === 1) {
-    var next = first - 1;
-  } else {
-    var next = first + 1;
-  }
-  window.location.href = "popular.html?page=" + next;
-}
-</script>
-
-        <!--
-        <div class="well well-lg bottom-well">
-          <div class="row">
-            <div class="col-md-8">
-              <h2><span class="blue">young sneakerheads</span></h2>
-              <h4><span class="red">Generate some heat for kids.</span></h4>
-              <p>Every time you buy or sell sneakers on HeatSwap you're helping build a better future for kids who could use a break. We donate a percentage of every transaction to our partner organizations, which are creating educational and healthy play opportunities for children here and around the world. Please join us in showing how much good that Sneakerheads - and some heat-swapping - can do for the world.</p>
-              <p><a class="btn btn-lg btn-primary" href="story.html" role="button">read more &raquo;</a></p>
-            </div>
-            <div class="col-sm-6 col-md-4">
-              <img src="http://placehold.it/310x240" class="thumbnail img-responsive" alt="...">
-            </div>
-          </div>  
-        </div><
-        
       </div>
-      -->
-      
-      <footer>
-        <div class="row">
-          <div class="col-md-4">
-            <ul class="list-inline">
-              <li><a href="terms.html" class="footer-text" target="_blank">terms</a> &nbsp;/</li>
-              <li><a href="privacy.html" class="footer-text" target="_blank">privacy</a> &nbsp;/</li>
-              <li><a href="#" class="footer-text">help</a> &nbsp;/</li>
-              <li><a href="contact.html" class="footer-text" target="_blank">contact</a></li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <p class="footer-text">&copy; 2014 HeatSwap, all rights reserved</p>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline">
-              <li><a href="https://www.youtube.com/user/HeatSwapTV" target="_blank" class="footer-text"><i class="fa fa-youtube-play fa-lg"></i></a>
-              <li><a href="http://instagram.com/heatswap" target="_blank" class="footer-text"><i class="fa fa-instagram fa-lg"></i></a>
-            </ul>
-          </div>
-        </div><!-- /row -->
-      </footer>
-      
-    </div> <!-- /container -->
+
+      <script>
+        if (currentUser != null) //If user signed in
+        {
+          var currentUsername = document.getElementById("currentUsername").innerHTML;
+          document.getElementById("cartHeader").innerHTML = "<h2>Hello, " + currentUsername + "</h2>";
+
+          Parse.initialize("Ycnw3xJDv5iT8avNOo54rTM0kuTJpNMMwsMs4iIP", "qYnG7XTl8iSLu9M5iP1lZLiC8LBQHYyCvqwuE3e3");
+          var Cart = Parse.Object.extend("cart");
+          var mailbox = new Parse.Query(Cart);
+          var finalObj = "";
+          mailbox.find({
+            success: function(items) {
+              finalObj += "<table style = 'width:100%'>"
+              for (var i = 0; i < items.length; i++)
+              {
+                var Shoe = Parse.Object.extend("shoe");
+                var shoe = new Parse.Query(Shoe);
+                shoe.contains("objectId", items[i].get("itemID")); //Find item within its class
+                shoe.find({
+                  success: function(shoes) {
+                    finalObj += "<tr>";
+                    finalObj += "<td>" + shoes[0].get("item") + "</td>"; //Item name
+                    finalObj += "<td>" + shoes[0].get("brand") + "</td>"; //Brand
+                    finalObj += "<td>" + shoes[0].get("price") + "</td>"; //Price
+                    finalObj += "<td>" + shoes[0].get("size") + "</td>"; //Size
+                    finalObj += "</tr>";
+                  },
+                  error: function(error) {
+                    alert("Could not find shoe, with error code: " + error.message);
+                  }
+                })
+              }
+              finalObj += "</table>";
+              alert(finalObj)
+              document.getElementById("cartTable").innerHTML = finalObj;
+            },
+            error: function(error) {
+              alert('Failed to find items in cart, with error code: ' + error.message);
+            }
+          });
+        }
+        else //If no user signed in
+        {
+          document.getElementById("cartHeader") = "<h3>Please sign in to view your cart</h3>";
+        }
+      </script>
 
 
     <!-- Bootstrap core JavaScript

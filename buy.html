@@ -11,7 +11,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="photoGeneration.js"></script>
+    <script src="js/photoGeneration.js"></script>
 
     <title>Buy Shoes</title>
 
@@ -1146,10 +1146,13 @@
                           var Cart = Parse.Object.extend("cart");
                           var cart = new Cart();
                           var shoeID = decodeStuffz();
-                          alert("User ID: " + currentUsername);
-                          alert("Shoe ID: " + shoeID);
+                          var shoeName = document.getElementById("itemName").innerHTML;
+                          // alert("User ID: " + currentUsername);
+                          // alert("Shoe ID: " + shoeID);
+                          // alert("Shoe Name: " + shoeName);
                           cart.set("itemID", shoeID); //Set purchase item ID
                           cart.set("userID", currentUsername); //Set user ID
+                          cart.set("itemName", shoeName); //Set shoe name
 
                           cart.save(null,
                           {

@@ -584,3 +584,18 @@ hr.team-page-thumbs {
   float: left;
   width: 48%;
 }
+
+.column-left-cart{
+  float: left;
+  width: 20%;
+}
+
+.column-right-cart{
+  float: right;
+  width: 20%;
+}
+
+.column-center-cart{
+  display: inline-block;
+  width: 59%;
+}
