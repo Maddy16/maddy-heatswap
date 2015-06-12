@@ -461,7 +461,7 @@
           var finalObj = "";
           var count = 0;
           finalObj += "<table border='1' style = 'width:100%'>"
-          finalObj += "<tr><td>Item</td><td>Brand</td><td>Price</td><td>Size</td></tr>"
+          finalObj += "<tr><td>Image</td><td>Item</td><td>Brand</td><td>Price</td><td>Size</td></tr>"
           mailbox.find({
             success: function(items) {
 
@@ -490,6 +490,9 @@
                 shoe.find({
                   success: function(shoes) {
                     finalObj += "<tr>";
+                    finalObj += "<td>" + "<div style='width:250px; height:200px; overflow:hidden; text-align: center;'>\n"
+                    finalObj += "<img src='" + lowResImageLandscape(shoes[0].get("image")) + "' style='position:relative; left:100%; margin-left:-200%;' height='200'>\n";
+                    finalObj += "</div>" + "</td>"; //Image
                     finalObj += "<td>" + shoes[0].get("item") + "</td>"; //Item name
                     finalObj += "<td>" + shoes[0].get("brand") + "</td>"; //Brand
                     finalObj += "<td>" + shoes[0].get("price") + "</td>"; //Price
@@ -498,7 +501,7 @@
                     count++; //Add to counter
                     if (i >= items.length & count >= items.length) //If done
                     {
-                      alert(finalObj)
+                      // alert(finalObj)
                       finalObj += "</table>";
                       document.getElementById("cartTable").innerHTML = finalObj;
                     }
