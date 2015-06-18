@@ -33,6 +33,13 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+      //Important elements are initialized here
+      var images = new Array();
+      var currentItem="";
+      var currentlyEditing;
+
+    </script>
   </head>
         
   <body>
@@ -601,35 +608,17 @@
                       $('#coords input').val('');
                     };          
                     </script>
-
-                    <?php
-                      $targ_w = $targ_h = 150;
-                      $jpeg_quality = 90;
-
-                      $src = 'demo_files/flowers.jpg';
-                      $img_r = imagecreatefromjpeg($src);
-                      $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
-
-                      imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
-                          $targ_w,$targ_h,$_POST['w'],$_POST['h']);
-
-                      header('Content-type: image/jpeg');
-                      imagejpeg($dst_r, null, $jpeg_quality);
-                      ?>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
                       <button type="button" class="btn btn-primary">undo</button>
-                      <form action="crop.php" method="post" onSubmit="return checkCoords();">
+                      <form onSubmit="return false;">
                         <input type="hidden" id="x" name="x">
                         <input type="hidden" id="y" name="y">
                         <input type="hidden" id="w" name="w">
                         <input type="hidden" id="h" name="h">
-                        <input type="submit" value="Crop Image"><!--<button type="button" class="btn btn-primary">crop</button>-->
+                        <button onClick="saveCrop()">crop image</button><!--<button type="button" class="btn btn-primary">crop</button>-->
                       </form>
-                       <form id="coords"
-                        class="coords"
-                        onsubmit="return false;"
-                        action="http://example.com/post.php">
+                       <form id="coords" class="coords">
 
                         <div class="inline-labels">
                         <label>X1 <input type="text" size="4" id="x1" name="x1" /></label>
@@ -640,7 +629,41 @@
                         <label>H <input type="text" size="4" id="h" name="h" /></label>
                         </div>
                       </form>
-                      <button type="button" class="btn btn-primary">save changes</button>
+                      <script>
+                        var saveCrop = function(){
+                          var currentlyCropping=document.getElementById("workingImage");
+                          var url=currentlyCropping.src;
+                          var height=document.getElementById("y2").value-document.getElementById("y1").value;
+                          var width=document.getElementById("x2").value-document.getElementById("x1").value;
+                          var newUrl = url.replace(/(XCoordinate=).*?(&)/,'$1' + document.getElementById("x1").value + '$2');
+                          newUrl = newUrl.replace(/(YCoordinate=).*?(&)/,'$1' + document.getElementById("y1").value + '$2');
+                          newUrl = newUrl.replace(/(Width=).*?(&)/,'$1' + width + '$2');
+                          newUrl = newUrl.replace(/(Height=).*?(&)/,'$1' + height + '$2');
+                          $("#workingImage").attr("src", newUrl);
+                        }
+
+                        var getCoordinates=function(url){
+                            var vars = [], hash;
+                            var hashes = url.slice(window.location.href.indexOf('?') + 1).split('&');
+                            for(var i = 0; i < hashes.length; i++)
+                            {
+                                hash = hashes[i].split('=');
+                                vars.push(hash[0]);
+                                vars[hash[0]] = hash[1];
+                            }
+                            return vars;
+                        }
+
+                      </script>
+                      <button type="button" class="btn btn-primary" onClick="closeCrop()">save changes</button>
+                      <script>
+                        var closeCrop=function(){
+                          $('#cropModal').modal('hide')
+                          alert(document.getElementById("currentlyEditing").src);
+                          //document.getElementById("currentlyEditing").src=document.getElementById("workingImage").src;
+                          
+                        }
+                      </script>
                     </div>
                   </div>
                 </div>
@@ -925,7 +948,7 @@
               contentType: false,
               success: function(data) {
 
-                images[i]=data.url;
+                images[i]=data.url+"?XCoordinate=&YCoordinate=&Width=&Height=&";
 
 
 
@@ -1139,8 +1162,9 @@
       }
     }
         </script>
-
      <script>
+     /*
+     NOT SURE IF WE NEED THIS, MAY HAVE TO UNCOMMENT BUT I THINK IT'S TAKEN CARE OF IN HEADER.JS
       if(Parse.User.current()!=null){
         var finalObj=document.getElementById("account");
         document.getElementById("myTabContent").innerHTML = finalObj.innerHTML;
@@ -1153,6 +1177,7 @@
         var insertNonsense=document.getElementById("modalTabs")
         insertNonsense.innerHTML=finalObj
       }
+      */
     </script>
 
 
