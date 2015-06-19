@@ -65,6 +65,7 @@
                 if(currentUser.get("storeId")!="")
                 finalObj += "<li><a href='currentlyListed.html'>Manage Shoes</a></li>"
                 finalObj += "<li><a href='settings.html' role='button'>Account Settings</a></li>"
+                finalObj += "<li><a href='cart.html' role='button'>Cart</a></li>";
                 finalObj += "</ul>\n"
 
                 var alerts=0;
@@ -437,7 +438,7 @@
           </div>
 
           <div class="column-center-cart"> <!-- Middle Column -->
-            Items in Cart
+            <h4>Shopping Cart</h4>
             <div id="cartTable">
               Cart Table
             </div>
@@ -448,13 +449,16 @@
           </div>
 
           <div class="column-right-cart"> <!-- Right Column -->
-            Checkout
+            <div id="checkoutBox">
+
+            </div>
           </div>
 
         </div>
       </div>
 
       <script>
+      var subtotal = 0;
         if (currentUser != null) //If user signed in
         {
           var currentUsername = document.getElementById("currentUsername").innerHTML;
@@ -464,6 +468,7 @@
           var mailbox = new Parse.Query(Cart);
           var finalObj = "";
           var count = 0;
+          var itemsInCart = 0;
           finalObj += "<table border='1' style = 'width:100%'>"
           finalObj += "<tr><td>Image</td><td>Item</td><td>Brand</td><td>Price</td><td>Size</td></tr>"
           mailbox.find({
@@ -478,6 +483,7 @@
                   userFirstName = user[0].get("firstName");
                   userLastName = user[0].get("lastName");
                   document.getElementById("pageTitle").innerHTML = userFirstName + " " + userLastName + "'s Cart (" + items.length + ")";
+                  itemsInCart = items.length;
                   var headerObj = "<h2>Hello, " + userFirstName + "</h2>";
                   if (items.length == 0) {
                     headerObj += "<h3>Your Shopping Cart is Empty</h3>";
@@ -507,6 +513,7 @@
                     finalObj += "<td>" + shoes[0].get("item") + "</td>"; //Item name
                     finalObj += "<td>" + shoes[0].get("brand") + "</td>"; //Brand
                     finalObj += "<td>" + shoes[0].get("price") + "</td>"; //Price
+                    subtotal += parseInt(shoes[0].get("price")); //Add to subtotal
                     finalObj += "<td>" + shoes[0].get("size") + "</td>"; //Size
                     finalObj += "</tr>";
                     count++; //Add to counter
@@ -515,6 +522,26 @@
                       // alert(finalObj)
                       finalObj += "</table>";
                       document.getElementById("cartTable").innerHTML = finalObj;
+
+
+                      //**********************   Checkout Box   **********************
+                      var cartFinalObj = "<div class='well'>";
+                      var subtotalString = "";
+                      if (parseInt(subtotal) == subtotal) { //If no decimal
+                        subtotalString = "$" + subtotal + ".00";
+                      }
+                      else {
+                        subtotalString = "$" + subtotal;
+                      }
+                      cartFinalObj += "<h4>Subtotal (" + itemsInCart + " items): "
+                      cartFinalObj += "<font color='red'>" + subtotalString + "</font></h4>";
+                      cartFinalObj += "<a href='cart.html?checkout=true'><button class='checkoutBtn'>Proceed to Checkout</button></a>";
+                      
+                      cartFinalObj += "</div>";
+                      document.getElementById("checkoutBox").innerHTML = cartFinalObj;
+
+
+
                     }
                   },
                   error: function(error) {
