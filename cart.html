@@ -432,6 +432,10 @@
 
           </div>
 
+          <div id="cartAlerts"> <!-- For cart notices -->
+
+          </div>
+
           <div class="column-center-cart"> <!-- Middle Column -->
             Items in Cart
             <div id="cartTable">
@@ -474,7 +478,14 @@
                   userFirstName = user[0].get("firstName");
                   userLastName = user[0].get("lastName");
                   document.getElementById("pageTitle").innerHTML = userFirstName + " " + userLastName + "'s Cart (" + items.length + ")";
-                  document.getElementById("cartHeader").innerHTML = "<h2>Hello, " + userFirstName + "</h2>";
+                  var headerObj = "<h2>Hello, " + userFirstName + "</h2>";
+                  if (items.length == 0) {
+                    headerObj += "<h3>Your Shopping Cart is Empty</h3>";
+                  }
+                  else {
+                    headerObj += "<h3>Your Shopping Cart Has " + items.length + " Items</h3>";
+                  }
+                  document.getElementById("cartHeader").innerHTML = headerObj;
                 },
                 error: function(error) {
                   alert("Could not find current user, with error code: " + error.message);

@@ -587,7 +587,7 @@ hr.team-page-thumbs {
 
 .column-left-cart{
   float: left;
-  width: 20%;
+  width: 15%;
 }
 
 .column-right-cart{
@@ -597,5 +597,5 @@ hr.team-page-thumbs {
 
 .column-center-cart{
   display: inline-block;
-  width: 59%;
+  width: 64%;
 }
