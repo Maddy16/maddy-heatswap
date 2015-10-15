@@ -286,7 +286,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #D9562A;
+  color: #FFFFFF;
   text-decoration: none;
 }
 a:hover,
@@ -734,21 +734,21 @@ pre code {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  xpadding-left: 15px;
+  xpadding-right: 15px;
 }
 @media (min-width: 768px) {
-  .container {
+  .container, .header-container {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  .container {
+  .container, .header-container {
     width: 970px;
   }
 }
 @media (min-width: 1200px) {
-  .container {
+  .container, .header-container {
     width: 1170px;
   }
 }
@@ -3934,7 +3934,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #276E85;
+  background-color: #4B4B4B;
   border-color: #214151;
 }
 .navbar-default .navbar-brand {

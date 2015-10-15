@@ -619,9 +619,32 @@ hr.team-page-thumbs {
 }
 
 body{
-  background-color: #6F6F6F;
+  background-color: #FFFFFF;
 }
 
 .container{
   background-color: #FFFFFF;
+}
+
+#insertNavbar{
+  width: inherit;
+  border: none;
+}
+
+.noBorder{
+  border: none;
+}
+
+.header-background{
+  position: fixed; 
+  background-color: #4B4B4B; 
+  width: 100%; 
+  z-index: 99999; 
+  xmargin-left: -15px;
+  height:103px;
+}
+
+.header-container{
+  margin-left: auto;
+  margin-right: auto;
 }
